@@ -7,4 +7,4 @@
 > Task 1 & Task 4
 ## 3. GUPTA, Yash
 > email: yguptaaa | github: yashg4 | dev_branch: yash_branch
-> Task 6 & Task 3
+> Task 6 and Task 3
