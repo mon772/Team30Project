@@ -11,6 +11,6 @@
 > email: yguptaaa | github: yashg4 | dev_branch: yash_branch  
 > Task 6 and Task 3
 ## UML Diagram  
-![alt text](UML .jpeg)  
+![alt text](UML .jpg)  
 ## Use Case Diagram  
 ![alt text](/Use Case Diagram.jpeg)
