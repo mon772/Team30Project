@@ -10,3 +10,7 @@
 ## 3. GUPTA, Yash
 > email: yguptaaa | github: yashg4 | dev_branch: yash_branch  
 > Task 6 and Task 3
+## UML Diagram  
+![alt text](Screenshots/UML .jpeg)  
+## Use Case Diagram  
+![alt text](Screenshots/Use Case Diagram.jpeg)
