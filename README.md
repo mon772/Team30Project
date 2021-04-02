@@ -13,4 +13,4 @@
 ## UML Diagram  
 ![alt text](/Screenshots/UML .jpeg)  
 ## Use Case Diagram  
-![alt text](Use Case Diagram.jpeg)
+![alt text](/Use Case Diagram.jpeg)
