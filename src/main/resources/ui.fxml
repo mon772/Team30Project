@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+
 <VBox prefHeight="679.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="comp3111.popnames.Controller">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="316.0" prefWidth="719.0">
@@ -43,7 +44,7 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="258.0" prefWidth="719.0">
                            <children>
-                              <Label layoutX="41.0" layoutY="96.0" text="Year of Interest">
+                              <Label layoutX="40.9" layoutY="96.0" text="Year of Interest">
                                  <font>
                                     <Font size="15.0" />
                                  </font></Label>
@@ -54,13 +55,13 @@
                                  </font>
                               </Label>
                               <TextField fx:id="T1TextFieldYear" layoutX="350.0" layoutY="92.0" prefHeight="27.0" prefWidth="182.0" promptText="Range : 1880 to 2019" />
-                              <Label layoutX="41.0" layoutY="137.0" text="N: top N most popular name to be reported">
+                              <Label layoutX="40.9" layoutY="137.0" text="N: top N most popular name to be reported">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </Label>
                               <TextField fx:id="T1TextFieldtopN" layoutX="350.0" layoutY="135.0" prefHeight="27.0" prefWidth="183.0" promptText="Range: 1 to 10" />
-                              <Label layoutX="41.0" layoutY="182.0" text="Data Reporting Format">
+                              <Label layoutX="40.9" layoutY="182.0" text="Data Reporting Format">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
