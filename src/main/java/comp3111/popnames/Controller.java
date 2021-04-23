@@ -10,6 +10,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+
 public class Controller {
 
     @FXML
@@ -67,6 +68,36 @@ public class Controller {
     private Tab tabReport2;
 
     @FXML
+    private Tab tabReport2;
+
+    @FXML
+    private CheckBox t2DataTable;
+
+    @FXML
+    private CheckBox t2Summary;
+
+    @FXML
+    private CheckBox t2BarChart;
+
+    @FXML
+    private CheckBox t2PieChart;
+
+    @FXML
+    private TextField t2Year1;
+
+    @FXML
+    private TextField t2Year2;
+
+    @FXML
+    private TextField t1Pop;
+
+    @FXML
+    private TextField t1Gender;
+
+    @FXML
+    private Button t2GenerateResults;
+
+    @FXML
     private Tab tabReport3;
 
     @FXML
@@ -92,6 +123,27 @@ public class Controller {
 
     @FXML
     private Tab tabApp2;
+
+    @FXML
+    private TextField t5Name;
+
+    @FXML
+    private TextField t5Gender;
+
+    @FXML
+    private TextField t5YOB;
+
+    @FXML
+    private TextField t5GenderMate;
+
+    @FXML
+    private TextField t5Preference;
+
+    @FXML
+    private Button t5T4X1;
+
+    @FXML
+    private Button t5T4X2;
 
     @FXML
     private Tab tabApp3;
@@ -195,6 +247,21 @@ public class Controller {
     @FXML
     void t4_computeT4X2() {
     	textAreaConsole.setText("Testing T4X2");
+    }
+
+    @FMXL
+    void runT5T4X1() {
+
+    }
+
+    @FXML
+    void runT5T4X2() {
+
+    }
+
+    @FXML
+    void t2GenerateResults() {
+
     }
 
 }

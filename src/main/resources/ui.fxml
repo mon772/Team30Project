@@ -86,7 +86,51 @@
                            <children>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="450.0" prefWidth="722.0">
                                  <children>
-                                    <TextArea layoutX="109.0" layoutY="33.0" prefHeight="102.0" prefWidth="383.0" text="Task #2: K-th Popular Names (data reporting)&#10;&#10;Generate a report in response to the queries on the K-th popular names over a given period.&#10;" wrapText="true" />
+                                    <TextArea layoutX="21.0" layoutY="8.0" prefHeight="40.0" prefWidth="680.0" text="Task #2: K-th Popular Names (data reporting)&#10;Generate a report in response to the queries on the K-th popular names over a given period.&#10;" wrapText="true" />
+                                    <Label layoutX="41.0" layoutY="88.0" prefHeight="19.0" prefWidth="200.0" text="Starting Year of Interest">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <CheckBox fx:id="t2Summary" layoutX="220.0" layoutY="248.0" mnemonicParsing="false" text="Summary" />
+                                    <Label layoutX="41.0" layoutY="168.0" prefHeight="19.0" prefWidth="266.0" text="K-th popular names to be reported">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="41.0" layoutY="208.0" prefHeight="18.0" prefWidth="87.0" text="Gender">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="41.0" layoutY="248.0" prefHeight="19.0" prefWidth="151.0" text="Data Display Format:">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <CheckBox fx:id="t2DataTable" layoutX="320.0" layoutY="248.0" mnemonicParsing="false" text="Data Table" />
+                                    <CheckBox fx:id="t2BarChart" layoutX="420.0" layoutY="248.0" mnemonicParsing="false" text="Bar Chart" />
+                                    <CheckBox fx:id="t2PieChart" layoutX="520.0" layoutY="248.0" mnemonicParsing="false" text="Pie Chart" />
+                                    <Label layoutX="20.0" layoutY="50.0" prefHeight="18.0" prefWidth="87.0" text="Inputs" underline="true">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="t2Year1" layoutX="330.0" layoutY="88.0" prefHeight="27.0" prefWidth="180.0" promptText="Range: 1880 to 2019" />
+                                    <TextField fx:id="t2Year2" layoutX="330.0" layoutY="128.0" prefHeight="27.0" prefWidth="180.0" promptText="Range: 1880 to 2019" />
+                                    <Label layoutX="41.0" layoutY="128.0" prefHeight="19.0" prefWidth="169.0" text="Ending Year of Interest">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="t1Pop" layoutX="330.0" layoutY="168.0" prefHeight="27.0" prefWidth="180.0" promptText="Integer: 1...1000" />
+                                    <TextField fx:id="t1Gender" layoutX="330.0" layoutY="208.0" prefHeight="27.0" prefWidth="180.0" promptText="Char: 'M' or 'F'" />
+                                    <Label layoutX="8.0" layoutY="288.0" prefHeight="29.0" prefWidth="277.0" text="Data Reporting Results" underline="true">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Button fx:id="t2GenerateResults" layoutX="510.0" layoutY="289.0" mnemonicParsing="false" onAction="#t2GenerateResults" text="Generate Reuslts!" />
                                  </children>
                               </AnchorPane>
                            </children>
@@ -155,7 +199,72 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TextArea layoutX="40.0" layoutY="27.0" prefHeight="115.0" prefWidth="509.0" text="Task #5: Prediction on Names for Compatible Pairs (application)&#10;&#10;Develop and implement an online service using empirical data to help make informed decisions on predicting names for compatible pairs&#10;" wrapText="true" />
+                              <TextArea layoutX="21.0" layoutY="8.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="680.0" text="Task #5: Prediction on Names for Compatible Pairs (application)&#10;Develop and implement an online service using empirical data to help make informed decisions on predicting names for compatible pairs&#10;" wrapText="true" />
+                              <Label layoutX="31.0" layoutY="118.0" prefHeight="19.0" prefWidth="79.0" text="iName">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="20.0" layoutY="50.0" prefHeight="18.0" prefWidth="87.0" text="Inputs" underline="true">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="t5Name" layoutX="90.0" layoutY="118.0" prefHeight="27.0" prefWidth="150.0" promptText="Name" />
+                              <Label layoutX="255.0" layoutY="118.0" prefHeight="19.0" prefWidth="79.0" text="iGender">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="486.0" layoutY="118.0" prefHeight="19.0" prefWidth="79.0" text="iYOB">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="t5Gender" layoutX="320.0" layoutY="118.0" prefHeight="27.0" prefWidth="150.0" promptText="Char: 'M' or 'F'" />
+                              <TextField fx:id="t5YOB" layoutX="540.0" layoutY="118.0" prefHeight="27.0" prefWidth="150.0" promptText="Range: 1880 to 2019" />
+                              <Label layoutX="31.0" layoutY="88.0" prefHeight="19.0" prefWidth="276.0" text="Please enter your paticulars:">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="31.0" layoutY="155.0" prefHeight="19.0" prefWidth="276.0" text="Please enter soulmate preferences:">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="31.0" layoutY="183.0" prefHeight="19.0" prefWidth="102.0" text="iGenderMate">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="t5GenderMate" layoutX="140.0" layoutY="183.0" prefHeight="27.0" prefWidth="150.0" promptText="Char: 'M' or 'F'" />
+                              <Label layoutX="300.0" layoutY="183.0" prefHeight="19.0" prefWidth="94.0" text="iPreference">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="t5Preference" layoutX="400.0" layoutY="183.0" prefHeight="27.0" prefWidth="150.0" promptText="&quot;Younger&quot; or &quot;Older&quot;" />
+                              <Label layoutX="31.0" layoutY="215.0" prefHeight="19.0" prefWidth="367.0" text="Please slect algorithm to perform prediction:">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="t5T4X1" layoutX="180.0" layoutY="250.0" mnemonicParsing="false" onAction="#runT5T4X1" prefHeight="30.0" prefWidth="120.0" text="T4X1">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="t5T4X2" layoutX="420.0" layoutY="250.0" mnemonicParsing="false" onAction="#runT5T4X2" prefHeight="30.0" prefWidth="120.0" text="T4X2">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Button>
+                              <Label layoutX="8.0" layoutY="288.0" prefHeight="29.0" prefWidth="277.0" text="Data Reporting Results" underline="true">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </AnchorPane>
                     </content>
