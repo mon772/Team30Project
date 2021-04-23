@@ -5,10 +5,12 @@ package comp3111.popnames;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+
 
 public class Controller {
 
@@ -38,30 +40,69 @@ public class Controller {
 
     @FXML
     private Button buttonSummary;
-    
-    @FXML
-    private Tab tabReport1;
 
     @FXML
-    private ToggleGroup T1;
+    private Tab tabReport1;
 
     @FXML
     private Tab tabReport2;
 
     @FXML
-    private ToggleGroup T11;
+    private CheckBox t2DataTable;
+
+    @FXML
+    private CheckBox t2Summary;
+
+    @FXML
+    private CheckBox t2BarChart;
+
+    @FXML
+    private CheckBox t2PieChart;
+
+    @FXML
+    private TextField t2Year1;
+
+    @FXML
+    private TextField t2Year2;
+
+    @FXML
+    private TextField t1Pop;
+
+    @FXML
+    private TextField t1Gender;
+
+    @FXML
+    private Button t2GenerateResults;
 
     @FXML
     private Tab tabReport3;
-
-    @FXML
-    private ToggleGroup T111;
 
     @FXML
     private Tab tabApp1;
 
     @FXML
     private Tab tabApp2;
+
+    @FXML
+    private TextField t5Name;
+
+    @FXML
+    private TextField t5Gender;
+
+    @FXML
+    private TextField t5YOB;
+
+    @FXML
+    private TextField t5GenderMate;
+
+    @FXML
+    private TextField t5Preference;
+
+    @FXML
+    private Button t5T4X1;
+
+    @FXML
+    private Button t5T4X2;
 
     @FXML
     private Tab tabApp3;
@@ -155,5 +196,19 @@ public class Controller {
     }
     
 
-}
+    @FXML
+    void runT5T4X1() {
 
+    }
+
+    @FXML
+    void runT5T4X2() {
+
+    }
+
+    @FXML
+    void t2GenerateResults() {
+
+    }
+
+}
