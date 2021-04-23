@@ -233,7 +233,75 @@ public class Controller {
     }
     @FXML
     void t1ComputeResults() {
-    	textAreaConsole.setText("Testing T1");
+    	String oReport = "";
+    	String year = T1TextFieldYear.getText();
+    	String input_avaliable_error = "" ;
+    	if(year == "") {
+    		input_avaliable_error += "The year is blank! Please enter year \n";
+    	}
+    	String n = T1TextFieldtopN.getText();
+    	if(n == "") {
+    		input_avaliable_error += "The top N most popular names to reported is blank! Please enter a value \n";
+    	}
+    	
+    	boolean summary_box = T1_displaySummary.isSelected();
+    	boolean dt_box = T1_displayDataTable.isSelected();
+    	boolean bar_chart_box = T1_displayBarChart.isSelected();
+    	boolean pie_chart_box = T1_displayPieChart.isSelected();
+    	boolean boxes_checked = true ;
+    	if((summary_box == false)&&(dt_box == false)&&(bar_chart_box == false)&&(pie_chart_box == false)) {
+    		input_avaliable_error += ("Please Check or Select at Least One Form of Data Representation and Try Again!");
+    		boxes_checked = false ; 
+    	}
+    	if((year == "")||(n=="")||(boxes_checked==false)) {
+    		textAreaConsole.setText(input_avaliable_error);
+    		return;
+    	}
+    	String validation_error = "" ; 
+    	boolean year_validated = false ;
+    	int int_year = 0 ;
+    	try {
+    		int_year = Integer.parseInt(year);
+    		if((int_year >=1880)&&(int_year <= 2019)) {
+    			year_validated = true ; 
+    		}
+    		else {
+    			validation_error += "Enter data value in the range for the Year. It too small or too large! \n";
+    		}
+    		
+    	}
+    	catch (Exception e) {
+    		validation_error += "Enter the Correct Datatype for the Year. Enter a Number! \n";
+    	}
+    	boolean n_validated = false ;
+    	int int_n = 0 ;
+    	try {
+    		int_n = Integer.parseInt(n);
+    		if((int_n >=1)&&(int_n <= 10)) {
+    			n_validated = true ; 
+    		}
+    		else {
+    			validation_error += "Enter data value in the range for the N. It too small or too large! \n";
+    		}
+    		
+    	}
+    	catch (Exception e) {
+    		validation_error += "Enter the Correct Datatype for the N. Enter a Number! \n";
+    	}
+    	if((!year_validated)||(!n_validated)) {
+    		textAreaConsole.setText(validation_error);
+    		return; 
+    	}
+    	oReport = String.format("Year %s\n", year);
+    	oReport += String.format("N %s\n", n);
+    	oReport += String.format("Summary box %b\n", summary_box);
+    	oReport += String.format("Data table %b\n" , dt_box);
+    	oReport += String.format("Bar Chart box %b\n", bar_chart_box);
+    	oReport += String.format("Pie Chart Box %b\n" , pie_chart_box);
+    	oReport += String.format("Lets implement the charts!\n" );
+    	textAreaConsole.setText(oReport);
+    	
+    	
     }
 
     @FXML
