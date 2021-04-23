@@ -9,7 +9,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 
 
 public class Controller {
@@ -43,6 +42,30 @@ public class Controller {
 
     @FXML
     private Tab tabReport1;
+
+    @FXML
+    private TextField T1TextFieldYear;
+
+    @FXML
+    private TextField T1TextFieldtopN;
+
+    @FXML
+    private CheckBox T1_displaySummary;
+
+    @FXML
+    private CheckBox T1_displayDataTable;
+
+    @FXML
+    private CheckBox T1_displayBarChart;
+
+    @FXML
+    private CheckBox T1_displayPieChart;
+
+    @FXML
+    private Button T1ButtonComputeResults;
+
+    @FXML
+    private Tab tabReport2;
 
     @FXML
     private Tab tabReport2;
@@ -81,6 +104,24 @@ public class Controller {
     private Tab tabApp1;
 
     @FXML
+    private TextField T4textFieldDadsName;
+
+    @FXML
+    private TextField T4textFieldDadsYOB;
+
+    @FXML
+    private TextField T4textFieldMomsName;
+
+    @FXML
+    private TextField T4textFieldMomsYOB;
+
+    @FXML
+    private Button t4ButtonT4X1;
+
+    @FXML
+    private Button t4ButtonT4X2;
+
+    @FXML
     private Tab tabApp2;
 
     @FXML
@@ -109,7 +150,6 @@ public class Controller {
 
     @FXML
     private TextArea textAreaConsole;
-    
 
     /**
      *  Task Zero
@@ -194,9 +234,22 @@ public class Controller {
     		oReport += String.format("#%d: %s\n", i, AnalyzeNames.getName(iYear, i, "M"));
     	textAreaConsole.setText(oReport);
     }
-    
+    @FXML
+    void t1ComputeResults() {
+    	textAreaConsole.setText("Testing T1");
+    }
 
     @FXML
+    void t4_computeT4X1() {
+    	textAreaConsole.setText("Testing T4X1");
+    }
+
+    @FXML
+    void t4_computeT4X2() {
+    	textAreaConsole.setText("Testing T4X2");
+    }
+
+    @FMXL
     void runT5T4X1() {
 
     }

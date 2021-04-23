@@ -12,9 +12,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+
 <VBox prefHeight="679.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="comp3111.popnames.Controller">
   <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="437.0" prefWidth="719.0">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="316.0" prefWidth="719.0">
       <children>
             <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="350.0" prefWidth="719.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
@@ -41,10 +42,40 @@
                 </Tab>
                   <Tab fx:id="tabReport1" text="Reporting 1">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="384.0" prefWidth="719.0">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="258.0" prefWidth="719.0">
                            <children>
-                              <Label layoutX="79.0" layoutY="44.0" />
-                              <TextArea layoutX="96.0" layoutY="24.0" prefHeight="99.0" prefWidth="398.0" text="Task #1: Most Popular Names (data reporting)&#10;&#10;Generate a report in response to the queries on the most popular names in a given year.&#10;" wrapText="true" />
+                              <Label layoutX="40.9" layoutY="96.0" text="Year of Interest">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font></Label>
+                              <TextArea layoutX="11.0" layoutY="5.0" prefHeight="43.0" prefWidth="697.0" text="Task #1: Most Popular Names (data reporting) &#10;Generate a report in response to the queries on the most popular names in a given year.&#10;" wrapText="true" />
+                              <Label layoutX="18.0" layoutY="55.0" text="Inputs" underline="true">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="T1TextFieldYear" layoutX="350.0" layoutY="92.0" prefHeight="27.0" prefWidth="182.0" promptText="Range : 1880 to 2019" />
+                              <Label layoutX="40.9" layoutY="137.0" text="N: top N most popular name to be reported">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="T1TextFieldtopN" layoutX="350.0" layoutY="135.0" prefHeight="27.0" prefWidth="183.0" promptText="Range: 1 to 10" />
+                              <Label layoutX="40.9" layoutY="182.0" text="Data Reporting Format">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="18.0" layoutY="271.0" text="Data Reporting Results" underline="true">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <CheckBox fx:id="T1_displaySummary" layoutX="208.0" layoutY="183.0" mnemonicParsing="false" text="Summary" />
+                              <CheckBox fx:id="T1_displayDataTable" layoutX="301.0" layoutY="183.0" mnemonicParsing="false" text="Data Table" />
+                              <CheckBox fx:id="T1_displayBarChart" layoutX="394.0" layoutY="183.0" mnemonicParsing="false" text="Bar Chart" />
+                              <CheckBox fx:id="T1_displayPieChart" layoutX="490.0" layoutY="182.0" mnemonicParsing="false" text="Pie Chart" />
+                              <Button fx:id="T1ButtonComputeResults" layoutX="291.0" layoutY="235.0" mnemonicParsing="false" onAction="#t1ComputeResults" prefHeight="27.0" prefWidth="118.0" text="Compute Results!" />
                            </children>
                         </AnchorPane>
                     </content>
@@ -123,7 +154,43 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="412.0" prefWidth="719.0">
                            <children>
-                              <TextArea layoutX="40.0" layoutY="26.0" prefHeight="106.0" prefWidth="538.0" text="Task #4: Recommendation on Names for Newborn Babies (application)&#10;&#10;Develop and implement an online service using empirical data to help make informed decisions on naming their newborn babies.&#10;" wrapText="true" />
+                              <Label layoutX="22.0" layoutY="73.0" text="Inputs" underline="true">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <TextArea layoutX="11.0" layoutY="5.0" prefHeight="59.0" prefWidth="688.0" text="Task #4: Recommendation on Names for Newborn Babies (application) &#10;Develop and implement an online service using empirical data to help make informed decisions on naming their newborn babies.&#10;" wrapText="true" />
+                              <Label layoutX="45.0" layoutY="114.0" text="Dad's Name">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="359.0" layoutY="114.0" text="Mom's Name">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="357.0" layoutY="147.0" text="Mom's Year of Birth">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="45.0" layoutY="148.0" text="Dad's Year of Birth">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="T4textFieldDadsName" layoutX="177.0" layoutY="110.0" prefHeight="27.0" prefWidth="95.0" />
+                              <TextField fx:id="T4textFieldDadsYOB" layoutX="177.0" layoutY="144.0" prefHeight="27.0" prefWidth="129.0" promptText="Range 1880 to 2019" />
+                              <TextField fx:id="T4textFieldMomsName" layoutX="500.0" layoutY="110.0" prefHeight="27.0" prefWidth="95.0" />
+                              <TextField fx:id="T4textFieldMomsYOB" layoutX="500.0" layoutY="144.0" prefHeight="27.0" prefWidth="129.0" promptText="Range 1880 to 2019" />
+                              <Label layoutX="51.0" layoutY="188.0" text="Use Algorithm">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="t4ButtonT4X1" layoutX="164.0" layoutY="184.0" mnemonicParsing="false" onAction="#t4_computeT4X1" prefHeight="27.0" prefWidth="192.0" text="T4X1" />
+                              <Button fx:id="t4ButtonT4X2" layoutX="372.0" layoutY="184.0" mnemonicParsing="false" onAction="#t4_computeT4X2" prefHeight="27.0" prefWidth="192.0" text="T4X2" />
                            </children>
                         </AnchorPane>
                     </content>
@@ -217,7 +284,7 @@
     </AnchorPane>
       <ScrollPane prefHeight="387.0" prefWidth="719.0">
          <content>
-            <TextArea fx:id="textAreaConsole" prefHeight="300.0" prefWidth="718.0" />
+            <TextArea fx:id="textAreaConsole" prefHeight="329.0" prefWidth="718.0" />
          </content>
       </ScrollPane>
   </children>
