@@ -258,7 +258,111 @@ public class Controller {
 
     @FXML
     void t2GenerateResults() {
-    	textAreaConsole.setText("Testing T2");
+//    	textAreaConsole.setText("Testing T2");
+    	String oReport = "";
+    	boolean err = false;
+    	
+    	//Validate and Input Starting Year
+    	int starting_Year=0;
+    	try {
+    		if(t2Year1.getText() =="") {
+    			throw new Exception("Error: Starting Year of Interest has not been inputted\n");
+    		}
+    		starting_Year = Integer.parseInt(t2Year1.getText());
+    		if(starting_Year < 1880 || starting_Year > 2019) {
+    			throw new Exception("Invalid Starting Year of Interest: Year Out of Range\n");
+    		}
+    	}
+    	catch (NumberFormatException e) {
+    		oReport += "Please input valid Starting Year of Interst (Integer Value between 1880 and 2019)\n";
+    		err=true;
+    	}
+    	catch (Exception e) {
+    		oReport += e.getMessage();
+    		err=true;
+    	}
+    	
+    	//Validate and Input Ending Year
+    	
+    	int ending_Year = 0;
+    	try {
+    		if(t2Year2.getText() =="") {
+    			throw new Exception("Error: Ending Year of Interest has not been inputted\n");
+    		}
+    		ending_Year = Integer.parseInt(t2Year2.getText());
+    		if(ending_Year < 1880 || ending_Year > 2019) {
+    			throw new Exception("Invalid Ending Year of Interest: Year Out of Range\n");
+    		}
+    		else if (ending_Year<starting_Year) {
+    			throw new Exception("Invalid Ending Year of Interest: Ending Year of Interest is less than Starting Year of Interest\n");
+    		}
+    	}
+    	catch (NumberFormatException e) {
+    		oReport += "Please input valid Ending Year of Interst (Integer Value between 1880 and 2019)\n";
+    		err=true;
+    	}
+    	catch (Exception e) {
+    		oReport += e.getMessage();
+    		err=true;
+    	}
+    	
+
+    	//Validate and Input K
+    	
+    	int k = 0;
+    	try {
+    		if(t1Pop.getText() =="") {
+    			throw new Exception("Error: K-th Popular Name to Be Reported has not been inputted\n");
+    		}
+    		k = Integer.parseInt(t1Pop.getText());
+    		if(k < 1 || k > 1000) {
+    			throw new Exception("Invalid K-th Popular Name to Be Reported: K-th Value out of range\n");
+    		}
+    	}
+    	catch (Exception e) {
+    		oReport += e.getMessage();
+    		err=true;
+    	}
+    	
+    	//Validate and Input Gender
+    	
+    	String gender = t1Gender.getText();
+    	try {
+    		if(gender =="") {
+    			throw new Exception("Error: Gender has not been inputted\n");
+    		}
+    		if(!gender.contentEquals("M") && ! !gender.contentEquals("M")) {
+    			throw new Exception("Invalid Gender: Gender can either be 'M' or 'F'\n");
+    		}
+    	}
+    	catch (Exception e) {
+    		oReport += e.getMessage();
+    		err=true;
+    	}
+    	
+    	//Validate and Input Report Selection
+    	
+    	boolean summary = t2Summary.isSelected();
+    	boolean datatable = t2DataTable.isSelected();
+    	boolean barchart = t2BarChart.isSelected();
+    	boolean piechart = t2PieChart.isSelected();
+    
+    	if(!(summary | datatable | barchart | piechart)) {
+    		oReport += "Error: No Data Reporting Method has been Chosen (Please select required reports using the checkbox)\n";
+    		err=true;
+    	}
+    	
+    	if(!err) {
+	    	oReport += String.format("Start Year: %d\n",starting_Year);
+	    	oReport += String.format("End Year: %d\n",ending_Year);
+	    	oReport += String.format("K: %d\n",k);
+	    	oReport += String.format("Gender: %s\n",gender);
+	    	oReport += String.format("Summary: %b\n",summary);
+	    	oReport += String.format("Datatable: %b\n",datatable);
+	    	oReport += String.format("Barchart: %b\n",barchart);
+	    	oReport += String.format("Piechart: %b\n",piechart);
+    	}
+    	textAreaConsole.setText(oReport);
     }
 
 }
