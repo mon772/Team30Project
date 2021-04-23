@@ -68,9 +68,6 @@ public class Controller {
     private Tab tabReport2;
 
     @FXML
-    private Tab tabReport2;
-
-    @FXML
     private CheckBox t2DataTable;
 
     @FXML
@@ -140,10 +137,10 @@ public class Controller {
     private TextField t5Preference;
 
     @FXML
-    private Button t5T4X1;
+    private Button t5T5X1;
 
     @FXML
-    private Button t5T4X2;
+    private Button t5T5X2;
 
     @FXML
     private Tab tabApp3;
@@ -249,19 +246,19 @@ public class Controller {
     	textAreaConsole.setText("Testing T4X2");
     }
 
-    @FMXL
-    void runT5T4X1() {
-
+    @FXML
+    void t5_computeT5X1() {
+    	textAreaConsole.setText("Testing T5X1");
     }
 
     @FXML
-    void runT5T4X2() {
-
+    void t5_computeT5X2() {
+    	textAreaConsole.setText("Testing T5X2");
     }
 
     @FXML
     void t2GenerateResults() {
-
+    	textAreaConsole.setText("Testing T2");
     }
 
 }

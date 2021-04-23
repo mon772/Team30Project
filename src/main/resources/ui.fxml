@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <VBox prefHeight="679.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="comp3111.popnames.Controller">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="316.0" prefWidth="719.0">
@@ -87,23 +86,23 @@
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="450.0" prefWidth="722.0">
                                  <children>
                                     <TextArea layoutX="21.0" layoutY="8.0" prefHeight="40.0" prefWidth="680.0" text="Task #2: K-th Popular Names (data reporting)&#10;Generate a report in response to the queries on the K-th popular names over a given period.&#10;" wrapText="true" />
-                                    <Label layoutX="41.0" layoutY="88.0" prefHeight="19.0" prefWidth="200.0" text="Starting Year of Interest">
+                                    <Label layoutX="40.9" layoutY="88.0" prefHeight="19.0" prefWidth="200.0" text="Starting Year of Interest">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
                                     </Label>
                                     <CheckBox fx:id="t2Summary" layoutX="220.0" layoutY="248.0" mnemonicParsing="false" text="Summary" />
-                                    <Label layoutX="41.0" layoutY="168.0" prefHeight="19.0" prefWidth="266.0" text="K-th popular names to be reported">
+                                    <Label layoutX="40.9" layoutY="168.0" prefHeight="19.0" prefWidth="266.0" text="K-th popular names to be reported">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="41.0" layoutY="208.0" prefHeight="18.0" prefWidth="87.0" text="Gender">
+                                    <Label layoutX="40.9" layoutY="208.0" prefHeight="18.0" prefWidth="87.0" text="Gender">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="41.0" layoutY="248.0" prefHeight="19.0" prefWidth="151.0" text="Data Display Format:">
+                                    <Label layoutX="40.9" layoutY="248.0" prefHeight="19.0" prefWidth="151.0" text="Data Display Format:">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
@@ -118,7 +117,7 @@
                                     </Label>
                                     <TextField fx:id="t2Year1" layoutX="330.0" layoutY="88.0" prefHeight="27.0" prefWidth="180.0" promptText="Range: 1880 to 2019" />
                                     <TextField fx:id="t2Year2" layoutX="330.0" layoutY="128.0" prefHeight="27.0" prefWidth="180.0" promptText="Range: 1880 to 2019" />
-                                    <Label layoutX="41.0" layoutY="128.0" prefHeight="19.0" prefWidth="169.0" text="Ending Year of Interest">
+                                    <Label layoutX="40.9" layoutY="128.0" prefHeight="19.0" prefWidth="169.0" text="Ending Year of Interest">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
@@ -250,12 +249,12 @@
                                     <Font size="15.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="t5T4X1" layoutX="180.0" layoutY="250.0" mnemonicParsing="false" onAction="#runT5T4X1" prefHeight="30.0" prefWidth="120.0" text="T4X1">
+                              <Button fx:id="t5T5X1" layoutX="180.0" layoutY="250.0" mnemonicParsing="false" onAction="#t5_computeT5X1" prefHeight="30.0" prefWidth="120.0" text="T5X1">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="t5T4X2" layoutX="420.0" layoutY="250.0" mnemonicParsing="false" onAction="#runT5T4X2" prefHeight="30.0" prefWidth="120.0" text="T4X2">
+                              <Button fx:id="t5T5X2" layoutX="420.0" layoutY="250.0" mnemonicParsing="false" onAction="#t5_computeT5X2" prefHeight="30.0" prefWidth="120.0" text="T5X2">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
