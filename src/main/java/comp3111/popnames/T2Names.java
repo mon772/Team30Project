@@ -37,6 +37,10 @@ public class T2Names implements Comparable<T2Names> {
 		return birthCount;
 	}
 	
+	public static void resetbirthCount() {
+		birthCount=0;
+	}
+	
 	public void incrementFrequency() {
 		frequency++;
 	}

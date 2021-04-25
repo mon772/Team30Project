@@ -10,7 +10,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -84,7 +87,13 @@ public class Controller {
     private CheckBox t2DataTable;
 
     @FXML
-    private BarChart<?, ?> t2BarChart;
+    private BarChart<String, Integer> t2BarChart;
+
+    @FXML
+    private CategoryAxis t2BarChartNames;
+
+    @FXML
+    private NumberAxis t2BarChartOccurances;
 
     @FXML
     private PieChart t2PieChart;
@@ -316,6 +325,11 @@ public class Controller {
 
     @FXML
     void t2GenerateResults() {
+    	//Reset T2Names Static Variable
+    	T2Names.resetbirthCount();
+    	//Reset bar chart data set
+		t2BarChart.getData().clear();
+    	
 //    	textAreaConsole.setText("Testing T2");
     	String oReport = "";
     	boolean err = false;
@@ -443,14 +457,26 @@ public class Controller {
 	    			t2TotFreq.setText(String.format("%d",ending_Year-starting_Year+1));
 	    			t2TotOcc.setText(String.format("%d",T2Names.getbirthCount()));
 	    			t2TotPerc.setText(String.format("100.0%%"));
-	    			
-	    			
 	    		}
 	    		if(barchart) {
-	    			
+	    			t2BarChart.setTitle(String.format("%d-th Most Popular Names Between %d to %d", k, starting_Year, ending_Year));
+	    			XYChart.Series<String, Integer> set1 = new XYChart.Series<>();
+	    			for (T2Names nam : result) {
+	    				if(nam!=null) {
+	    					set1.getData().add(new XYChart.Data<>(nam.getName(), nam.getOccurances()));
+	    				}
+	    			}
+	    			t2BarChart.getData().addAll(set1);
 	    		}
 	    		if(piechart) {
-	    			
+	    			ObservableList<PieChart.Data> pieChartData= FXCollections.observableArrayList();
+	    			for(T2Names nam : result) {
+	    				if(nam!=null) {
+	    					pieChartData.add(new PieChart.Data(nam.getName(), (float)(nam.getOccurances()*100.0/T2Names.getbirthCount())));
+	    				}
+	    			}
+	    			t2PieChart.setData(pieChartData);
+	    			t2PieChart.setStartAngle(90);
 	    		}
 	    	}
     	} else {
@@ -465,14 +491,13 @@ public class Controller {
     
     public ObservableList<T2Names> getNames(T2Names [] names) {
 		ObservableList<T2Names> Names = FXCollections.observableArrayList();
-//		for(T2Names nam: names) {
-//			Names.add(nam);
-//		}
-//		Names.add(new T2Names("Bob",50,5));
-//		Names.add(new T2Names("Ben",20,8));
+		
 		for(T2Names nam : names) {
-			Names.add(nam);
+			if(nam!=null) {
+				Names.add(nam);
+			}
 		}
+
 		
 		return Names;
 	}

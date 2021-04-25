@@ -188,12 +188,12 @@
                                              <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                    <children>
-                                                      <BarChart fx:id="t2BarChart" layoutY="1.0" prefHeight="295.0" prefWidth="719.0">
+                                                      <BarChart fx:id="t2BarChart" layoutY="1.0" prefHeight="295.0" prefWidth="719.0" title="K-th Popular Names Over a Given Period">
                                                         <xAxis>
-                                                          <CategoryAxis side="BOTTOM" />
+                                                          <CategoryAxis fx:id="t2BarChartNames" label="Names" side="BOTTOM" />
                                                         </xAxis>
                                                         <yAxis>
-                                                          <NumberAxis side="LEFT" />
+                                                          <NumberAxis fx:id="t2BarChartOccurances" label="Occurances" side="LEFT" />
                                                         </yAxis>
                                                       </BarChart>
                                                    </children>
