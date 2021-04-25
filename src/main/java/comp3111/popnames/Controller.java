@@ -520,6 +520,26 @@ public class Controller {
 	    	t1ReportTableFemale.setItems(t1getNameData(female_data));
 	    	
     	}
+    	if(bar_chart_box) {
+    		t1BarChartMale.setTitle(String.format("Top %d Names (male) in %d" ,  int_n , int_year));
+    		XYChart.Series<String, Integer> set_male = new XYChart.Series<>();
+    		set_male.setName("Male Occurences"); 
+    		for (T1Names one_name : male_data) {
+				if(one_name!=null) {
+					set_male.getData().add(new XYChart.Data<>(one_name.getName(), one_name.getOccurences()));
+				}
+			}
+			t1BarChartFemale.setTitle(String.format("Top %d Names (female) in %d" ,  int_n , int_year));
+			XYChart.Series<String, Integer> set_female = new XYChart.Series<>();
+			set_female.setName("Female Occurences");
+			for (T1Names one_name : female_data) {
+				if(one_name!=null) {
+					set_female.getData().add(new XYChart.Data<>(one_name.getName(), one_name.getOccurences()));
+				}
+			}
+			t1BarChartMale.getData().addAll(set_male);
+			t1BarChartFemale.getData().addAll(set_female);
+    	}
     	
     }
     
