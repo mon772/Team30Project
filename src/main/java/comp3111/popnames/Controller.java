@@ -3,9 +3,15 @@
  */
 package comp3111.popnames;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -14,6 +20,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.Scene;
+
 
 public class Controller {
 
@@ -362,8 +370,12 @@ public class Controller {
     	t1DataTableTab.setDisable(true);
     	t1BarChartTab.setDisable(true);
     	t1PieChartTab.setDisable(true);
+    	t1ReportTableMale.getItems().clear();
+    	t1ReportTableFemale.getItems().clear();
     	t1textAreaSummaryMale.setText("");
 		t1textAreaSummaryFemale.setText("");
+		t1BarChartMale.getData().clear();
+		t1BarChartFemale.getData().clear();
     	String oReport = "";
     	String year = T1TextFieldYear.getText();
     	String input_avaliable_error = "" ;
@@ -470,20 +482,57 @@ public class Controller {
     	for(int i= 0 ; i<int_n ; i++) {
     		test_output+= String.format("%d %s %d %s\n",top_female_ranks[i] ,top_female_names[i], top_female_occurences[i] , top_female_percentages[i]);
     	}
+    	System.out.println(test_output);
     	t1SummaryTab.setDisable(!summary_box);
     	t1DataTableTab.setDisable(!dt_box);
     	t1BarChartTab.setDisable(!bar_chart_box);
     	t1PieChartTab.setDisable(!pie_chart_box);
-    	textAreaConsole.setText(test_output);
+    	T1Names []  male_data = new T1Names[int_n];
+		T1Names [] female_data = new T1Names[int_n];
+		for(int i=0 ; i <int_n ; i++) {
+    		male_data[i] = new T1Names(top_male_ranks[i], top_male_names[i] , top_male_occurences[i] , top_male_percentages[i]);
+    		female_data[i] = new T1Names(top_female_ranks[i], top_female_names[i] , top_female_occurences[i] , top_female_percentages[i]);
+    	}
+		int total_top_males = 0 ; 
+    	int total_top_females = 0 ;
+    	for(int i = 0 ; i<int_n ; i++) {
+    		total_top_males += male_data[i].getOccurences();
+    		total_top_females += female_data[i].getOccurences();
+    	}
     	if(summary_box) {
 			String male_result = String.format("%s is the most popular name with the number of occurrences of %d, which represents %s of total male births in %d.", top_male_names[0], top_male_occurences[0] , top_male_percentages[0], int_year);
 			String female_result = String.format("%s is the most popular name with the number of occurrences of %d, which represents %s of total male births in %d.", top_female_names[0], top_female_occurences[0] , top_female_percentages[0], int_year);
 			t1textAreaSummaryMale.setText(male_result);
 			t1textAreaSummaryFemale.setText(female_result);
 		}
-    	return;
+    	
+    	if(dt_box) {
+    		
+    		t1RankMale.setCellValueFactory(new PropertyValueFactory<T1Names,Integer>("rank"));
+	    	t1NameMale.setCellValueFactory(new PropertyValueFactory<T1Names,String>("name"));
+	    	t1OccurencesMale.setCellValueFactory(new PropertyValueFactory<T1Names,Integer>("occurences"));
+	    	t1PercentageMale.setCellValueFactory(new PropertyValueFactory<T1Names,String>("percentage"));
+	    	t1RankFemale.setCellValueFactory(new PropertyValueFactory<T1Names,Integer>("rank"));
+	    	t1NameFemale.setCellValueFactory(new PropertyValueFactory<T1Names,String>("name"));
+	    	t1OccurancesFemale.setCellValueFactory(new PropertyValueFactory<T1Names,Integer>("occurences"));
+	    	t1PercentageFemale.setCellValueFactory(new PropertyValueFactory<T1Names,String>("percentage"));
+	    	t1ReportTableMale.setItems(t1getNameData(male_data));
+	    	t1ReportTableFemale.setItems(t1getNameData(female_data));
+	    	
+    	}
     	
     }
+    
+    public ObservableList<T1Names> t1getNameData(T1Names [] names) {
+		ObservableList<T1Names> Names = FXCollections.observableArrayList();
+		
+		for(T1Names one_name : names) {
+			if(one_name!=null) {
+				Names.add(one_name);
+			}
+		}
+		return Names;
+	}
 
     @FXML
     void t4_computeT4X1() {
