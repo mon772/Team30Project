@@ -3,27 +3,27 @@
  */
 package comp3111.popnames;
 
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.cell.PropertyValueFactory;
+
 import javafx.fxml.FXML;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 
 public class Controller {
 
-    @FXML
+	@FXML
     private Tab tabTaskZero;
 
     @FXML
@@ -78,17 +78,23 @@ public class Controller {
     private Tab tabReport2;
 
     @FXML
-    private CheckBox t2DataTable;
-
-    @FXML
     private CheckBox t2Summary;
 
     @FXML
-    private CheckBox t2BarChart;
+    private CheckBox t2DataTable;
 
     @FXML
-    private CheckBox t2PieChart;
+    private BarChart<?, ?> t2BarChart;
 
+    @FXML
+    private PieChart t2PieChart;
+
+    @FXML
+    private CheckBox t2BarChartCheck;
+
+    @FXML
+    private CheckBox t2PieChartCheck;
+    
     @FXML
     private TextField t2Year1;
 
@@ -103,6 +109,51 @@ public class Controller {
 
     @FXML
     private Button t2GenerateResults;
+
+    @FXML
+    private Tab t2ConsoleTab;
+
+    @FXML
+    private TextArea textAreaConsole;
+
+    @FXML
+    private Tab t2SummaryTab;
+
+    @FXML
+    private TextArea textAreaSummary;
+
+    @FXML
+    private Tab t2DataTableTab;
+    
+    @FXML
+    private TableView<T2Names> t2ReportTable;
+
+    @FXML
+    private TableColumn<T2Names, String> t2Name;
+
+    @FXML
+    private TableColumn<T2Names, Integer> t2Frequency;
+
+    @FXML
+    private TableColumn<T2Names, Integer> t2Occurances;
+
+    @FXML
+    private TableColumn<T2Names, String> t2Percentage;
+
+    @FXML
+    private Label t2TotFreq;
+
+    @FXML
+    private Label t2TotOcc;
+
+    @FXML
+    private Label t2TotPerc;
+
+    @FXML
+    private Tab t2BarChartTab;
+
+    @FXML
+    private Tab t2PieChartTab;
 
     @FXML
     private Tab tabReport3;
@@ -154,27 +205,6 @@ public class Controller {
 
     @FXML
     private Tab tabApp3;
-
-    @FXML
-    private TextArea textAreaConsole;
-    
-    @FXML
-    private Tab t2DataTableTab;
-    
-    @FXML
-    private TableView<T2Names> t2ReportTable;
-
-    @FXML
-    private TableColumn<T2Names, String> t2Name;
-
-    @FXML
-    private TableColumn<T2Names, Integer> t2Frequency;
-
-    @FXML
-    private TableColumn<T2Names, Integer> t2Occurances;
-
-    @FXML
-    private TableColumn<T2Names, Integer> t2Percentage;
 
     /**
      *  Task Zero
@@ -353,13 +383,20 @@ public class Controller {
     	}
     	
     	//Validate and Input Gender
-    	
+
+		String genderOut = "";
     	String gender = t1Gender.getText();
     	try {
     		if(gender =="") {
     			throw new Exception("Error: Gender has not been inputted\n");
     		}
-    		if(!gender.contentEquals("M") && ! !gender.contentEquals("M")) {
+    		if(gender.contentEquals("M")) {
+    			genderOut="boys";
+    		}
+    		else if (gender.contentEquals("F")) {
+    			genderOut="girls";
+    		}
+    		else {
     			throw new Exception("Invalid Gender: Gender can either be 'M' or 'F'\n");
     		}
     	}
@@ -372,8 +409,8 @@ public class Controller {
     	
     	boolean summary = t2Summary.isSelected();
     	boolean datatable = t2DataTable.isSelected();
-    	boolean barchart = t2BarChart.isSelected();
-    	boolean piechart = t2PieChart.isSelected();
+    	boolean barchart = t2BarChartCheck.isSelected();
+    	boolean piechart = t2PieChartCheck.isSelected();
     
     	if(!(summary | datatable | barchart | piechart)) {
     		oReport += "Error: No Data Reporting Method has been Chosen (Please select required reports using the checkbox)\n";
@@ -381,24 +418,49 @@ public class Controller {
     	}
     	T2Names [] result = null;
     	if(!err) {
-	    	oReport += String.format("Start Year: %d\n",starting_Year);
-	    	oReport += String.format("End Year: %d\n",ending_Year);
-	    	oReport += String.format("K: %d\n",k);
-	    	oReport += String.format("Gender: %s\n",gender);
-	    	oReport += String.format("Summary: %b\n",summary);
-	    	oReport += String.format("Datatable: %b\n",datatable);
-	    	oReport += String.format("Barchart: %b\n",barchart);
-	    	oReport += String.format("Piechart: %b\n",piechart);
+        	t2SummaryTab.setDisable(!summary);
+        	t2DataTableTab.setDisable(!datatable);
+        	t2BarChartTab.setDisable(!barchart);
+        	t2PieChartTab.setDisable(!piechart);
+	    	oReport += String.format("Please view requested Reports in respective tab(s)");
 	    	result = AnalyzeNames.getKthPopularNames(starting_Year, ending_Year, k, gender);
+
+	    	t2Name.setCellValueFactory(new PropertyValueFactory<T2Names,String>("name"));
+	    	t2Frequency.setCellValueFactory(new PropertyValueFactory<T2Names,Integer>("frequency"));
+	    	t2Occurances.setCellValueFactory(new PropertyValueFactory<T2Names,Integer>("occurances"));
+	    	t2Percentage.setCellValueFactory(new PropertyValueFactory<T2Names,String>("percentage"));
+	    	if(result!=null) {
+	        	t2ConsoleTab.setStyle("-fx-text-base-color: black;");
+	    		if(summary) {
+	    			String summ="";
+	    			summ+= String.format("%s has held the %d-th rank most often for a total of %d times among names registered for baby %s born in the period from %d to %d.The total number of occurrences of %s is %,d, which represents %s of total female births at the %d-th rank in the period from %d to %d.", result[0].getName(), k, result[0].getFrequency(), genderOut, starting_Year, ending_Year,result[0].getName(), result[0].getOccurances(), result[0].getPercentage(), k, starting_Year, ending_Year);
+	    
+	    	    	textAreaSummary.setText(summ);
+	    			
+	    		}
+	    		if(datatable) {
+	    			t2ReportTable.setItems(getNames(result));
+	    			t2TotFreq.setText(String.format("%d",ending_Year-starting_Year+1));
+	    			t2TotOcc.setText(String.format("%d",T2Names.getbirthCount()));
+	    			t2TotPerc.setText(String.format("100.0%%"));
+	    			
+	    			
+	    		}
+	    		if(barchart) {
+	    			
+	    		}
+	    		if(piechart) {
+	    			
+	    		}
+	    	}
+    	} else {
+        	t2SummaryTab.setDisable(true);
+        	t2DataTableTab.setDisable(true);
+        	t2BarChartTab.setDisable(true);
+        	t2PieChartTab.setDisable(true);
+        	t2ConsoleTab.setStyle("-fx-text-base-color: red;");
     	}
     	textAreaConsole.setText(oReport);
-    	t2Name.setCellValueFactory(new PropertyValueFactory<T2Names,String>("name"));
-    	t2Frequency.setCellValueFactory(new PropertyValueFactory<T2Names,Integer>("frequency"));
-    	t2Occurances.setCellValueFactory(new PropertyValueFactory<T2Names,Integer>("occurances"));
-    	t2Percentage.setCellValueFactory(new PropertyValueFactory<T2Names,Integer>("percentage"));
-    	if(result!=null) {
-    		t2ReportTable.setItems(getNames(result));
-    	}
     }
     
     public ObservableList<T2Names> getNames(T2Names [] names) {

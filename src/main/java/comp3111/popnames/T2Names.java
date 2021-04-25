@@ -4,7 +4,7 @@ public class T2Names implements Comparable<T2Names> {
 	private String name;
 	private int occurances;
 	private int frequency;
-	private float percentage;
+	private String percentage;
 	private static int birthCount;
 	
 	
@@ -13,7 +13,7 @@ public class T2Names implements Comparable<T2Names> {
 		this.name = name;
 		this.occurances = occurances;
 		this.frequency = frequency;
-		this.percentage = 0;
+//		this.percentage = 0;
 		birthCount+=occurances;
 	}
 	
@@ -29,11 +29,11 @@ public class T2Names implements Comparable<T2Names> {
 		return frequency;
 	}
 	
-	public float getPercentage() {
+	public String getPercentage() {
 		return percentage;
 	}
 	
-	public int getbirthCount() {
+	public static int getbirthCount() {
 		return birthCount;
 	}
 	
@@ -47,7 +47,7 @@ public class T2Names implements Comparable<T2Names> {
 	}
 	
 	public void setPercentage() {
-		percentage = (float)(occurances *100.0/ birthCount);
+		percentage = String.format("%.1f%%", (float)(occurances *100.0/ birthCount));
 //		percentage = birthCount;
 	}
 	

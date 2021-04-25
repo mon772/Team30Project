@@ -59,9 +59,6 @@ public class MyApplication extends Application {
 		Application.launch(args);
 	}
 	
-//	public void fillT2Table() {
-//		Controller.
-//	}
 
 
 }
