@@ -540,7 +540,24 @@ public class Controller {
 			t1BarChartMale.getData().addAll(set_male);
 			t1BarChartFemale.getData().addAll(set_female);
     	}
-    	
+    	if(pie_chart_box) {
+			ObservableList<PieChart.Data> pieChartDataMale= FXCollections.observableArrayList();
+			for(T1Names one_name : male_data) {
+				if(one_name!=null) {
+					pieChartDataMale.add(new PieChart.Data(one_name.getName(), (float)(one_name.getOccurences()*100.0/total_top_males)));
+				}
+			}
+			t1PieChartMale.setData(pieChartDataMale);
+			t1PieChartMale.setStartAngle(90);
+			ObservableList<PieChart.Data> pieChartDataFemale= FXCollections.observableArrayList();
+			for(T1Names one_name : female_data) {
+				if(one_name!=null) {
+					pieChartDataFemale.add(new PieChart.Data(one_name.getName(), (float)(one_name.getOccurences()*100.0/total_top_females)));
+				}
+			}
+			t1PieChartFemale.setData(pieChartDataFemale);
+			t1PieChartFemale.setStartAngle(90);
+		}
     }
     
     public ObservableList<T1Names> t1getNameData(T1Names [] names) {
