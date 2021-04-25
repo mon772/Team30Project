@@ -3,7 +3,17 @@
  */
 package comp3111.popnames;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Tab;
@@ -147,6 +157,24 @@ public class Controller {
 
     @FXML
     private TextArea textAreaConsole;
+    
+    @FXML
+    private Tab t2DataTableTab;
+    
+    @FXML
+    private TableView<T2Names> t2ReportTable;
+
+    @FXML
+    private TableColumn<T2Names, String> t2Name;
+
+    @FXML
+    private TableColumn<T2Names, Integer> t2Frequency;
+
+    @FXML
+    private TableColumn<T2Names, Integer> t2Occurances;
+
+    @FXML
+    private TableColumn<T2Names, Integer> t2Percentage;
 
     /**
      *  Task Zero
@@ -351,7 +379,7 @@ public class Controller {
     		oReport += "Error: No Data Reporting Method has been Chosen (Please select required reports using the checkbox)\n";
     		err=true;
     	}
-    	
+    	T2Names [] result = null;
     	if(!err) {
 	    	oReport += String.format("Start Year: %d\n",starting_Year);
 	    	oReport += String.format("End Year: %d\n",ending_Year);
@@ -361,8 +389,30 @@ public class Controller {
 	    	oReport += String.format("Datatable: %b\n",datatable);
 	    	oReport += String.format("Barchart: %b\n",barchart);
 	    	oReport += String.format("Piechart: %b\n",piechart);
+	    	result = AnalyzeNames.getKthPopularNames(starting_Year, ending_Year, k, gender);
     	}
     	textAreaConsole.setText(oReport);
+    	t2Name.setCellValueFactory(new PropertyValueFactory<T2Names,String>("name"));
+    	t2Frequency.setCellValueFactory(new PropertyValueFactory<T2Names,Integer>("frequency"));
+    	t2Occurances.setCellValueFactory(new PropertyValueFactory<T2Names,Integer>("occurances"));
+    	t2Percentage.setCellValueFactory(new PropertyValueFactory<T2Names,Integer>("percentage"));
+    	if(result!=null) {
+    		t2ReportTable.setItems(getNames(result));
+    	}
     }
+    
+    public ObservableList<T2Names> getNames(T2Names [] names) {
+		ObservableList<T2Names> Names = FXCollections.observableArrayList();
+//		for(T2Names nam: names) {
+//			Names.add(nam);
+//		}
+//		Names.add(new T2Names("Bob",50,5));
+//		Names.add(new T2Names("Ben",20,8));
+		for(T2Names nam : names) {
+			Names.add(nam);
+		}
+		
+		return Names;
+	}
 
 }

@@ -6,6 +6,8 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -281,10 +283,38 @@
             </TabPane>
       </children>
     </AnchorPane>
-      <ScrollPane prefHeight="387.0" prefWidth="719.0">
-         <content>
-            <TextArea fx:id="textAreaConsole" prefHeight="329.0" prefWidth="718.0" />
-         </content>
-      </ScrollPane>
+      <TabPane prefHeight="325.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Summary">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ScrollPane prefHeight="295.0" prefWidth="719.0">
+                           <content>
+                              <TextArea fx:id="textAreaConsole" prefHeight="295.0" prefWidth="718.0" />
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab fx:id="t2DataTableTab" text="Data Table">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="t2ReportTable" prefHeight="295.0" prefWidth="722.0">
+                           <columns>
+                              <TableColumn fx:id="t2Name" prefWidth="75.0" text="Name" />
+                              <TableColumn fx:id="t2Frequency" prefWidth="75.0" text="Frequency" />
+                              <TableColumn fx:id="t2Occurances" prefWidth="75.0" text="Occurances" />
+                              <TableColumn fx:id="t2Percentage" prefWidth="75.0" text="Percentage" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
   </children>
 </VBox>
