@@ -376,6 +376,8 @@ public class Controller {
 		t1textAreaSummaryFemale.setText("");
 		t1BarChartMale.getData().clear();
 		t1BarChartFemale.getData().clear();
+		t1PieChartMale.getData().clear();
+		t1PieChartFemale.getData().clear();
     	String oReport = "";
     	String year = T1TextFieldYear.getText();
     	String input_avaliable_error = "" ;
