@@ -4,12 +4,16 @@
 package comp3111.popnames;
 
 import javafx.fxml.FXML;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-
 
 public class Controller {
 
@@ -65,19 +69,94 @@ public class Controller {
     private Button T1ButtonComputeResults;
 
     @FXML
-    private Tab tabReport2;
+    private Tab t1ConsoleTab;
 
     @FXML
-    private CheckBox t2DataTable;
+    private TextArea textAreaConsole1;
+
+    @FXML
+    private Tab t1SummaryTab;
+
+    @FXML
+    private TextArea t1textAreaSummaryMale;
+
+    @FXML
+    private TextArea t1textAreaSummaryFemale;
+
+    @FXML
+    private Tab t1DataTableTab;
+
+    @FXML
+    private TableView<T1Names> t1ReportTableMale;
+
+    @FXML
+    private TableColumn<T1Names, Integer> t1RankMale;
+
+    @FXML
+    private TableColumn<T1Names, String> t1NameMale;
+
+    @FXML
+    private TableColumn<T1Names, Integer> t1OccurencesMale;
+
+    @FXML
+    private TableColumn<T1Names, String> t1PercentageMale;
+
+    @FXML
+    private Label t2TotFreq1;
+
+    @FXML
+    private Label t2TotOcc1;
+
+    @FXML
+    private Label t2TotPerc1;
+
+    @FXML
+    private TableView<T1Names> t1ReportTableFemale;
+
+    @FXML
+    private TableColumn<T1Names, Integer> t1RankFemale;
+
+    @FXML
+    private TableColumn<T1Names, String> t1NameFemale;
+
+    @FXML
+    private TableColumn<T1Names, Integer> t1OccurancesFemale;
+
+    @FXML
+    private TableColumn<T1Names, String> t1PercentageFemale;
+
+    @FXML
+    private Tab t1BarChartTab;
+
+    @FXML
+    private BarChart<String, Integer> t1BarChartMale;
+
+    @FXML
+    private BarChart<String, Integer> t1BarChartFemale;
+
+    @FXML
+    private Tab t1PieChartTab;
+
+    @FXML
+    private PieChart t1PieChartMale;
+
+    @FXML
+    private PieChart t1PieChartFemale;
+
+    @FXML
+    private Tab tabReport2;
 
     @FXML
     private CheckBox t2Summary;
 
     @FXML
-    private CheckBox t2BarChart;
+    private CheckBox t2DataTable;
 
     @FXML
-    private CheckBox t2PieChart;
+    private CheckBox t2BarChartCheck;
+
+    @FXML
+    private CheckBox t2PieChartCheck;
 
     @FXML
     private TextField t2Year1;
@@ -93,6 +172,57 @@ public class Controller {
 
     @FXML
     private Button t2GenerateResults;
+
+    @FXML
+    private Tab t2ConsoleTab;
+
+    @FXML
+    private TextArea textAreaConsole;
+
+    @FXML
+    private Tab t2SummaryTab;
+
+    @FXML
+    private TextArea textAreaSummary;
+
+    @FXML
+    private Tab t2DataTableTab;
+
+    @FXML
+    private TableView<T2Names> t2ReportTable;
+
+    @FXML
+    private TableColumn<T2Names, String> t2Name;
+
+    @FXML
+    private TableColumn<T2Names, Integer> t2Frequency;
+
+    @FXML
+    private TableColumn<T2Names, Integer> t2Occurances;
+
+    @FXML
+    private TableColumn<T2Names, String> t2Percentage;
+
+    @FXML
+    private Label t2TotFreq;
+
+    @FXML
+    private Label t2TotOcc;
+
+    @FXML
+    private Label t2TotPerc;
+
+    @FXML
+    private Tab t2BarChartTab;
+
+    @FXML
+    private BarChart<String, Integer> t2BarChart;
+
+    @FXML
+    private Tab t2PieChartTab;
+
+    @FXML
+    private PieChart t2PieChart;
 
     @FXML
     private Tab tabReport3;
@@ -144,10 +274,6 @@ public class Controller {
 
     @FXML
     private Tab tabApp3;
-
-    @FXML
-    private TextArea textAreaConsole;
-
     /**
      *  Task Zero
      *  To be triggered by the "Summary" button on the Task Zero Tab 
@@ -159,8 +285,6 @@ public class Controller {
     	String oReport = AnalyzeNames.getSummary(year);
     	textAreaConsole.setText(oReport);
     }
-
-  
     /**
      *  Task Zero
      *  To be triggered by the "Rank (female)" button on the Task Zero Tab
@@ -233,6 +357,13 @@ public class Controller {
     }
     @FXML
     void t1ComputeResults() {
+    	t1ConsoleTab.setStyle("-fx-text-base-color: black;");
+    	t1SummaryTab.setDisable(true);
+    	t1DataTableTab.setDisable(true);
+    	t1BarChartTab.setDisable(true);
+    	t1PieChartTab.setDisable(true);
+    	t1textAreaSummaryMale.setText("");
+		t1textAreaSummaryFemale.setText("");
     	String oReport = "";
     	String year = T1TextFieldYear.getText();
     	String input_avaliable_error = "" ;
@@ -254,7 +385,8 @@ public class Controller {
     		boxes_checked = false ; 
     	}
     	if((year == "")||(n=="")||(boxes_checked==false)) {
-    		textAreaConsole.setText(input_avaliable_error);
+    		textAreaConsole1.setText(input_avaliable_error);
+    		t1ConsoleTab.setStyle("-fx-text-base-color: red;");
     		return;
     	}
     	String validation_error = "" ; 
@@ -289,18 +421,67 @@ public class Controller {
     		validation_error += "Enter the Correct Datatype for the N. Enter a Number! \n";
     	}
     	if((!year_validated)||(!n_validated)) {
-    		textAreaConsole.setText(validation_error);
+    		textAreaConsole1.setText(validation_error);
+    		t1ConsoleTab.setStyle("-fx-text-base-color: red;");
     		return; 
     	}
-    	oReport = String.format("Year %s\n", year);
-    	oReport += String.format("N %s\n", n);
-    	oReport += String.format("Summary box %b\n", summary_box);
-    	oReport += String.format("Data table %b\n" , dt_box);
-    	oReport += String.format("Bar Chart box %b\n", bar_chart_box);
-    	oReport += String.format("Pie Chart Box %b\n" , pie_chart_box);
-    	oReport += String.format("Lets implement the charts!\n" );
-    	textAreaConsole.setText(oReport);
+    	//oReport = String.format("Year %s\n", year);
+    	//oReport += String.format("N %s\n", n);
+    	//oReport += String.format("Summary box %b\n", summary_box);
+    	//oReport += String.format("Data table %b\n" , dt_box);
+    	//oReport += String.format("Bar Chart box %b\n", bar_chart_box);
+    	//oReport += String.format("Pie Chart Box %b\n" , pie_chart_box);
+    	//oReport += String.format("Lets implement the charts!\n" );
+    	//textAreaConsole.setText(oReport);
+    	textAreaConsole1.setText("Select the repective Tabs to Check the Results");
+    	AnalyzeNames analyze_obj = new AnalyzeNames(); 
+    	String []  top_male_names = new String[int_n];
+    	String []  top_female_names = new String[int_n];
+    	int [] top_male_occurences = new int[int_n];
+    	int [] top_female_occurences = new int[int_n];
+    	String []  top_male_percentages = new String[int_n];
+    	String [] top_female_percentages = new String[int_n];
+    	int [] top_male_ranks = new int[int_n];
+    	int [] top_female_ranks = new int[int_n];
+    	int all_males = 0 ; 
+    	int all_females = 0 ;
+    	all_males = analyze_obj.getTotalMales(int_year);
+    	all_females = analyze_obj.getTotalFemales(int_year);
+    	String male_gender = "M";
+    	String female_gender = "F";
+    	String test_output = "";
     	
+    	for (int i=0 ; i<int_n ; i++) {
+    		top_male_ranks[i] = i+1;
+    		top_female_ranks[i] = i+1 ; 
+    		top_male_names[i] = analyze_obj.getName(int_year , i+1 , male_gender);
+    		top_female_names[i] = analyze_obj.getName(int_year , i+1 , female_gender);
+    		top_male_occurences[i] = analyze_obj.getOccurance(int_year, top_male_names[i], male_gender);
+    		System.out.println(top_male_occurences[i]);
+    		top_female_occurences[i] = analyze_obj.getOccurance(int_year, top_female_names[i], female_gender);
+    		float mp = ((float)top_male_occurences[i]/all_males)*100;
+    		float fp = ((float)top_female_occurences[i]/all_females)*100;
+    		top_female_percentages[i] = String.format("%.2f%%", fp);
+    		top_male_percentages[i] = String.format("%.2f%%", mp);
+    	}
+    	for(int i= 0 ; i<int_n ; i++) {
+    		test_output+= String.format("%d %s %d %s\n",top_male_ranks[i] ,top_male_names[i], top_male_occurences[i] , top_male_percentages[i]);
+    	}
+    	for(int i= 0 ; i<int_n ; i++) {
+    		test_output+= String.format("%d %s %d %s\n",top_female_ranks[i] ,top_female_names[i], top_female_occurences[i] , top_female_percentages[i]);
+    	}
+    	t1SummaryTab.setDisable(!summary_box);
+    	t1DataTableTab.setDisable(!dt_box);
+    	t1BarChartTab.setDisable(!bar_chart_box);
+    	t1PieChartTab.setDisable(!pie_chart_box);
+    	textAreaConsole.setText(test_output);
+    	if(summary_box) {
+			String male_result = String.format("%s is the most popular name with the number of occurrences of %d, which represents %s of total male births in %d.", top_male_names[0], top_male_occurences[0] , top_male_percentages[0], int_year);
+			String female_result = String.format("%s is the most popular name with the number of occurrences of %d, which represents %s of total male births in %d.", top_female_names[0], top_female_occurences[0] , top_female_percentages[0], int_year);
+			t1textAreaSummaryMale.setText(male_result);
+			t1textAreaSummaryFemale.setText(female_result);
+		}
+    	return;
     	
     }
 

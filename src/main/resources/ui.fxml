@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -16,7 +22,7 @@
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="316.0" prefWidth="719.0">
       <children>
-            <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="350.0" prefWidth="719.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="675.0" prefWidth="719.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab fx:id="tabTaskZero" text="Task Zero">
                   <content>
@@ -75,6 +81,134 @@
                               <CheckBox fx:id="T1_displayBarChart" layoutX="394.0" layoutY="183.0" mnemonicParsing="false" text="Bar Chart" />
                               <CheckBox fx:id="T1_displayPieChart" layoutX="490.0" layoutY="182.0" mnemonicParsing="false" text="Pie Chart" />
                               <Button fx:id="T1ButtonComputeResults" layoutX="291.0" layoutY="235.0" mnemonicParsing="false" onAction="#t1ComputeResults" prefHeight="27.0" prefWidth="118.0" text="Compute Results!" />
+                              <TabPane layoutY="302.0" prefHeight="339.0" prefWidth="717.0" tabClosingPolicy="UNAVAILABLE">
+                                 <tabs>
+                                    <Tab fx:id="t1ConsoleTab" text="Console">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <ScrollPane prefHeight="295.0" prefWidth="719.0">
+                                                   <content>
+                                                      <TextArea fx:id="textAreaConsole1" prefHeight="295.0" prefWidth="700.0" />
+                                                   </content>
+                                                </ScrollPane>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </Tab>
+                                    <Tab fx:id="t1SummaryTab" disable="true" text="Summary">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <TextArea fx:id="t1textAreaSummaryMale" layoutY="26.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="279.0" prefWidth="360.0" wrapText="true" />
+                                                <TextArea fx:id="t1textAreaSummaryFemale" layoutX="358.0" layoutY="26.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="279.0" prefWidth="360.0" wrapText="true" />
+                                                <Label layoutX="162.0" layoutY="2.0" text="Male" textFill="#194ad0" underline="true">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="519.0" layoutY="2.0" text="Female" textFill="#cf1b1b" underline="true">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </Tab>
+                                    <Tab fx:id="t1DataTableTab" disable="true" text="Data Table">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <TableView fx:id="t1ReportTableMale" layoutY="26.0" prefHeight="279.0" prefWidth="360.0">
+                                                   <columns>
+                                                      <TableColumn fx:id="t1RankMale" prefWidth="90.0" text="Rank" />
+                                                      <TableColumn fx:id="t1NameMale" prefWidth="90.0" text="Name" />
+                                                      <TableColumn fx:id="t1OccurencesMale" prefWidth="90.0" text="Occurances" />
+                                                      <TableColumn fx:id="t1PercentageMale" prefWidth="90.0" text="Percentage" />
+                                                   </columns>
+                                                </TableView>
+                                                <Label fx:id="t2TotFreq1" layoutX="240.0" layoutY="270.0" />
+                                                <Label fx:id="t2TotOcc1" layoutX="410.0" layoutY="270.0" />
+                                                <Label fx:id="t2TotPerc1" layoutX="585.0" layoutY="270.0" />
+                                                <TableView fx:id="t1ReportTableFemale" layoutX="358.0" layoutY="26.0" prefHeight="279.0" prefWidth="360.0">
+                                                   <columns>
+                                                      <TableColumn fx:id="t1RankFemale" prefWidth="90.0" text="Rank" />
+                                                      <TableColumn fx:id="t1NameFemale" prefWidth="91.15957641601562" text="Name" />
+                                                      <TableColumn fx:id="t1OccurancesFemale" prefWidth="88.8404541015625" text="Occurances" />
+                                                      <TableColumn fx:id="t1PercentageFemale" prefWidth="90.0" text="Percentage" />
+                                                   </columns>
+                                                </TableView>
+                                                <Label layoutX="162.0" layoutY="2.0" text="Male" textFill="#194ad0" underline="true">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="519.0" layoutY="2.0" text="Female" textFill="#cf1b1b" underline="true">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </Tab>
+                                    <Tab fx:id="t1BarChartTab" disable="true" text="Bar Chart">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <BarChart fx:id="t1BarChartMale" layoutY="26.0" prefHeight="281.0" prefWidth="360.0">
+                                                   <xAxis>
+                                                      <CategoryAxis side="BOTTOM" />
+                                                   </xAxis>
+                                                   <yAxis>
+                                                      <NumberAxis side="LEFT" />
+                                                   </yAxis>
+                                                </BarChart>
+                                                <BarChart fx:id="t1BarChartFemale" layoutX="360.0" layoutY="26.0" prefHeight="281.0" prefWidth="360.0">
+                                                   <xAxis>
+                                                      <CategoryAxis side="BOTTOM" />
+                                                   </xAxis>
+                                                   <yAxis>
+                                                      <NumberAxis side="LEFT" />
+                                                   </yAxis>
+                                                </BarChart>
+                                                <Label layoutX="162.0" layoutY="2.0" text="Male" textFill="#194ad0" underline="true">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="519.0" layoutY="2.0" text="Female" textFill="#cf1b1b" underline="true">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </Tab>
+                                    <Tab fx:id="t1PieChartTab" disable="true" text="Pie Chart">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <PieChart fx:id="t1PieChartMale" layoutY="26.0" prefHeight="281.0" prefWidth="360.0" />
+                                                <PieChart fx:id="t1PieChartFemale" layoutX="360.0" layoutY="26.0" prefHeight="281.0" prefWidth="360.0" />
+                                                <Label layoutX="162.0" layoutY="2.0" text="Male" textFill="#194ad0" underline="true">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="519.0" layoutY="2.0" text="Female" textFill="#cf1b1b" underline="true">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </Tab>
+                                 </tabs>
+                              </TabPane>
                            </children>
                         </AnchorPane>
                     </content>
@@ -83,7 +217,7 @@
                   <content>
                         <AnchorPane>
                            <children>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="450.0" prefWidth="722.0">
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="650.0" prefWidth="722.0">
                                  <children>
                                     <TextArea layoutX="21.0" layoutY="8.0" prefHeight="40.0" prefWidth="680.0" text="Task #2: K-th Popular Names (data reporting)&#10;Generate a report in response to the queries on the K-th popular names over a given period.&#10;" wrapText="true" />
                                     <Label layoutX="40.9" layoutY="88.0" prefHeight="19.0" prefWidth="200.0" text="Starting Year of Interest">
@@ -108,8 +242,8 @@
                                        </font>
                                     </Label>
                                     <CheckBox fx:id="t2DataTable" layoutX="320.0" layoutY="248.0" mnemonicParsing="false" text="Data Table" />
-                                    <CheckBox fx:id="t2BarChart" layoutX="420.0" layoutY="248.0" mnemonicParsing="false" text="Bar Chart" />
-                                    <CheckBox fx:id="t2PieChart" layoutX="520.0" layoutY="248.0" mnemonicParsing="false" text="Pie Chart" />
+                                    <CheckBox fx:id="t2BarChartCheck" layoutX="420.0" layoutY="248.0" mnemonicParsing="false" text="Bar Chart" />
+                                    <CheckBox fx:id="t2PieChartCheck" layoutX="520.0" layoutY="248.0" mnemonicParsing="false" text="Pie Chart" />
                                     <Label layoutX="20.0" layoutY="50.0" prefHeight="18.0" prefWidth="87.0" text="Inputs" underline="true">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
@@ -130,6 +264,81 @@
                                        </font>
                                     </Label>
                                     <Button fx:id="t2GenerateResults" layoutX="510.0" layoutY="289.0" mnemonicParsing="false" onAction="#t2GenerateResults" text="Generate Reuslts!" />
+                                    <TabPane layoutY="320.0" prefHeight="325.0" prefWidth="720.0" tabClosingPolicy="UNAVAILABLE">
+                                       <tabs>
+                                          <Tab fx:id="t2ConsoleTab" text="Console">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <ScrollPane prefHeight="295.0" prefWidth="719.0">
+                                                         <content>
+                                                            <TextArea fx:id="textAreaConsole" prefHeight="295.0" prefWidth="700.0" />
+                                                         </content>
+                                                      </ScrollPane>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </Tab>
+                                          <Tab fx:id="t2SummaryTab" disable="true" text="Summary">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <ScrollPane prefHeight="295.0" prefWidth="719.0">
+                                                         <content>
+                                                            <TextArea fx:id="textAreaSummary" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="295.0" prefWidth="700.0" wrapText="true" />
+                                                         </content>
+                                                      </ScrollPane>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </Tab>
+                                          <Tab fx:id="t2DataTableTab" disable="true" text="Data Table">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <TableView fx:id="t2ReportTable" prefHeight="263.0" prefWidth="720.0">
+                                                         <columns>
+                                                            <TableColumn fx:id="t2Name" prefWidth="175.0" text="Name" />
+                                                            <TableColumn fx:id="t2Frequency" prefWidth="175.0" text="Frequency" />
+                                                            <TableColumn fx:id="t2Occurances" prefWidth="175.0" text="Occurances" />
+                                                            <TableColumn fx:id="t2Percentage" prefWidth="175.0" text="Percentage" />
+                                                         </columns>
+                                                      </TableView>
+                                                      <Label fx:id="t2TotFreq" layoutX="240.0" layoutY="270.0" />
+                                                      <Label fx:id="t2TotOcc" layoutX="410.0" layoutY="270.0" />
+                                                      <Label fx:id="t2TotPerc" layoutX="585.0" layoutY="270.0" />
+                                                      <Label layoutX="80.0" layoutY="270.0" text="TOTAL:" />
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </Tab>
+                                          <Tab fx:id="t2BarChartTab" disable="true" text="Bar Chart">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <BarChart fx:id="t2BarChart" layoutY="1.0" prefHeight="295.0" prefWidth="719.0">
+                                                        <xAxis>
+                                                          <CategoryAxis side="BOTTOM" />
+                                                        </xAxis>
+                                                        <yAxis>
+                                                          <NumberAxis side="LEFT" />
+                                                        </yAxis>
+                                                      </BarChart>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </Tab>
+                                          <Tab fx:id="t2PieChartTab" disable="true" text="Pie Chart">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <PieChart fx:id="t2PieChart" layoutX="-1.0" layoutY="-1.0" prefHeight="296.0" prefWidth="719.0" />
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </Tab>
+                                       </tabs>
+                                    </TabPane>
                                  </children>
                               </AnchorPane>
                            </children>
@@ -281,10 +490,5 @@
             </TabPane>
       </children>
     </AnchorPane>
-      <ScrollPane prefHeight="387.0" prefWidth="719.0">
-         <content>
-            <TextArea fx:id="textAreaConsole" prefHeight="329.0" prefWidth="718.0" />
-         </content>
-      </ScrollPane>
   </children>
 </VBox>
