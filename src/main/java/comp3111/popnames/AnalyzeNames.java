@@ -117,26 +117,6 @@ public class AnalyzeNames{
 	     	return -1;
 	 }
 	 
-	 public static int getOccurance(int year, String name, String gender) {
-	     boolean found = false;
-	     int occurance = 0;
-	     for (CSVRecord rec : getFileParser(year)) {
-	         // Increment rank if gender matches param
-	         if (rec.get(1).equals(gender)) {
-	             // Return rank if name matches param
-	             if (rec.get(0).equals(name)) {
-	             	found = true;
-	             	occurance = Integer.parseInt(rec.get(2));
-	             	break;
-	             }
-	         }
-	     }
-	     if (found)
-	     	return occurance;
-	     else
-	     	return -1;
-	 }
-	 
  
 	 public static String getName(int year, int rank, String gender) {
 	 	boolean found = false;
