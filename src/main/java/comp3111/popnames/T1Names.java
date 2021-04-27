@@ -1,10 +1,10 @@
 package comp3111.popnames;
 
 public class T1Names {
-	private String name ;
-	private int rank; 
-	private String percentage ; 
-	private int occurences ;
+	public String name ;
+	public int rank; 
+	public String percentage ; 
+	public int occurences ;
 	
 	
 	T1Names(int rank , String name , int occurences ,String percentage ){
@@ -12,5 +12,20 @@ public class T1Names {
 		this.rank = rank ; 
 		this.occurences = occurences ;
 		this.percentage = percentage ;
+	}
+	public String getName() {
+		return name;
+	}
+	
+	public int getOccurences() {
+		return occurences;
+	}
+	
+	public int getRank() {
+		return rank;
+	}
+	
+	public String getPercentage() {
+		return percentage;
 	}
 }
