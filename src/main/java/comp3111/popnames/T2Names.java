@@ -70,5 +70,4 @@ public class T2Names implements Comparable<T2Names> {
 			}
 		}
 	}
-	
 }

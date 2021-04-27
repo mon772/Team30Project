@@ -49,6 +49,51 @@ public class AnalyzeNames{
 		return oReport;
 	}
 	
+	public static int getOccurance(int year, String name, String gender) {
+	     boolean found = false;
+	     int occurance = 0;
+	     for (CSVRecord rec : getFileParser(year)) {
+	         // Increment rank if gender matches param
+	         if (rec.get(1).equals(gender)) {
+	             // Return rank if name matches param
+	             if (rec.get(0).equals(name)) {
+	             	found = true;
+	             	occurance = Integer.parseInt(rec.get(2));
+	             	break;
+	             }
+	         }
+	     }
+	     if (found)
+	     	return occurance;
+	     else
+	     	return -1;
+	 }
+	
+	
+	
+	public static int getTotalMales(int year) {	
+		int totalBoys = 0;
+		for (CSVRecord rec : getFileParser(year)) {
+			int numBorn = Integer.parseInt(rec.get(2));
+			if (rec.get(1).equals("M")) {
+				totalBoys += numBorn;
+			}
+		}
+		return totalBoys; 	
+	}
+	
+	
+	public static int getTotalFemales(int year) {
+		int totalGirls = 0;
+		for (CSVRecord rec : getFileParser(year)) {
+			int numBorn = Integer.parseInt(rec.get(2));
+			if (rec.get(1).equals("F")) {
+				totalGirls += numBorn;
+			}
+		}
+		return totalGirls; 	
+	}
+	
 	
 	 public static int getRank(int year, String name, String gender) {
 	     boolean found = false;

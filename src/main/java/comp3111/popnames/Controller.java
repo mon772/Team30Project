@@ -4,6 +4,7 @@
 package comp3111.popnames;
 
 
+
 import java.util.concurrent.TimeUnit;
 
 import javafx.animation.KeyFrame;
@@ -16,6 +17,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
 import javafx.scene.control.ColorPicker;
+
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -26,11 +28,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
+
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.Scene;
 
 
 public class Controller {
@@ -85,6 +89,81 @@ public class Controller {
 
     @FXML
     private Button T1ButtonComputeResults;
+
+    @FXML
+    private Tab t1ConsoleTab;
+
+    @FXML
+    private TextArea textAreaConsole1;
+
+    @FXML
+    private Tab t1SummaryTab;
+
+    @FXML
+    private TextArea t1textAreaSummaryMale;
+
+    @FXML
+    private TextArea t1textAreaSummaryFemale;
+
+    @FXML
+    private Tab t1DataTableTab;
+
+    @FXML
+    private TableView<T1Names> t1ReportTableMale;
+
+    @FXML
+    private TableColumn<T1Names, Integer> t1RankMale;
+
+    @FXML
+    private TableColumn<T1Names, String> t1NameMale;
+
+    @FXML
+    private TableColumn<T1Names, Integer> t1OccurencesMale;
+
+    @FXML
+    private TableColumn<T1Names, String> t1PercentageMale;
+
+    @FXML
+    private Label t2TotFreq1;
+
+    @FXML
+    private Label t2TotOcc1;
+
+    @FXML
+    private Label t2TotPerc1;
+
+    @FXML
+    private TableView<T1Names> t1ReportTableFemale;
+
+    @FXML
+    private TableColumn<T1Names, Integer> t1RankFemale;
+
+    @FXML
+    private TableColumn<T1Names, String> t1NameFemale;
+
+    @FXML
+    private TableColumn<T1Names, Integer> t1OccurancesFemale;
+
+    @FXML
+    private TableColumn<T1Names, String> t1PercentageFemale;
+
+    @FXML
+    private Tab t1BarChartTab;
+
+    @FXML
+    private BarChart<String, Integer> t1BarChartMale;
+
+    @FXML
+    private BarChart<String, Integer> t1BarChartFemale;
+
+    @FXML
+    private Tab t1PieChartTab;
+
+    @FXML
+    private PieChart t1PieChartMale;
+
+    @FXML
+    private PieChart t1PieChartFemale;
 
     @FXML
     private Tab tabReport2;
@@ -142,7 +221,7 @@ public class Controller {
 
     @FXML
     private Tab t2DataTableTab;
-    
+  
     @FXML
     private TableView<T2Names> t2ReportTable;
 
@@ -333,7 +412,6 @@ public class Controller {
     private Tab tabApp3;
     
     
-
     /**
      *  Task Zero
      *  To be triggered by the "Summary" button on the Task Zero Tab 
@@ -345,8 +423,6 @@ public class Controller {
     	String oReport = AnalyzeNames.getSummary(year);
     	textAreaConsole.setText(oReport);
     }
-
-  
     /**
      *  Task Zero
      *  To be triggered by the "Rank (female)" button on the Task Zero Tab
@@ -419,8 +495,213 @@ public class Controller {
     }
     @FXML
     void t1ComputeResults() {
-    	textAreaConsole.setText("Testing T1");
+    	t1ConsoleTab.setStyle("-fx-text-base-color: black;");
+    	t1SummaryTab.setDisable(true);
+    	t1DataTableTab.setDisable(true);
+    	t1BarChartTab.setDisable(true);
+    	t1PieChartTab.setDisable(true);
+    	t1ReportTableMale.getItems().clear();
+    	t1ReportTableFemale.getItems().clear();
+    	t1textAreaSummaryMale.setText("");
+		t1textAreaSummaryFemale.setText("");
+		t1BarChartMale.getData().clear();
+		t1BarChartFemale.getData().clear();
+		t1PieChartMale.getData().clear();
+		t1PieChartFemale.getData().clear();
+    	String oReport = "";
+    	String year = T1TextFieldYear.getText();
+    	String input_avaliable_error = "" ;
+    	if(year == "") {
+    		input_avaliable_error += "The year is blank! Please enter year \n";
+    	}
+    	String n = T1TextFieldtopN.getText();
+    	if(n == "") {
+    		input_avaliable_error += "The top N most popular names to reported is blank! Please enter a value \n";
+    	}
+    	
+    	boolean summary_box = T1_displaySummary.isSelected();
+    	boolean dt_box = T1_displayDataTable.isSelected();
+    	boolean bar_chart_box = T1_displayBarChart.isSelected();
+    	boolean pie_chart_box = T1_displayPieChart.isSelected();
+    	boolean boxes_checked = true ;
+    	if((summary_box == false)&&(dt_box == false)&&(bar_chart_box == false)&&(pie_chart_box == false)) {
+    		input_avaliable_error += ("Please Check or Select at Least One Form of Data Representation and Try Again!");
+    		boxes_checked = false ; 
+    	}
+    	if((year == "")||(n=="")||(boxes_checked==false)) {
+    		textAreaConsole1.setText(input_avaliable_error);
+    		t1ConsoleTab.setStyle("-fx-text-base-color: red;");
+    		return;
+    	}
+    	String validation_error = "" ; 
+    	boolean year_validated = false ;
+    	int int_year = 0 ;
+    	try {
+    		int_year = Integer.parseInt(year);
+    		if((int_year >=1880)&&(int_year <= 2019)) {
+    			year_validated = true ; 
+    		}
+    		else {
+    			validation_error += "Enter data value in the range for the Year. It too small or too large! \n";
+    		}
+    		
+    	}
+    	catch (Exception e) {
+    		validation_error += "Enter the Correct Datatype for the Year. Enter a Number! \n";
+    	}
+    	boolean n_validated = false ;
+    	int int_n = 0 ;
+    	try {
+    		int_n = Integer.parseInt(n);
+    		if((int_n >=1)&&(int_n <= 10)) {
+    			n_validated = true ; 
+    		}
+    		else {
+    			validation_error += "Enter data value in the range for the N. It too small or too large! \n";
+    		}
+    		
+    	}
+    	catch (Exception e) {
+    		validation_error += "Enter the Correct Datatype for the N. Enter a Number! \n";
+    	}
+    	if((!year_validated)||(!n_validated)) {
+    		textAreaConsole1.setText(validation_error);
+    		t1ConsoleTab.setStyle("-fx-text-base-color: red;");
+    		return; 
+    	}
+    	//oReport = String.format("Year %s\n", year);
+    	//oReport += String.format("N %s\n", n);
+    	//oReport += String.format("Summary box %b\n", summary_box);
+    	//oReport += String.format("Data table %b\n" , dt_box);
+    	//oReport += String.format("Bar Chart box %b\n", bar_chart_box);
+    	//oReport += String.format("Pie Chart Box %b\n" , pie_chart_box);
+    	//oReport += String.format("Lets implement the charts!\n" );
+    	//textAreaConsole.setText(oReport);
+    	textAreaConsole1.setText("Select the repective Tabs to Check the Results");
+    	AnalyzeNames analyze_obj = new AnalyzeNames(); 
+    	String []  top_male_names = new String[int_n];
+    	String []  top_female_names = new String[int_n];
+    	int [] top_male_occurences = new int[int_n];
+    	int [] top_female_occurences = new int[int_n];
+    	String []  top_male_percentages = new String[int_n];
+    	String [] top_female_percentages = new String[int_n];
+    	int [] top_male_ranks = new int[int_n];
+    	int [] top_female_ranks = new int[int_n];
+    	int all_males = 0 ; 
+    	int all_females = 0 ;
+    	all_males = analyze_obj.getTotalMales(int_year);
+    	all_females = analyze_obj.getTotalFemales(int_year);
+    	String male_gender = "M";
+    	String female_gender = "F";
+    	String test_output = "";
+    	
+    	for (int i=0 ; i<int_n ; i++) {
+    		top_male_ranks[i] = i+1;
+    		top_female_ranks[i] = i+1 ; 
+    		top_male_names[i] = analyze_obj.getName(int_year , i+1 , male_gender);
+    		top_female_names[i] = analyze_obj.getName(int_year , i+1 , female_gender);
+    		top_male_occurences[i] = analyze_obj.getOccurance(int_year, top_male_names[i], male_gender);
+    		System.out.println(top_male_occurences[i]);
+    		top_female_occurences[i] = analyze_obj.getOccurance(int_year, top_female_names[i], female_gender);
+    		float mp = ((float)top_male_occurences[i]/all_males)*100;
+    		float fp = ((float)top_female_occurences[i]/all_females)*100;
+    		top_female_percentages[i] = String.format("%.2f%%", fp);
+    		top_male_percentages[i] = String.format("%.2f%%", mp);
+    	}
+    	for(int i= 0 ; i<int_n ; i++) {
+    		test_output+= String.format("%d %s %d %s\n",top_male_ranks[i] ,top_male_names[i], top_male_occurences[i] , top_male_percentages[i]);
+    	}
+    	for(int i= 0 ; i<int_n ; i++) {
+    		test_output+= String.format("%d %s %d %s\n",top_female_ranks[i] ,top_female_names[i], top_female_occurences[i] , top_female_percentages[i]);
+    	}
+    	System.out.println(test_output);
+    	t1SummaryTab.setDisable(!summary_box);
+    	t1DataTableTab.setDisable(!dt_box);
+    	t1BarChartTab.setDisable(!bar_chart_box);
+    	t1PieChartTab.setDisable(!pie_chart_box);
+    	T1Names []  male_data = new T1Names[int_n];
+		T1Names [] female_data = new T1Names[int_n];
+		for(int i=0 ; i <int_n ; i++) {
+    		male_data[i] = new T1Names(top_male_ranks[i], top_male_names[i] , top_male_occurences[i] , top_male_percentages[i]);
+    		female_data[i] = new T1Names(top_female_ranks[i], top_female_names[i] , top_female_occurences[i] , top_female_percentages[i]);
+    	}
+		int total_top_males = 0 ; 
+    	int total_top_females = 0 ;
+    	for(int i = 0 ; i<int_n ; i++) {
+    		total_top_males += male_data[i].getOccurences();
+    		total_top_females += female_data[i].getOccurences();
+    	}
+    	if(summary_box) {
+			String male_result = String.format("%s is the most popular name with the number of occurrences of %d, which represents %s of total male births in %d.", top_male_names[0], top_male_occurences[0] , top_male_percentages[0], int_year);
+			String female_result = String.format("%s is the most popular name with the number of occurrences of %d, which represents %s of total male births in %d.", top_female_names[0], top_female_occurences[0] , top_female_percentages[0], int_year);
+			t1textAreaSummaryMale.setText(male_result);
+			t1textAreaSummaryFemale.setText(female_result);
+		}
+    	
+    	if(dt_box) {
+    		
+    		t1RankMale.setCellValueFactory(new PropertyValueFactory<T1Names,Integer>("rank"));
+	    	t1NameMale.setCellValueFactory(new PropertyValueFactory<T1Names,String>("name"));
+	    	t1OccurencesMale.setCellValueFactory(new PropertyValueFactory<T1Names,Integer>("occurences"));
+	    	t1PercentageMale.setCellValueFactory(new PropertyValueFactory<T1Names,String>("percentage"));
+	    	t1RankFemale.setCellValueFactory(new PropertyValueFactory<T1Names,Integer>("rank"));
+	    	t1NameFemale.setCellValueFactory(new PropertyValueFactory<T1Names,String>("name"));
+	    	t1OccurancesFemale.setCellValueFactory(new PropertyValueFactory<T1Names,Integer>("occurences"));
+	    	t1PercentageFemale.setCellValueFactory(new PropertyValueFactory<T1Names,String>("percentage"));
+	    	t1ReportTableMale.setItems(t1getNameData(male_data));
+	    	t1ReportTableFemale.setItems(t1getNameData(female_data));
+	    	
+    	}
+    	if(bar_chart_box) {
+    		t1BarChartMale.setTitle(String.format("Top %d Names (male) in %d" ,  int_n , int_year));
+    		XYChart.Series<String, Integer> set_male = new XYChart.Series<>();
+    		set_male.setName("Male Occurences"); 
+    		for (T1Names one_name : male_data) {
+				if(one_name!=null) {
+					set_male.getData().add(new XYChart.Data<>(one_name.getName(), one_name.getOccurences()));
+				}
+			}
+			t1BarChartFemale.setTitle(String.format("Top %d Names (female) in %d" ,  int_n , int_year));
+			XYChart.Series<String, Integer> set_female = new XYChart.Series<>();
+			set_female.setName("Female Occurences");
+			for (T1Names one_name : female_data) {
+				if(one_name!=null) {
+					set_female.getData().add(new XYChart.Data<>(one_name.getName(), one_name.getOccurences()));
+				}
+			}
+			t1BarChartMale.getData().addAll(set_male);
+			t1BarChartFemale.getData().addAll(set_female);
+    	}
+    	if(pie_chart_box) {
+			ObservableList<PieChart.Data> pieChartDataMale= FXCollections.observableArrayList();
+			for(T1Names one_name : male_data) {
+				if(one_name!=null) {
+					pieChartDataMale.add(new PieChart.Data(one_name.getName(), (float)(one_name.getOccurences()*100.0/total_top_males)));
+				}
+			}
+			t1PieChartMale.setData(pieChartDataMale);
+			t1PieChartMale.setStartAngle(90);
+			ObservableList<PieChart.Data> pieChartDataFemale= FXCollections.observableArrayList();
+			for(T1Names one_name : female_data) {
+				if(one_name!=null) {
+					pieChartDataFemale.add(new PieChart.Data(one_name.getName(), (float)(one_name.getOccurences()*100.0/total_top_females)));
+				}
+			}
+			t1PieChartFemale.setData(pieChartDataFemale);
+			t1PieChartFemale.setStartAngle(90);
+		}
     }
+    
+    public ObservableList<T1Names> t1getNameData(T1Names [] names) {
+		ObservableList<T1Names> Names = FXCollections.observableArrayList();
+		
+		for(T1Names one_name : names) {
+			if(one_name!=null) {
+				Names.add(one_name);
+			}
+		}
+		return Names;
+	}
 
     @FXML
     void t4_computeT4X1() {
