@@ -6,6 +6,7 @@
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
@@ -16,6 +17,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
 <VBox prefHeight="679.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="comp3111.popnames.Controller">
@@ -316,12 +320,14 @@
                                              <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                    <children>
-                                                      <BarChart fx:id="t2BarChart" layoutY="1.0" prefHeight="295.0" prefWidth="719.0">
+
+                                                      <BarChart fx:id="t2BarChart" layoutY="1.0" prefHeight="295.0" prefWidth="719.0" title="K-th Popular Names Over a Given Period">
                                                         <xAxis>
-                                                          <CategoryAxis side="BOTTOM" />
+                                                          <CategoryAxis fx:id="t2BarChartNames" label="Names" side="BOTTOM" />
                                                         </xAxis>
                                                         <yAxis>
-                                                          <NumberAxis side="LEFT" />
+                                                          <NumberAxis fx:id="t2BarChartOccurances" label="Occurances" side="LEFT" />
+
                                                         </yAxis>
                                                       </BarChart>
                                                    </children>
@@ -458,7 +464,7 @@
                                     <Font size="15.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="t5T5X1" layoutX="180.0" layoutY="250.0" mnemonicParsing="false" onAction="#t5_computeT5X1" prefHeight="30.0" prefWidth="120.0" text="T5X1">
+                              <Button fx:id="t5T5X1" layoutX="180.0" layoutY="250.0" mnemonicParsing="false" onAction="#t5_initT5X1" prefHeight="30.0" prefWidth="120.0" text="T5X1">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -473,6 +479,200 @@
                                     <Font name="System Bold" size="24.0" />
                                  </font>
                               </Label>
+                              <TextArea fx:id="a2TextArea" layoutY="330.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="310.0" prefWidth="700.0" wrapText="true" />
+                              <TabPane fx:id="a2TabPane" layoutY="330.0" prefHeight="350.0" prefWidth="720.0" side="BOTTOM" tabClosingPolicy="UNAVAILABLE">
+                                 <tabs>
+                                    <Tab fx:id="a2ConsoleTab" text="Console">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <ScrollPane prefHeight="295.0" prefWidth="719.0">
+                                                   <content>
+                                                      <TextArea fx:id="a2TextAreaConsole" prefHeight="296.0" prefWidth="700.0" />
+                                                   </content>
+                                                </ScrollPane>
+                                                <Button fx:id="a2ViewResults" layoutX="570.0" layoutY="260.0" mnemonicParsing="false" onAction="#a2ViewResults" text="View Results -&gt;" visible="false" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </Tab>
+                                    <Tab fx:id="a2ResultsTab" onSelectionChanged="#t5_computeT5X1" text="Result">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <ScrollPane prefHeight="250.0" prefWidth="719.0">
+                                                   <content>
+                                                      <TextArea fx:id="textAreaSummary2" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="250.0" prefWidth="700.0" wrapText="true" />
+                                                   </content>
+                                                </ScrollPane>
+                                                <Button fx:id="a2ResultsNext" layoutX="625.0" layoutY="260.0" mnemonicParsing="false" onAction="#a2ResultsNext" text="Next -&gt;" visible="false" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </Tab>
+                                    <Tab fx:id="a2BarChartTab" text="Evidence">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <BarChart fx:id="a2BarChart" prefHeight="250.0" prefWidth="700.0" title="K-th Popular Names Over a Given Period">
+                                                   <xAxis>
+                                                      <CategoryAxis fx:id="a2BarChartNames" label="Names" side="BOTTOM" />
+                                                   </xAxis>
+                                                   <yAxis>
+                                                      <NumberAxis fx:id="a2BarChartOccurances" label="Occurances" side="LEFT" />
+                                                   </yAxis>
+                                                </BarChart>
+                                                <Button fx:id="a2ResultsNext1" layoutX="625.0" layoutY="260.0" mnemonicParsing="false" onAction="#a2ResultsNext" text="Next -&gt;" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </Tab>
+                                    <Tab fx:id="a2PieChart1" onSelectionChanged="#t5_computeTop5" text="Top 5">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <PieChart fx:id="t2PieChart1" prefHeight="260.0" prefWidth="719.0" />
+                                                <Label layoutX="225.0" layoutY="273.0" text="Thank You for using the Application!">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                   <textFill>
+                                                      <RadialGradient centerX="0.5168067226890757" centerY="0.5575539568345323" radius="0.3816568047337278">
+                                                         <stops>
+                                                            <Stop>
+                                                               <color>
+                                                                  <Color />
+                                                               </color>
+                                                            </Stop>
+                                                            <Stop offset="1.0">
+                                                               <color>
+                                                                  <Color red="0.4979897737503052" green="0.027412280440330505" blue="0.5921052694320679" />
+                                                               </color>
+                                                            </Stop>
+                                                         </stops>
+                                                      </RadialGradient>
+                                                   </textFill>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </Tab>
+                                    <Tab fx:id="a2ConsoleTab1" text="ConsoleT5X2">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <ScrollPane prefHeight="295.0" prefWidth="719.0">
+                                                   <content>
+                                                      <TextArea fx:id="a2TextAreaConsoleX2" prefHeight="296.0" prefWidth="700.0" />
+                                                   </content>
+                                                </ScrollPane>
+                                                <Button fx:id="a2EnterAdditionalData" layoutX="520.0" layoutY="260.0" mnemonicParsing="false" onAction="#a2EnterAdditionalData" text="Enter Additional Data -&gt;" visible="false" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </Tab>
+                                    <Tab fx:id="a2AdditionalData" text="AdditionalDataT5X2">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <Button fx:id="a2ComputeResultsTX2" layoutX="570.0" layoutY="260.0" mnemonicParsing="false" onAction="#a2ComputeResultsTX2" text="Compute -&gt;" />
+                                                <Label fx:id="RandomNumberLabel" layoutX="65.0" layoutY="54.0" text="Enter Random Number between 1 and 20:">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextField fx:id="t5RandInt1" layoutX="280.0" layoutY="79.0" prefHeight="27.0" prefWidth="150.0" promptText="Enter Random Integer" />
+                                                <Label fx:id="FavouriteColourLabel" layoutX="65.0" layoutY="114.0" text="Select Favourite Colour (Please avoid White/Gray so that results are clearly visible):">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextField fx:id="t5RandInt2" layoutX="280.0" layoutY="209.0" prefHeight="27.0" prefWidth="150.0" promptText="Enter Random Integer" />
+                                                <ColorPicker fx:id="t5FavouriteColour" editable="true" layoutX="280.0" layoutY="139.0" promptText="Select a Colour">
+                                                   <value>
+                                                      <Color />
+                                                   </value>
+                                                </ColorPicker>
+                                                <Label fx:id="RandomNumberLabel2" layoutX="65.0" layoutY="179.0" text="Enter Random Number between 1 and 30:">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="AdditionalDataTitle" layoutX="14.0" layoutY="12.0" prefHeight="22.0" prefWidth="422.0" text="Please enter the following Additional Details:">
+                                                   <font>
+                                                      <Font name="System Bold Italic" size="17.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="PleaseComputeLabel" layoutX="203.0" layoutY="262.0" prefHeight="22.0" prefWidth="368.0" text="Press the Compute Button to View Results:">
+                                                   <font>
+                                                      <Font name="System Bold Italic" size="17.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="ErrorLabel2" layoutX="441.0" layoutY="143.0" text="Error Message" textFill="RED" visible="false">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="ErrorLabel1" layoutX="441.0" layoutY="82.0" text="Error Message" textFill="RED" visible="false">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="ErrorLabel3" layoutX="441.0" layoutY="213.0" text="Error Message" textFill="RED" visible="false">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </Tab>
+                                    <Tab fx:id="a2ResultsX2" onSelectionChanged="#a2ResultsX2" text="ResultsX2">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <ScrollPane prefHeight="250.0" prefWidth="719.0">
+                                                   <content>
+                                                      <TextArea fx:id="textAreaResults" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="250.0" prefWidth="700.0" wrapText="true" />
+                                                   </content>
+                                                </ScrollPane>
+                                                <Button fx:id="a2ResultsNextX2" layoutX="625.0" layoutY="260.0" mnemonicParsing="false" onAction="#a2ResultsNextX2" text="Next -&gt;" wrapText="true" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </Tab>
+                                    <Tab fx:id="A2PieTab" onSelectionChanged="#t5_computeTop5" text="A2Pie">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <PieChart fx:id="t2PieChartX2" prefHeight="260.0" prefWidth="719.0" />
+                                                <Label layoutX="225.0" layoutY="273.0" text="Thank You for using the Application!">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                   <textFill>
+                                                      <RadialGradient centerX="0.5168067226890757" centerY="0.5575539568345323" radius="0.3816568047337278">
+                                                         <stops>
+                                                            <Stop>
+                                                               <color>
+                                                                  <Color />
+                                                               </color>
+                                                            </Stop>
+                                                            <Stop offset="1.0">
+                                                               <color>
+                                                                  <Color red="0.4979897737503052" green="0.027412280440330505" blue="0.5921052694320679" />
+                                                               </color>
+                                                            </Stop>
+                                                         </stops>
+                                                      </RadialGradient>
+                                                   </textFill>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </Tab>
+                                 </tabs>
+                              </TabPane>
                            </children>
                         </AnchorPane>
                     </content>

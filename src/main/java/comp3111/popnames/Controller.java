@@ -3,9 +3,21 @@
  */
 package comp3111.popnames;
 
+
+
+import java.util.concurrent.TimeUnit;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Duration;
+import javafx.scene.control.ColorPicker;
+
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -16,6 +28,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
+
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -25,7 +39,7 @@ import javafx.scene.Scene;
 
 public class Controller {
 
-    @FXML
+	@FXML
     private Tab tabTaskZero;
 
     @FXML
@@ -161,11 +175,23 @@ public class Controller {
     private CheckBox t2DataTable;
 
     @FXML
+    private BarChart<String, Integer> t2BarChart;
+
+    @FXML
+    private CategoryAxis t2BarChartNames;
+
+    @FXML
+    private NumberAxis t2BarChartOccurances;
+
+    @FXML
+    private PieChart t2PieChart;
+
+    @FXML
     private CheckBox t2BarChartCheck;
 
     @FXML
     private CheckBox t2PieChartCheck;
-
+    
     @FXML
     private TextField t2Year1;
 
@@ -195,7 +221,7 @@ public class Controller {
 
     @FXML
     private Tab t2DataTableTab;
-
+  
     @FXML
     private TableView<T2Names> t2ReportTable;
 
@@ -224,13 +250,7 @@ public class Controller {
     private Tab t2BarChartTab;
 
     @FXML
-    private BarChart<String, Integer> t2BarChart;
-
-    @FXML
     private Tab t2PieChartTab;
-
-    @FXML
-    private PieChart t2PieChart;
 
     @FXML
     private Tab tabReport3;
@@ -281,7 +301,117 @@ public class Controller {
     private Button t5T5X2;
 
     @FXML
+    private TextArea a2TextArea;
+    
+    @FXML
+    private TabPane a2TabPane;
+
+    @FXML
+    private Tab a2ConsoleTab;
+
+    @FXML
+    private TextArea a2TextAreaConsole;
+
+    @FXML
+    private Button a2ViewResults;
+
+    @FXML
+    private Tab a2ResultsTab;
+
+    @FXML
+    private TextArea textAreaSummary2;
+
+    @FXML
+    private Button a2ResultsNext;
+
+    @FXML
+    private Tab a2BarChartTab;
+
+    @FXML
+    private BarChart<?, ?> a2BarChart;
+
+    @FXML
+    private CategoryAxis a2BarChartNames;
+
+    @FXML
+    private NumberAxis a2BarChartOccurances;
+
+    @FXML
+    private Button a2ResultsNext1;
+
+    @FXML
+    private Tab a2PieChart1;
+
+    @FXML
+    private PieChart t2PieChart1;
+
+    @FXML
+    private Tab a2ConsoleTab1;
+
+    @FXML
+    private TextArea a2TextAreaConsoleX2;
+
+    @FXML
+    private Button a2EnterAdditionalData;
+
+    @FXML
+    private Tab a2AdditionalData;
+
+    @FXML
+    private Button a2ComputeResultsTX2;
+
+    @FXML
+    private Label RandomNumberLabel;
+
+    @FXML
+    private TextField t5RandInt1;
+
+    @FXML
+    private Label FavouriteColourLabel;
+
+    @FXML
+    private TextField t5RandInt2;
+
+    @FXML
+    private ColorPicker t5FavouriteColour;
+
+    @FXML
+    private Label RandomNumberLabel2;
+
+    @FXML
+    private Label AdditionalDataTitle;
+
+    @FXML
+    private Label PleaseComputeLabel;
+
+    @FXML
+    private Label ErrorLabel2;
+
+    @FXML
+    private Label ErrorLabel1;
+
+    @FXML
+    private Label ErrorLabel3;
+
+    @FXML
+    private Tab a2ResultsX2;
+
+    @FXML
+    private TextArea textAreaResults;
+
+    @FXML
+    private Button a2ResultsNextX2;
+    
+    @FXML
+    private Tab A2PieTab;
+
+    @FXML
+    private PieChart t2PieChartX2;
+
+    @FXML
     private Tab tabApp3;
+    
+    
     /**
      *  Task Zero
      *  To be triggered by the "Summary" button on the Task Zero Tab 
@@ -585,17 +715,608 @@ public class Controller {
 
     @FXML
     void t5_computeT5X1() {
-    	textAreaConsole.setText("Testing T5X1");
+//    	a2ResultsTab.setText("ENTER RESULTS TAB\n");
+//    	a2ResultsTab.setDisable(false);
+    	String iName = t5Name.getText();
+    	String iGender = t5Gender.getText();
+    	int iYOB = Integer.parseInt(t5YOB.getText());
+    	String iGenderMate = t5GenderMate.getText();
+    	String iPreference = t5Preference.getText();
+    	
+    	String oReport = "";
+//    	oReport += AnalyzeNames.getCompatiblePairT5X1(iGenderMate, iYOB);
+    	oReport+=String.format("Your compatible pair is most likely called %s.\n", AnalyzeNames.getName(iYOB, 1, iGenderMate));
+    	oReport+=String.format("To view the Top 5 compatible pairs suitable for you and their probabilities, please press the next button...");
+    	a2ResultsNext.setVisible(true);
+    	textAreaSummary2.setText(oReport);
+    }
+    
+    @FXML
+    void t5_initT5X1() {
+    	a2TextAreaConsole.clear();
+    	a2TabPane.getSelectionModel().select(a2ConsoleTab);
+    	String oReport ="";
+    	boolean err = false;
+    	
+    	String iName = "";
+    	try {
+    		if(t5Name.getText() =="") {
+    			throw new Exception("Error: iName has not been inputted\n");
+    		}
+    	}
+    	catch (Exception e) {
+    		oReport += e.getMessage();
+    		err=true;
+    	}
+    	
+    	boolean isUserMale = false;
+    	String iGender = t5Gender.getText();
+    	try {
+    		if(iGender =="") {
+    			throw new Exception("Error: iGender has not been inputted\n");
+    		}
+    		if(iGender.contentEquals("M")) {
+    			isUserMale = true;
+    		}
+    		else if (iGender.contentEquals("F")) {
+    			isUserMale = false;
+    		}
+    		else {
+    			throw new Exception("Invalid Gender: iGender can either be 'M' or 'F'\n");
+    		}
+    	}
+    	catch (Exception e) {
+    		oReport += e.getMessage();
+    		err=true;
+    	}
+    	
+    	int iYOB=0;
+    	try {
+    		if(t5YOB.getText() =="") {
+    			throw new Exception("Error: iYOB has not been inputted\n");
+    		}
+    		iYOB = Integer.parseInt(t5YOB.getText());
+    		if(iYOB < 1880 || iYOB > 2019) {
+    			throw new Exception("Invalid iYOB: Year Out of Range\n");
+    		}
+    	}
+    	catch (NumberFormatException e) {
+    		oReport += "Please input valid iYOB (Integer Value between 1880 and 2019)\n";
+    		err=true;
+    	}
+    	catch (Exception e) {
+    		oReport += e.getMessage();
+    		err=true;
+    	}
+    	
+    	boolean isMateMale = false;
+    	String iGenderMate = t5GenderMate.getText();
+    	try {
+    		if(iGenderMate =="") {
+    			throw new Exception("Error: iGenderMate has not been inputted\n");
+    		}
+    		if(iGenderMate.contentEquals("M")) {
+    			isMateMale = true;
+    		}
+    		else if (iGenderMate.contentEquals("F")) {
+    			isMateMale = false;
+    		}
+    		else {
+    			throw new Exception("Invalid iGenderMate: iGenderMate can either be 'M' or 'F'\n");
+    		}
+    	}
+    	catch (Exception e) {
+    		oReport += e.getMessage();
+    		err=true;
+    	}
+    	
+    	boolean isPreferenceYounger = false;
+    	String iPreference = t5Preference.getText();
+    	try {
+    		if(iPreference =="") {
+    			throw new Exception("Error: iPreference has not been inputted\n");
+    		}
+    		if(iPreference.contentEquals("Younger")) {
+    			isPreferenceYounger = true;
+    		}
+    		else if (iPreference.contentEquals("Older")) {
+    			isPreferenceYounger = false;
+    		}
+    		else {
+    			throw new Exception("Invalid iPreference: iPreference can either be \"Younger\" or \"Older\" \n");
+    		}
+    	}
+    	catch (Exception e) {
+    		oReport += e.getMessage();
+    		err=true;
+    	}
+    	
+    	a2TextAreaConsole.setText(oReport);
+    	if(!err) {
+    		
+    		
+    		
+    		
+
+    	    new Thread(()->{ //use another thread so long process does not block gui
+	            String text = "";
+    	    	for(int i=0;i<=4;i++)   {
+    	            if(i == 0 ){
+//    	        		text="";
+    	        		text+="Welcome to Prediction on Names for Compatible Pairs Application!\n\n";
+    	        		text+="Your details have been well recieved\n";
+    	        		text+="Processing results now...\n";
+//    	        		a2TextAreaConsole.setText(text);
+    	            } else {
+//    	                 final int j = i;
+//    	                 text = "Value "+j;
+    	            	text+=String.format("%d%% Completed...\n", i*25);
+    	            	if(i==4) {
+    	            		text+=String.format("Prediction Complete! Please press the view results button to view the prediction.\n");
+    	            	}
+    	            }
+
+    	            //update gui using fx thread
+    	            final String text2 = text;
+    	            Platform.runLater(() -> a2TextAreaConsole.setText(text2));
+    	            try {Thread.sleep(2000);} catch (InterruptedException ex) { ex.printStackTrace();}
+    	        }
+        	    a2ViewResults.setVisible(true);
+
+    	    }).start();
+    		
+    	}
+    	
+    }
+    
+    @FXML
+    void a2ResultsNext() {
+    	t2PieChart1.getData().clear();
+    	a2TabPane.getSelectionModel().select(a2PieChart1);
+    }
+
+    @FXML
+    void a2ViewResults() {
+    	textAreaSummary.clear();
+    	a2TabPane.getSelectionModel().select(a2ResultsTab);
     }
 
     @FXML
     void t5_computeT5X2() {
-    	textAreaConsole.setText("Testing T5X2");
+    	a2TabPane.getSelectionModel().select(a2ConsoleTab1);
+    	String oReport ="";
+    	boolean err = false;
+    	
+    	String iName = "";
+    	try {
+    		if(t5Name.getText() =="") {
+    			throw new Exception("Error: iName has not been inputted\n");
+    		}
+    	}
+    	catch (Exception e) {
+    		oReport += e.getMessage();
+    		err=true;
+    	}
+    	
+    	boolean isUserMale = false;
+    	String iGender = t5Gender.getText();
+    	try {
+    		if(iGender =="") {
+    			throw new Exception("Error: iGender has not been inputted\n");
+    		}
+    		if(iGender.contentEquals("M")) {
+    			isUserMale = true;
+    		}
+    		else if (iGender.contentEquals("F")) {
+    			isUserMale = false;
+    		}
+    		else {
+    			throw new Exception("Invalid Gender: iGender can either be 'M' or 'F'\n");
+    		}
+    	}
+    	catch (Exception e) {
+    		oReport += e.getMessage();
+    		err=true;
+    	}
+    	
+    	int iYOB=0;
+    	try {
+    		if(t5YOB.getText() =="") {
+    			throw new Exception("Error: iYOB has not been inputted\n");
+    		}
+    		iYOB = Integer.parseInt(t5YOB.getText());
+    		if(iYOB < 1880 || iYOB > 2019) {
+    			throw new Exception("Invalid iYOB: Year Out of Range\n");
+    		}
+    	}
+    	catch (NumberFormatException e) {
+    		oReport += "Please input valid iYOB (Integer Value between 1880 and 2019)\n";
+    		err=true;
+    	}
+    	catch (Exception e) {
+    		oReport += e.getMessage();
+    		err=true;
+    	}
+    	
+    	boolean isMateMale = false;
+    	String iGenderMate = t5GenderMate.getText();
+    	try {
+    		if(iGenderMate =="") {
+    			throw new Exception("Error: iGenderMate has not been inputted\n");
+    		}
+    		if(iGenderMate.contentEquals("M")) {
+    			isMateMale = true;
+    		}
+    		else if (iGenderMate.contentEquals("F")) {
+    			isMateMale = false;
+    		}
+    		else {
+    			throw new Exception("Invalid iGenderMate: iGenderMate can either be 'M' or 'F'\n");
+    		}
+    	}
+    	catch (Exception e) {
+    		oReport += e.getMessage();
+    		err=true;
+    	}
+    	
+    	boolean isPreferenceYounger = false;
+    	String iPreference = t5Preference.getText();
+    	try {
+    		if(iPreference =="") {
+    			throw new Exception("Error: iPreference has not been inputted\n");
+    		}
+    		if(iPreference.contentEquals("Younger")) {
+    			isPreferenceYounger = true;
+    		}
+    		else if (iPreference.contentEquals("Older")) {
+    			isPreferenceYounger = false;
+    		}
+    		else {
+    			throw new Exception("Invalid iPreference: iPreference can either be \"Younger\" or \"Older\" \n");
+    		}
+    	}
+    	catch (Exception e) {
+    		oReport += e.getMessage();
+    		err=true;
+    	}
+    	
+    	if(!err) {
+    		oReport+="Welcome to Prediction on Names for Compatible Pairs Application!\n\n";
+    		oReport+="In order to generate suitable predictions, please enter additional data.\n";
+    		oReport+="Please press the Enter Additional Data Button Below...\n";
+    		a2EnterAdditionalData.setVisible(true);
+    	}
+    	a2TextAreaConsoleX2.setText(oReport);
+    	
+    }
+    
+    @FXML
+    void t5_computeTop5() {
+
+    }
+    
+    @FXML
+    void a2ComputeResultsTX2() {
+    	ErrorLabel1.setVisible(false);
+    	ErrorLabel2.setVisible(false);
+    	ErrorLabel3.setVisible(false);
+    	
+    	
+    	boolean isPreferenceYounger = false;
+    	String iPreference = t5Preference.getText();
+		if(iPreference.contentEquals("Younger")) {
+			isPreferenceYounger = true;
+		}
+		else if (iPreference.contentEquals("Older")) {
+			isPreferenceYounger = false;
+		}
+		
+		int RandomRange = 1;
+		if(isPreferenceYounger) {
+			RandomRange = 2019-Integer.parseInt(t5YOB.getText())+1;
+		} else {
+			RandomRange = Integer.parseInt(t5YOB.getText()) - 1880 + 1;
+		}
+    	
+    	boolean err = false;
+    	
+    	int randInt1=0;
+    	try {
+    		if(t5RandInt1.getText() =="") {
+    			throw new Exception("Error: Random Number has\n not been inputted\n");
+    		}
+    		randInt1 = Integer.parseInt(t5RandInt1.getText());
+    		if(randInt1 < 1 || randInt1 > RandomRange) {
+    			throw new Exception("Invalid Random Number:\n Year Out of Range\n");
+    		}
+    	}
+    	catch (NumberFormatException e) {
+    		ErrorLabel1.setVisible(true);
+    		ErrorLabel1.setText(String.format("Please input valid Random Number\n(Integer Value between 1 and %d)\n", RandomRange));
+    		err=true;
+    	}
+    	catch (Exception e) {
+    		ErrorLabel1.setVisible(true);
+    		ErrorLabel1.setText(e.getMessage());
+    		err=true;
+    	}
+    	
+    	int randInt2=0;
+    	try {
+    		if(t5RandInt2.getText() =="") {
+    			throw new Exception("Error: Random Number has\n not been inputted\n");
+    		}
+    		randInt2 = Integer.parseInt(t5RandInt2.getText());
+    		if(randInt2 < 1 || randInt2 > 30) {
+    			throw new Exception("Invalid Random Number:\n Year Out of Range\n");
+    		}
+    	}
+    	catch (NumberFormatException e) {
+    		ErrorLabel3.setVisible(true);
+    		ErrorLabel3.setText(String.format("Please input valid Random Number\n(Integer Value between 1 and 30)\n"));
+    		err=true;
+    	}
+    	catch (Exception e) {
+    		ErrorLabel3.setVisible(true);
+    		ErrorLabel3.setText(e.getMessage());
+    		err=true;
+    	}
+    	
+    	if(!err) {
+    		a2TabPane.getSelectionModel().select(a2ResultsX2);
+    	}
+
     }
 
     @FXML
-    void t2GenerateResults() {
-    	textAreaConsole.setText("Testing T2");
+    void a2EnterAdditionalData() {
+
+    	ErrorLabel1.setVisible(false);
+    	ErrorLabel2.setVisible(false);
+    	ErrorLabel3.setVisible(false);
+    	
+    	boolean isPreferenceYounger = false;
+    	String iPreference = t5Preference.getText();
+		if(iPreference.contentEquals("Younger")) {
+			isPreferenceYounger = true;
+		}
+		else if (iPreference.contentEquals("Older")) {
+			isPreferenceYounger = false;
+		}
+		
+		int RandomRange = 1;
+		if(isPreferenceYounger) {
+			RandomRange = 2019-Integer.parseInt(t5YOB.getText())+1;
+		} else {
+			RandomRange = Integer.parseInt(t5YOB.getText()) - 1880 + 1;
+		}
+    	RandomNumberLabel.setText(String.format("Enter Random Number between 1 and %d:", RandomRange));
+    	a2TabPane.getSelectionModel().select(a2AdditionalData);
+    	
+//    	String oReport = "";
+    	
+    	
+    	
     }
+    
+    @FXML
+    void a2ResultsNextX2() {
+    	a2TabPane.getSelectionModel().select(A2PieTab);
+    }
+    
+
+    @FXML
+    void a2ResultsX2() {
+    	
+    	boolean isPreferenceYounger = false;
+    	String iPreference = t5Preference.getText();
+		int RandInt1 = Integer.parseInt(t5RandInt1.getText());
+		int RandInt2 = Integer.parseInt(t5RandInt2.getText());
+		int iYOB = Integer.parseInt(t5YOB.getText());
+//		int ending_Year;
+		T2Names [] result = null;
+		if(iPreference.contentEquals("Younger")) {
+			result = AnalyzeNames.getKthPopularNames(iYOB, iYOB+RandInt1, RandInt2, t5GenderMate.getText());
+		}
+		else if (iPreference.contentEquals("Older")) {
+			result = AnalyzeNames.getKthPopularNames(iYOB-RandInt1, iYOB, RandInt2, t5GenderMate.getText());
+		}
+		String oReport = "";
+    	oReport += String.format("Results have been processed...\n");
+    	oReport += String.format("Your compatible pair will most likely be called %s\n", result[0].getName());
+    	oReport += String.format("To view the probabilities of your most likely compatible pair, please press the Next button...\n");
+    	textAreaResults.setText(oReport);
+    	
+
+		ObservableList<PieChart.Data> pieChartData= FXCollections.observableArrayList();
+		for(T2Names nam : result) {
+			if(nam!=null) {
+				pieChartData.add(new PieChart.Data(nam.getName(), (float)(nam.getOccurances()*100.0/T2Names.getbirthCount())));
+			}
+		}
+		t2PieChartX2.setData(pieChartData);
+		t2PieChartX2.setStartAngle(90);
+    	
+    }
+    
+
+    @FXML
+    void t2GenerateResults() {
+    	//Reset T2Names Static Variable
+    	T2Names.resetbirthCount();
+    	//Reset bar chart data set
+		t2BarChart.getData().clear();
+    	
+//    	textAreaConsole.setText("Testing T2");
+    	String oReport = "";
+    	boolean err = false;
+    	
+    	//Validate and Input Starting Year
+    	int starting_Year=0;
+    	try {
+    		if(t2Year1.getText() =="") {
+    			throw new Exception("Error: Starting Year of Interest has not been inputted\n");
+    		}
+    		starting_Year = Integer.parseInt(t2Year1.getText());
+    		if(starting_Year < 1880 || starting_Year > 2019) {
+    			throw new Exception("Invalid Starting Year of Interest: Year Out of Range\n");
+    		}
+    	}
+    	catch (NumberFormatException e) {
+    		oReport += "Please input valid Starting Year of Interst (Integer Value between 1880 and 2019)\n";
+    		err=true;
+    	}
+    	catch (Exception e) {
+    		oReport += e.getMessage();
+    		err=true;
+    	}
+    	
+    	//Validate and Input Ending Year
+    	
+    	int ending_Year = 0;
+    	try {
+    		if(t2Year2.getText() =="") {
+    			throw new Exception("Error: Ending Year of Interest has not been inputted\n");
+    		}
+    		ending_Year = Integer.parseInt(t2Year2.getText());
+    		if(ending_Year < 1880 || ending_Year > 2019) {
+    			throw new Exception("Invalid Ending Year of Interest: Year Out of Range\n");
+    		}
+    		else if (ending_Year<starting_Year) {
+    			throw new Exception("Invalid Ending Year of Interest: Ending Year of Interest is less than Starting Year of Interest\n");
+    		}
+    	}
+    	catch (NumberFormatException e) {
+    		oReport += "Please input valid Ending Year of Interst (Integer Value between 1880 and 2019)\n";
+    		err=true;
+    	}
+    	catch (Exception e) {
+    		oReport += e.getMessage();
+    		err=true;
+    	}
+    	
+
+    	//Validate and Input K
+    	
+    	int k = 0;
+    	try {
+    		if(t1Pop.getText() =="") {
+    			throw new Exception("Error: K-th Popular Name to Be Reported has not been inputted\n");
+    		}
+    		k = Integer.parseInt(t1Pop.getText());
+    		if(k < 1 || k > 1000) {
+    			throw new Exception("Invalid K-th Popular Name to Be Reported: K-th Value out of range\n");
+    		}
+    	}
+    	catch (Exception e) {
+    		oReport += e.getMessage();
+    		err=true;
+    	}
+    	
+    	//Validate and Input Gender
+
+		String genderOut = "";
+    	String gender = t1Gender.getText();
+    	try {
+    		if(gender =="") {
+    			throw new Exception("Error: Gender has not been inputted\n");
+    		}
+    		if(gender.contentEquals("M")) {
+    			genderOut="boys";
+    		}
+    		else if (gender.contentEquals("F")) {
+    			genderOut="girls";
+    		}
+    		else {
+    			throw new Exception("Invalid Gender: Gender can either be 'M' or 'F'\n");
+    		}
+    	}
+    	catch (Exception e) {
+    		oReport += e.getMessage();
+    		err=true;
+    	}
+    	
+    	//Validate and Input Report Selection
+    	
+    	boolean summary = t2Summary.isSelected();
+    	boolean datatable = t2DataTable.isSelected();
+    	boolean barchart = t2BarChartCheck.isSelected();
+    	boolean piechart = t2PieChartCheck.isSelected();
+    
+    	if(!(summary | datatable | barchart | piechart)) {
+    		oReport += "Error: No Data Reporting Method has been Chosen (Please select required reports using the checkbox)\n";
+    		err=true;
+    	}
+    	T2Names [] result = null;
+    	if(!err) {
+        	t2SummaryTab.setDisable(!summary);
+        	t2DataTableTab.setDisable(!datatable);
+        	t2BarChartTab.setDisable(!barchart);
+        	t2PieChartTab.setDisable(!piechart);
+	    	oReport += String.format("Please view requested Reports in respective tab(s)");
+	    	result = AnalyzeNames.getKthPopularNames(starting_Year, ending_Year, k, gender);
+
+	    	t2Name.setCellValueFactory(new PropertyValueFactory<T2Names,String>("name"));
+	    	t2Frequency.setCellValueFactory(new PropertyValueFactory<T2Names,Integer>("frequency"));
+	    	t2Occurances.setCellValueFactory(new PropertyValueFactory<T2Names,Integer>("occurances"));
+	    	t2Percentage.setCellValueFactory(new PropertyValueFactory<T2Names,String>("percentage"));
+	    	if(result!=null) {
+	        	t2ConsoleTab.setStyle("-fx-text-base-color: black;");
+	    		if(summary) {
+	    			String summ="";
+	    			summ+= String.format("%s has held the %d-th rank most often for a total of %d times among names registered for baby %s born in the period from %d to %d.The total number of occurrences of %s is %,d, which represents %s of total female births at the %d-th rank in the period from %d to %d.", result[0].getName(), k, result[0].getFrequency(), genderOut, starting_Year, ending_Year,result[0].getName(), result[0].getOccurances(), result[0].getPercentage(), k, starting_Year, ending_Year);
+	    
+	    	    	textAreaSummary.setText(summ);
+	    			
+	    		}
+	    		if(datatable) {
+	    			t2ReportTable.setItems(getNames(result));
+	    			t2TotFreq.setText(String.format("%d",ending_Year-starting_Year+1));
+	    			t2TotOcc.setText(String.format("%d",T2Names.getbirthCount()));
+	    			t2TotPerc.setText(String.format("100.0%%"));
+	    		}
+	    		if(barchart) {
+	    			t2BarChart.setTitle(String.format("%d-th Most Popular Names Between %d to %d", k, starting_Year, ending_Year));
+	    			XYChart.Series<String, Integer> set1 = new XYChart.Series<>();
+	    			for (T2Names nam : result) {
+	    				if(nam!=null) {
+	    					set1.getData().add(new XYChart.Data<>(nam.getName(), nam.getOccurances()));
+	    				}
+	    			}
+	    			t2BarChart.getData().addAll(set1);
+	    		}
+	    		if(piechart) {
+	    			ObservableList<PieChart.Data> pieChartData= FXCollections.observableArrayList();
+	    			for(T2Names nam : result) {
+	    				if(nam!=null) {
+	    					pieChartData.add(new PieChart.Data(nam.getName(), (float)(nam.getOccurances()*100.0/T2Names.getbirthCount())));
+	    				}
+	    			}
+	    			t2PieChart.setData(pieChartData);
+	    			t2PieChart.setStartAngle(90);
+	    		}
+	    	}
+    	} else {
+        	t2SummaryTab.setDisable(true);
+        	t2DataTableTab.setDisable(true);
+        	t2BarChartTab.setDisable(true);
+        	t2PieChartTab.setDisable(true);
+        	t2ConsoleTab.setStyle("-fx-text-base-color: red;");
+    	}
+    	textAreaConsole.setText(oReport);
+    }
+    
+    public ObservableList<T2Names> getNames(T2Names [] names) {
+		ObservableList<T2Names> Names = FXCollections.observableArrayList();
+		
+		for(T2Names nam : names) {
+			if(nam!=null) {
+				Names.add(nam);
+			}
+		}
+
+		
+		return Names;
+	}
 
 }
