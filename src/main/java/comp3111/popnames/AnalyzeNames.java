@@ -168,5 +168,11 @@ public class AnalyzeNames{
 			
 			return names;
 		}
+		
+//		public static String getCompatiblePairT5X1(String iGenderMate, int iYOB){
+//			String oReport = "";
+//			
+//			return oReport;
+//		}
  
 }
