@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -15,6 +16,9 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
@@ -28,7 +32,7 @@
       <children>
             <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="675.0" prefWidth="719.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
-                <Tab fx:id="tabTaskZero" text="Task Zero0">
+                <Tab fx:id="tabTaskZero" text="Task Zero">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="221.0" prefWidth="719.0">
                            <children>
@@ -405,7 +409,7 @@
                               </Label>
                               <Button fx:id="t4ButtonT4X1" layoutX="164.0" layoutY="184.0" mnemonicParsing="false" onAction="#t4_computeT4X1" prefHeight="27.0" prefWidth="192.0" text="T4X1" />
                               <Button fx:id="t4ButtonT4X2" layoutX="372.0" layoutY="184.0" mnemonicParsing="false" onAction="#t4_computeT4X2" prefHeight="27.0" prefWidth="192.0" text="T4X2" />
-                              <TabPane fx:id="t4ResultsTabPane" layoutY="257.0" prefHeight="384.0" prefWidth="721.0" tabClosingPolicy="UNAVAILABLE">
+                              <TabPane fx:id="t4ResultsTabPane" layoutY="257.0" prefHeight="444.0" prefWidth="721.0" side="BOTTOM" tabClosingPolicy="UNAVAILABLE">
                                 <tabs>
                                   <Tab fx:id="t4Console" text="Console">
                                     <content>
@@ -416,19 +420,112 @@
                                           </AnchorPane>
                                     </content>
                                   </Tab>
-                                  <Tab fx:id="t4GenderSelection" text="T4 Gender Selection">
+                                  <Tab fx:id="t4X1GenderSelection" text="T4X1Gender Selection">
                                     <content>
-                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <Label fx:id="t4X1UserGenderPrompt" layoutX="127.0" layoutY="2.0" text="Select the Gender of the Name to be Predicted" textFill="#be07d7" underline="true">
+                                                   <font>
+                                                      <Font name="System Bold" size="24.0" />
+                                                   </font>
+                                                </Label>
+                                                <ImageView fx:id="t4MaleImage" fitHeight="253.0" fitWidth="262.0" layoutX="59.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="dataset/male.png" />
+                                                   </image>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </ImageView>
+                                                <ImageView fx:id="t4FemaleImage" fitHeight="253.0" fitWidth="266.0" layoutX="388.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="dataset/femenine.png" />
+                                                   </image>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </ImageView>
+                                                <Button fx:id="t4X1MaleButton" layoutX="59.0" layoutY="80.0" mnemonicParsing="false" onAction="#t4X1MalePrediction" opacity="0.0" prefHeight="253.0" prefWidth="262.0">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <tooltip>
+                                                      <Tooltip text="Click for Boy Name" />
+                                                   </tooltip>
+                                                </Button>
+                                                <Button fx:id="t4X1FemleButton" layoutX="388.0" layoutY="87.0" mnemonicParsing="false" onAction="#t4X1FemalePrediction" opacity="0.0" prefHeight="253.0" prefWidth="266.0">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <tooltip>
+                                                      <Tooltip text="Click for Girl Name" />
+                                                   </tooltip>
+                                                </Button>
+                                             </children>
+                                          </AnchorPane>
                                     </content>
                                   </Tab>
                                     <Tab fx:id="t4X1Computation" text="T4X1">
                                        <content>
-                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <TextArea fx:id="t4X1ComputeTextArea" layoutX="3.0" prefHeight="391.0" prefWidth="709.0" />
+                                             </children>
+                                          </AnchorPane>
                                        </content>
                                     </Tab>
                                     <Tab fx:id="t4X2Computation" text="T4X2">
                                        <content>
-                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <TextArea fx:id="t4X2ComputeTextArea" prefHeight="391.0" prefWidth="709.0" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </Tab>
+                                    <Tab fx:id="t4X2GenderSelection" text="T4X2Gender Selection">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <Label fx:id="t4X2UserGenderPrompt" layoutX="127.0" layoutY="2.0" text="Select the Gender of the Name to be Predicted" textFill="#be07d7" underline="true">
+                                                   <font>
+                                                      <Font name="System Bold" size="24.0" />
+                                                   </font>
+                                                </Label>
+                                                <ImageView fx:id="t4X2MaleImage" fitHeight="253.0" fitWidth="262.0" layoutX="59.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="dataset/male.png" />
+                                                   </image>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </ImageView>
+                                                <ImageView fx:id="t4X2FemaleImage" fitHeight="253.0" fitWidth="266.0" layoutX="388.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="dataset/femenine.png" />
+                                                   </image>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </ImageView>
+                                                <Button fx:id="t4X2MaleButton" layoutX="59.0" layoutY="80.0" mnemonicParsing="false" onAction="#t4X2MalePrediction" opacity="0.0" prefHeight="253.0" prefWidth="262.0">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <tooltip>
+                                                      <Tooltip text="Click for Boy Name" />
+                                                   </tooltip>
+                                                </Button>
+                                                <Button fx:id="t4X2FemleButton" layoutX="388.0" layoutY="87.0" mnemonicParsing="false" onAction="#t4X2FemalePrediction" opacity="0.0" prefHeight="253.0" prefWidth="266.0">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <tooltip>
+                                                      <Tooltip text="Click for Girl Name" />
+                                                   </tooltip>
+                                                </Button>
+                                             </children>
+                                          </AnchorPane>
                                        </content>
                                     </Tab>
                                 </tabs>

@@ -35,6 +35,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
 
 
 public class Controller {
@@ -107,6 +108,7 @@ public class Controller {
 
     @FXML
     private Tab t1DataTableTab;
+
 
     @FXML
     private TableView<T1Names> t1ReportTableMale;
@@ -286,14 +288,53 @@ public class Controller {
     private TextArea t4ConsoleTextArea;
 
     @FXML
-    private Tab t4GenderSelection;
+    private Tab t4X1GenderSelection;
+
+    @FXML
+    private Label t4X1UserGenderPrompt;
+
+    @FXML
+    private Button t4X1MaleButton;
+
+    @FXML
+    private ImageView t4MaleImage;
+
+    @FXML
+    private Button t4X1FemleButton;
+
+    @FXML
+    private ImageView t4FemaleImage;
 
     @FXML
     private Tab t4X1Computation;
 
     @FXML
+    private TextArea t4X1ComputeTextArea;
+    
+    @FXML
     private Tab t4X2Computation;
 
+    @FXML
+    private TextArea t4X2ComputeTextArea;
+
+    @FXML
+    private Tab t4X2GenderSelection;
+
+    @FXML
+    private Label t4X2UserGenderPrompt;
+
+    @FXML
+    private ImageView t4X2MaleImage;
+
+    @FXML
+    private ImageView t4X2FemaleImage;
+
+    @FXML
+    private Button t4X2MaleButton;
+
+    @FXML
+    private Button t4X2FemleButton;
+    
     @FXML
     private Tab tabApp2;
 
@@ -428,6 +469,7 @@ public class Controller {
 
     @FXML
     private Tab tabApp3;
+
     /**
      *  Task Zero
      *  To be triggered by the "Summary" button on the Task Zero Tab 
@@ -836,6 +878,21 @@ public class Controller {
     	if(t4_inputs_valid() == false) {
     		return;
     	}
+    	t4ResultsTabPane.getSelectionModel().select(t4X1GenderSelection);
+    }
+
+    @FXML
+    void t4_computeT4X2() {
+    	t4_initialize_scene();
+    	if(t4_inputs_valid() == false) {
+    		return;
+    	}
+    	t4ResultsTabPane.getSelectionModel().select(t4X2GenderSelection);
+    }
+
+    @FXML
+    void t4X1FemalePrediction(ActionEvent event) {
+    	t4ResultsTabPane.getSelectionModel().select(t4X1Computation);
     	int int_dad_yob = Integer.parseInt(T4textFieldDadsYOB.getText());
     	int int_mom_yob = Integer.parseInt(T4textFieldMomsYOB.getText());
     	String dad_name = T4textFieldDadsName.getText();
@@ -845,15 +902,28 @@ public class Controller {
     	oreport +=  String.format("T4X1 Mom name %s \n", mom_name);
     	oreport +=  String.format("T4X1 Dad YOB %d \n", int_dad_yob);
     	oreport +=  String.format("T4X1 Mom YOB %d \n", int_mom_yob);
-    	t4ConsoleTextArea.setText(oreport);
+    	t4X1ComputeTextArea.setText(oreport);
+    	
     }
 
     @FXML
-    void t4_computeT4X2() {
-    	t4_initialize_scene();
-    	if(t4_inputs_valid() == false) {
-    		return;
-    	}
+    void t4X1MalePrediction(ActionEvent event) {
+    	t4ResultsTabPane.getSelectionModel().select(t4X1Computation);
+    	int int_dad_yob = Integer.parseInt(T4textFieldDadsYOB.getText());
+    	int int_mom_yob = Integer.parseInt(T4textFieldMomsYOB.getText());
+    	String dad_name = T4textFieldDadsName.getText();
+    	String mom_name = T4textFieldMomsName.getText();
+    	String oreport = "";
+    	oreport +=  String.format("T4X1 Dad name %s \n", dad_name);
+    	oreport +=  String.format("T4X1 Mom name %s \n", mom_name);
+    	oreport +=  String.format("T4X1 Dad YOB %d \n", int_dad_yob);
+    	oreport +=  String.format("T4X1 Mom YOB %d \n", int_mom_yob);
+    	t4X1ComputeTextArea.setText(oreport);
+    }
+    
+    @FXML
+    void t4X2FemalePrediction(ActionEvent event) {
+    	t4ResultsTabPane.getSelectionModel().select(t4X2Computation);
     	int int_dad_yob = Integer.parseInt(T4textFieldDadsYOB.getText());
     	int int_mom_yob = Integer.parseInt(T4textFieldMomsYOB.getText());
     	String dad_name = T4textFieldDadsName.getText();
@@ -863,7 +933,23 @@ public class Controller {
     	oreport +=  String.format("T4X2 Mom name %s \n", mom_name);
     	oreport +=  String.format("T4X2 Dad YOB %d \n", int_dad_yob);
     	oreport +=  String.format("T4X2 Mom YOB %d \n", int_mom_yob);
-    	t4ConsoleTextArea.setText(oreport);
+    	t4X2ComputeTextArea.setText(oreport);
+    }
+
+    @FXML
+    void t4X2MalePrediction(ActionEvent event) {
+    	t4ResultsTabPane.getSelectionModel().select(t4X2Computation);
+    	int int_dad_yob = Integer.parseInt(T4textFieldDadsYOB.getText());
+    	int int_mom_yob = Integer.parseInt(T4textFieldMomsYOB.getText());
+    	String dad_name = T4textFieldDadsName.getText();
+    	String mom_name = T4textFieldMomsName.getText();
+    	String oreport = "";
+    	oreport +=  String.format("T4X2 Dad name %s \n", dad_name);
+    	oreport +=  String.format("T4X2 Mom name %s \n", mom_name);
+    	oreport +=  String.format("T4X2 Dad YOB %d \n", int_dad_yob);
+    	oreport +=  String.format("T4X2 Mom YOB %d \n", int_mom_yob);
+    	t4X2ComputeTextArea.setText(oreport);
+
     }
 
     @FXML
