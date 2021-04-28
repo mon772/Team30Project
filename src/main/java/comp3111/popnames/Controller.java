@@ -39,7 +39,7 @@ import javafx.scene.Scene;
 
 public class Controller {
 
-	@FXML
+    @FXML
     private Tab tabTaskZero;
 
     @FXML
@@ -175,23 +175,11 @@ public class Controller {
     private CheckBox t2DataTable;
 
     @FXML
-    private BarChart<String, Integer> t2BarChart;
-
-    @FXML
-    private CategoryAxis t2BarChartNames;
-
-    @FXML
-    private NumberAxis t2BarChartOccurances;
-
-    @FXML
-    private PieChart t2PieChart;
-
-    @FXML
     private CheckBox t2BarChartCheck;
 
     @FXML
     private CheckBox t2PieChartCheck;
-    
+
     @FXML
     private TextField t2Year1;
 
@@ -221,7 +209,7 @@ public class Controller {
 
     @FXML
     private Tab t2DataTableTab;
-  
+
     @FXML
     private TableView<T2Names> t2ReportTable;
 
@@ -250,7 +238,19 @@ public class Controller {
     private Tab t2BarChartTab;
 
     @FXML
+    private BarChart<String, Integer> t2BarChart;
+
+    @FXML
+    private CategoryAxis t2BarChartNames;
+
+    @FXML
+    private NumberAxis t2BarChartOccurances;
+
+    @FXML
     private Tab t2PieChartTab;
+
+    @FXML
+    private PieChart t2PieChart;
 
     @FXML
     private Tab tabReport3;
@@ -275,6 +275,24 @@ public class Controller {
 
     @FXML
     private Button t4ButtonT4X2;
+
+    @FXML
+    private TabPane t4ResultsTabPane;
+
+    @FXML
+    private Tab t4Console;
+
+    @FXML
+    private TextArea t4ConsoleTextArea;
+
+    @FXML
+    private Tab t4GenderSelection;
+
+    @FXML
+    private Tab t4X1Computation;
+
+    @FXML
+    private Tab t4X2Computation;
 
     @FXML
     private Tab tabApp2;
@@ -302,7 +320,7 @@ public class Controller {
 
     @FXML
     private TextArea a2TextArea;
-    
+
     @FXML
     private TabPane a2TabPane;
 
@@ -401,7 +419,7 @@ public class Controller {
 
     @FXML
     private Button a2ResultsNextX2;
-    
+
     @FXML
     private Tab A2PieTab;
 
@@ -410,8 +428,6 @@ public class Controller {
 
     @FXML
     private Tab tabApp3;
-    
-    
     /**
      *  Task Zero
      *  To be triggered by the "Summary" button on the Task Zero Tab 
@@ -702,15 +718,152 @@ public class Controller {
 		}
 		return Names;
 	}
-
+    
+    
+    boolean t4_inputs_valid(){
+    	String oReport = "";
+    	String dad_yob = T4textFieldDadsYOB.getText();
+    	String mom_yob = T4textFieldMomsYOB.getText();
+    	String dad_name = T4textFieldDadsName.getText();
+    	String mom_name = T4textFieldMomsName.getText();
+    	String input_avaliable_error = "" ;
+    	if(dad_yob == "") {
+    		input_avaliable_error += "Dad's Year of Birth has not been entered! Please enter Dad's YOB for Prediction\n";
+    		T4textFieldDadsYOB.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
+    	}
+    	if(mom_yob == "") {
+    		input_avaliable_error += "Moms' Year of Birth has not been entered! Please enter Mom's YOB for Prediction\n";
+    		T4textFieldMomsYOB.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
+    	}
+    	if(dad_name == "") {
+    		input_avaliable_error += "Dad's name has not been entered! Please enter Dad's name for Prediction\n";
+    		T4textFieldDadsName.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
+    	}
+    	if(mom_name == "") {
+    		input_avaliable_error += "Mom's name has not been entered! Please enter Mom's name for Prediction\n";
+    		T4textFieldMomsName.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
+    	}
+    	if(input_avaliable_error != "") {
+    		t4ConsoleTextArea.setText(input_avaliable_error);
+    		t4Console.setStyle("-fx-text-base-color: red;");
+    		t4ResultsTabPane.getSelectionModel().select(t4Console);
+    		return false;
+    	}
+    	String validation_error = "" ; 
+    	boolean dad_yob_validated = false ;
+    	int int_dad_yob = 0 ;
+    	try {
+    		int_dad_yob = Integer.parseInt(dad_yob);
+    		if((int_dad_yob >=1880)&&(int_dad_yob <= 2019)) {
+    			dad_yob_validated = true ; 
+    		}
+    		else {
+    			validation_error += "Enter Dad YOB in the range for the Year. It too small or too large! \n";
+    			T4textFieldDadsYOB.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
+    		}
+    		
+    	}
+    	catch (Exception e) {
+    		validation_error += "Enter the Correct Datatype for the Dad Year of Birth. Enter a Number! \n";
+    		T4textFieldDadsYOB.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
+    	}
+    	
+    	int int_mom_yob = 0 ;
+    	boolean mom_yob_validated = false ;
+    	try {
+    		int_mom_yob = Integer.parseInt(mom_yob);
+    		if((int_mom_yob >=1880)&&(int_mom_yob <= 2019)) {
+    			mom_yob_validated = true ; 
+    		}
+    		else {
+    			validation_error += "Enter Mom YOB in the range for the Year. It too small or too large! \n";
+    			T4textFieldMomsYOB.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
+    		}
+    		
+    	}
+    	catch (Exception e) {
+    		validation_error += "Enter the Correct Datatype for the Mom Year of Birth. Enter a Number! \n";
+    		T4textFieldMomsYOB.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
+    	}
+    	boolean dad_name_validated = false ;
+    	int dad_flag = 0 ; 
+    	for(int i=0 ; i<dad_name.length() ; i++) {
+    		if(Character.isLetter(dad_name.charAt(i)) == false) {
+    			dad_flag = 1 ; 
+    		}
+    	}
+    	if(dad_flag != 1) {
+    		dad_name_validated = true ;
+    	}
+    	else {
+    		validation_error += "Dad name should consist of only letters. Please Enter a valid name!\n";
+    		T4textFieldDadsName.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");    		
+    	}
+    	boolean mom_name_validated = false ;
+    	int mom_flag = 0 ; 
+    	for(int i=0 ; i<mom_name.length() ; i++) {
+    		if(Character.isLetter(mom_name.charAt(i)) == false) {
+    			mom_flag = 1 ; 
+    		}
+    	}
+    	if(mom_flag != 1) {
+    		mom_name_validated = true ;
+    	}
+    	else {
+    		validation_error += "Mom name should consist of only letters. Please Enter a valid name!\n";
+    		T4textFieldMomsName.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
+    	}
+    	if((!mom_name_validated)||(!dad_name_validated)||(!mom_yob_validated)||(!dad_yob_validated)) {
+    		t4ConsoleTextArea.setText(validation_error);
+    		t4Console.setStyle("-fx-text-base-color: red;");
+    		t4ResultsTabPane.getSelectionModel().select(t4Console);
+    		return false; 
+    	}
+    	return true ;
+    }
+    void t4_initialize_scene() {
+    	t4ConsoleTextArea.clear();
+    	t4Console.setStyle("-fx-text-base-color: black;");
+    	T4textFieldDadsYOB.setStyle("-fx-text-box-border: black ");
+    	T4textFieldMomsYOB.setStyle("-fx-text-box-border: black ");
+    	T4textFieldDadsName.setStyle("-fx-text-box-border: black ");
+    	T4textFieldMomsName.setStyle("-fx-text-box-border: black ");
+    }
+   
     @FXML
     void t4_computeT4X1() {
-    	textAreaConsole.setText("Testing T4X1");
+    	t4_initialize_scene();
+    	if(t4_inputs_valid() == false) {
+    		return;
+    	}
+    	int int_dad_yob = Integer.parseInt(T4textFieldDadsYOB.getText());
+    	int int_mom_yob = Integer.parseInt(T4textFieldMomsYOB.getText());
+    	String dad_name = T4textFieldDadsName.getText();
+    	String mom_name = T4textFieldMomsName.getText();
+    	String oreport = "";
+    	oreport +=  String.format("T4X1 Dad name %s \n", dad_name);
+    	oreport +=  String.format("T4X1 Mom name %s \n", mom_name);
+    	oreport +=  String.format("T4X1 Dad YOB %d \n", int_dad_yob);
+    	oreport +=  String.format("T4X1 Mom YOB %d \n", int_mom_yob);
+    	t4ConsoleTextArea.setText(oreport);
     }
 
     @FXML
     void t4_computeT4X2() {
-    	textAreaConsole.setText("Testing T4X2");
+    	t4_initialize_scene();
+    	if(t4_inputs_valid() == false) {
+    		return;
+    	}
+    	int int_dad_yob = Integer.parseInt(T4textFieldDadsYOB.getText());
+    	int int_mom_yob = Integer.parseInt(T4textFieldMomsYOB.getText());
+    	String dad_name = T4textFieldDadsName.getText();
+    	String mom_name = T4textFieldMomsName.getText();
+    	String oreport = "";
+    	oreport +=  String.format("T4X2 Dad name %s \n", dad_name);
+    	oreport +=  String.format("T4X2 Mom name %s \n", mom_name);
+    	oreport +=  String.format("T4X2 Dad YOB %d \n", int_dad_yob);
+    	oreport +=  String.format("T4X2 Mom YOB %d \n", int_mom_yob);
+    	t4ConsoleTextArea.setText(oreport);
     }
 
     @FXML
