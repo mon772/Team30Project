@@ -431,7 +431,7 @@
                                                 </Label>
                                                 <ImageView fx:id="t4MaleImage" fitHeight="253.0" fitWidth="262.0" layoutX="59.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="dataset/male.png" />
+                                                      <Image url="file:/Users/dhirenanandani/Desktop/Uni/Sem%204/COMP%203111/Labs/Group%20Project/male.png" />
                                                    </image>
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
@@ -439,7 +439,7 @@
                                                 </ImageView>
                                                 <ImageView fx:id="t4FemaleImage" fitHeight="253.0" fitWidth="266.0" layoutX="388.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="dataset/femenine.png" />
+                                                      <Image url="file:/Users/dhirenanandani/Desktop/Uni/Sem%204/COMP%203111/Labs/Group%20Project/femenine.png" />
                                                    </image>
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
@@ -469,7 +469,37 @@
                                        <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <TextArea fx:id="t4X1ComputeTextArea" layoutX="3.0" prefHeight="391.0" prefWidth="709.0" />
+                                                <Label fx:id="t4X1MainMessage" layoutX="10.0" layoutY="7.0" prefHeight="62.0" prefWidth="682.0" text="Since the little boy and Father %s will have such a close \n relationship. It will be wise to look at the top names in %s's YOB %d\n The top names are as follows" textFill="#0923d6" wrapText="true">
+                                                   <font>
+                                                      <Font size="12.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="t4X1TopNames" layoutX="97.0" layoutY="63.0" prefHeight="83.0" prefWidth="84.0" text="Andrew Andy Samuel" wrapText="true">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <ImageView fx:id="t4X1ThinkingImage" fitHeight="100.0" fitWidth="122.0" layoutX="303.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../../Desktop/Uni/Sem%204/COMP%203111/Labs/Group%20Project/769-7698760_new-thinking-emoji-png-emojis-de-iphone-x.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Label fx:id="t4X1AskingText" layoutX="415.0" layoutY="82.0" prefHeight="60.0" prefWidth="254.0" text="Nice choices but which name to choose?" wrapText="true">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <PieChart fx:id="t4X1PieChart" layoutX="35.0" layoutY="189.0" prefHeight="198.0" prefWidth="278.0" />
+                                                <Label fx:id="t4X1TryPieChartMessage" layoutX="83.0" layoutY="152.0" prefHeight="40.0" prefWidth="186.0" text="Lets try deciding from a pie chart!" textAlignment="CENTER" wrapText="true">
+                                                   <font>
+                                                      <Font name="System Bold" size="13.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="t4X1AnswerPrompt" layoutX="385.0" layoutY="183.0" prefHeight="161.0" prefWidth="254.0" text="Answer: Since it is the most popular name" textFill="#bf5e19" wrapText="true">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Label>
                                              </children>
                                           </AnchorPane>
                                        </content>
@@ -494,7 +524,7 @@
                                                 </Label>
                                                 <ImageView fx:id="t4X2MaleImage" fitHeight="253.0" fitWidth="262.0" layoutX="59.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="dataset/male.png" />
+                                                      <Image url="file:/Users/dhirenanandani/Desktop/Uni/Sem%204/COMP%203111/Labs/Group%20Project/male.png" />
                                                    </image>
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
@@ -502,7 +532,7 @@
                                                 </ImageView>
                                                 <ImageView fx:id="t4X2FemaleImage" fitHeight="253.0" fitWidth="266.0" layoutX="388.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="dataset/femenine.png" />
+                                                      <Image url="file:/Users/dhirenanandani/Desktop/Uni/Sem%204/COMP%203111/Labs/Group%20Project/femenine.png" />
                                                    </image>
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />

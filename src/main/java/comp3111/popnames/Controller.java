@@ -36,7 +36,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
-
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.IntegerProperty;
 
 public class Controller {
 
@@ -469,6 +470,27 @@ public class Controller {
 
     @FXML
     private Tab tabApp3;
+    
+    @FXML
+    private Label t4X1MainMessage;
+
+    @FXML
+    private Label t4X1TopNames;
+
+    @FXML
+    private ImageView t4X1ThinkingImage;
+
+    @FXML
+    private Label t4X1AskingText;
+
+    @FXML
+    private PieChart t4X1PieChart;
+
+    @FXML
+    private Label t4X1TryPieChartMessage;
+
+    @FXML
+    private Label t4X1AnswerPrompt;
 
     /**
      *  Task Zero
@@ -870,6 +892,15 @@ public class Controller {
     	T4textFieldMomsYOB.setStyle("-fx-text-box-border: black ");
     	T4textFieldDadsName.setStyle("-fx-text-box-border: black ");
     	T4textFieldMomsName.setStyle("-fx-text-box-border: black ");
+    	t4X1MainMessage.setVisible(false);
+    	t4X1TopNames.setVisible(false);
+    	t4X1ThinkingImage.setVisible(false);
+    	t4X1AskingText.setVisible(false);
+    	t4X1TryPieChartMessage.setVisible(false);
+    	t4X1AnswerPrompt.setVisible(false);
+    	t4X1PieChart.setVisible(false);
+    	t4X1PieChart.getData().clear();
+    	
     }
    
     @FXML
@@ -892,33 +923,159 @@ public class Controller {
 
     @FXML
     void t4X1FemalePrediction(ActionEvent event) {
+    	AnalyzeNames obj = new AnalyzeNames();
     	t4ResultsTabPane.getSelectionModel().select(t4X1Computation);
     	int int_dad_yob = Integer.parseInt(T4textFieldDadsYOB.getText());
     	int int_mom_yob = Integer.parseInt(T4textFieldMomsYOB.getText());
     	String dad_name = T4textFieldDadsName.getText();
     	String mom_name = T4textFieldMomsName.getText();
     	String oreport = "";
-    	oreport +=  String.format("T4X1 Dad name %s \n", dad_name);
-    	oreport +=  String.format("T4X1 Mom name %s \n", mom_name);
-    	oreport +=  String.format("T4X1 Dad YOB %d \n", int_dad_yob);
-    	oreport +=  String.format("T4X1 Mom YOB %d \n", int_mom_yob);
-    	t4X1ComputeTextArea.setText(oreport);
+    	oreport += String.format("Since the little girl and Mother %s will have such a close relationship. It will be wise to look at the top names in %s's YOB %d\n", mom_name , mom_name , int_mom_yob );
+    	oreport += String.format("Therefore we will look at the top names so that mother and daughter have something in common :)\n");
+    	//t4X1ComputeTextArea.setText(oreport);
+    	String []  girl_names = new String[3];
+    	String top_names = "";
+    	for(int i=0 ; i<3 ; i++) {
+    		String name = obj.getName(int_mom_yob , i+1 , "F");
+    		top_names += name + "\n";
+    		girl_names[i] = name ; 
+    	}
+    	t4X1MainMessage.setText(oreport);
+    	t4X1TopNames.setText(top_names);
+    	T1Names []  female_data = new T1Names[3];
+    	int [] top_female_occurences = new int[3];
+    	String [] top_female_percentages = new String[3];
+    	int [] top_female_ranks = new int[3];
+    	int all_females = obj.getTotalFemales(int_mom_yob);
+    	for (int i=0 ; i<3 ; i++) {
+    		top_female_ranks[i] = i+1;
+    		top_female_occurences[i] = obj.getOccurance(int_mom_yob, girl_names[i], "F");
+    		float mp = ((float)top_female_occurences[i]/all_females)*100;
+    		top_female_percentages[i] = String.format("%.2f%%", mp);
+    	}
+    	for(int i=0 ; i <3 ; i++) {
+    		female_data[i] = new T1Names(top_female_ranks[i], girl_names[i] , top_female_occurences[i] , top_female_percentages[i]);
+    	}
+    	int total_top_females = 0 ;
+    	for(int i = 0 ; i<3 ; i++) {
+    		total_top_females += female_data[i].getOccurences();
+    	}
+    	String answer = String.format("Answer: %s! since it is the most popular name in Mom %s's YOB %d with %.2f of the top occurences of the top 3 names in the year %d" , girl_names[0] , mom_name , int_mom_yob , (float)(female_data[0].getOccurences()*100.0/total_top_females) , int_mom_yob );
+    	t4X1AnswerPrompt.setText(answer);
+    	ObservableList<PieChart.Data> pieChartDataFemale= FXCollections.observableArrayList();
+		for(T1Names one_name : female_data) {
+			if(one_name!=null) {
+				pieChartDataFemale.add(new PieChart.Data(one_name.getName(), (float)(one_name.getOccurences()*100.0/total_top_females)));
+			}
+		}
+		t4X1PieChart.setData(pieChartDataFemale);
+    	new Thread(()->{ //use another thread so long process does not block gui
+            String result = "";
+	    	for(int i=0;i<=4;i++)   {
+	            if(i == 0 ){
+	            	t4X1MainMessage.setVisible(true);
+	            	try {Thread.sleep(4500);} catch (InterruptedException ex) { ex.printStackTrace();}
+	            	continue;
+	            } 
+	            if(i==1) {
+	            	t4X1TopNames.setVisible(true);
+	            }
+	            if(i==2) {
+	            	t4X1ThinkingImage.setVisible(true);
+	            	t4X1AskingText.setVisible(true);
+	            }
+	            if(i==3) {
+	            	t4X1TryPieChartMessage.setVisible(true);
+	            	t4X1PieChart.setVisible(true);
+	            }
+	            if(i==4) {
+	            	t4X1AnswerPrompt.setVisible(true);
+	            }
+	            try {Thread.sleep(2000);} catch (InterruptedException ex) { ex.printStackTrace();}
+	        }
+
+	    }).start();
     	
     }
-
+    
+    
     @FXML
     void t4X1MalePrediction(ActionEvent event) {
+    	AnalyzeNames obj = new AnalyzeNames();
     	t4ResultsTabPane.getSelectionModel().select(t4X1Computation);
     	int int_dad_yob = Integer.parseInt(T4textFieldDadsYOB.getText());
     	int int_mom_yob = Integer.parseInt(T4textFieldMomsYOB.getText());
     	String dad_name = T4textFieldDadsName.getText();
     	String mom_name = T4textFieldMomsName.getText();
     	String oreport = "";
-    	oreport +=  String.format("T4X1 Dad name %s \n", dad_name);
-    	oreport +=  String.format("T4X1 Mom name %s \n", mom_name);
-    	oreport +=  String.format("T4X1 Dad YOB %d \n", int_dad_yob);
-    	oreport +=  String.format("T4X1 Mom YOB %d \n", int_mom_yob);
-    	t4X1ComputeTextArea.setText(oreport);
+    	oreport += String.format("Since the little boy and Father %s will have such a close relationship. It will be wise to look at the top names in %s's YOB %d\n", dad_name , dad_name , int_dad_yob );
+    	oreport += String.format("Therefore we will look at the top names so that father and son have something in common :)\n");
+    	//t4X1ComputeTextArea.setText(oreport);
+    	String []  boy_names = new String[3];
+    	String top_names = "";
+    	for(int i=0 ; i<3 ; i++) {
+    		String name = obj.getName(int_dad_yob , i+1 , "M");
+    		top_names += name + "\n";
+    		boy_names[i] = name ; 
+    	}
+    	t4X1MainMessage.setText(oreport);
+    	t4X1TopNames.setText(top_names);
+    	
+    	
+    	T1Names []  male_data = new T1Names[3];
+    	int [] top_male_occurences = new int[3];
+    	String [] top_male_percentages = new String[3];
+    	int [] top_male_ranks = new int[3];
+    	int all_males = obj.getTotalMales(int_dad_yob);
+    	for (int i=0 ; i<3 ; i++) {
+    		top_male_ranks[i] = i+1;
+    		top_male_occurences[i] = obj.getOccurance(int_dad_yob, boy_names[i], "M");
+    		float mp = ((float)top_male_occurences[i]/all_males)*100;
+    		top_male_percentages[i] = String.format("%.2f%%", mp);
+    	}
+    	for(int i=0 ; i <3 ; i++) {
+    		male_data[i] = new T1Names(top_male_ranks[i], boy_names[i] , top_male_occurences[i] , top_male_percentages[i]);
+    	}
+    	int total_top_males = 0 ;
+    	for(int i = 0 ; i<3 ; i++) {
+    		total_top_males += male_data[i].getOccurences();
+    	}
+    	String answer = String.format("Answer: %s! since it is the most popular name in Dad %s's YOB %d with %.2f of the top occurences of the top 3 names in the year %d" , boy_names[0] , dad_name , int_dad_yob , (float)(male_data[0].getOccurences()*100.0/total_top_males) , int_dad_yob );
+    	t4X1AnswerPrompt.setText(answer);
+    	ObservableList<PieChart.Data> pieChartDataMale= FXCollections.observableArrayList();
+		for(T1Names one_name : male_data) {
+			if(one_name!=null) {
+				pieChartDataMale.add(new PieChart.Data(one_name.getName(), (float)(one_name.getOccurences()*100.0/total_top_males)));
+			}
+		}
+		t4X1PieChart.setData(pieChartDataMale);
+    	new Thread(()->{ //use another thread so long process does not block gui
+            String result = "";
+	    	for(int i=0;i<=4;i++)   {
+	            if(i == 0 ){
+	            	t4X1MainMessage.setVisible(true);
+	            	try {Thread.sleep(4500);} catch (InterruptedException ex) { ex.printStackTrace();}
+	            	continue;
+	            } 
+	            if(i==1) {
+	            	t4X1TopNames.setVisible(true);
+	            }
+	            if(i==2) {
+	            	t4X1ThinkingImage.setVisible(true);
+	            	t4X1AskingText.setVisible(true);
+	            }
+	            if(i==3) {
+	            	t4X1TryPieChartMessage.setVisible(true);
+	            	t4X1PieChart.setVisible(true);
+	            }
+	            if(i==4) {
+	            	t4X1AnswerPrompt.setVisible(true);
+	            }
+	            try {Thread.sleep(2000);} catch (InterruptedException ex) { ex.printStackTrace();}
+	        }
+
+	    }).start();
+
     }
     
     @FXML
@@ -929,10 +1086,8 @@ public class Controller {
     	String dad_name = T4textFieldDadsName.getText();
     	String mom_name = T4textFieldMomsName.getText();
     	String oreport = "";
-    	oreport +=  String.format("T4X2 Dad name %s \n", dad_name);
-    	oreport +=  String.format("T4X2 Mom name %s \n", mom_name);
-    	oreport +=  String.format("T4X2 Dad YOB %d \n", int_dad_yob);
-    	oreport +=  String.format("T4X2 Mom YOB %d \n", int_mom_yob);
+    	oreport += String.format("Since the little girl and Mother %s will have such a close relationship. It will be wise to look at the top names in %s's YOB %d\n", mom_name , mom_name , int_mom_yob );
+    	oreport += String.format("Therefore we will look at the top names so that mother and daughter have something in common :)\n");
     	t4X2ComputeTextArea.setText(oreport);
     }
 
@@ -949,6 +1104,7 @@ public class Controller {
     	oreport +=  String.format("T4X2 Dad YOB %d \n", int_dad_yob);
     	oreport +=  String.format("T4X2 Mom YOB %d \n", int_mom_yob);
     	t4X2ComputeTextArea.setText(oreport);
+    	
 
     }
 
