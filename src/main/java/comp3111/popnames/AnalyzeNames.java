@@ -145,29 +145,29 @@ public class AnalyzeNames{
 		public static T2Names [] getKthPopularNames(int starting_Year, int ending_Year, int k, String gender) {
 			String oReport = "";
 			
-//			int totalGenderBirths = 0;
-//			total
+			//			int totalGenderBirths = 0;
+			//			total
 			
-//			int totalBirths = 0;
-//			int totalBoys = 0;
-//			int totalGirls = 0;
-//			int totalNames = 0;
-//			int uniqueBoys = 0;
-//			int uniqueGirls = 0;
+			//			int totalBirths = 0;
+			//			int totalBoys = 0;
+			//			int totalGirls = 0;
+			//			int totalNames = 0;
+			//			int uniqueBoys = 0;
+			//			int uniqueGirls = 0;
 			
-//			String [] names = new String [ending_Year-starting_Year + 1];
-//			int [] occurances = new int [ending_Year - starting_Year + 1];
-//			int [] count = new int [ending_Year - starting_Year + 1];
+			//			String [] names = new String [ending_Year-starting_Year + 1];
+			//			int [] occurances = new int [ending_Year - starting_Year + 1];
+			//			int [] count = new int [ending_Year - starting_Year + 1];
 			T2Names [] names = new T2Names [ending_Year-starting_Year + 1];
 			int namesIndex = 0;
-//			oReport = String.format("Summary (Years):\n");
+			//			oReport = String.format("Summary (Years):\n");
 			boolean alreadyOccurred = false;
 			for(int year = starting_Year; year<=ending_Year; year++) {
-//				oReport+=String.format("Year %d, :", year);
+				//				oReport+=String.format("Year %d, :", year);
 				for(T2Names nam : names) {
 					if(nam!=null) {
 						if (getName(year, k, gender).contentEquals(nam.getName())) {
-//							oReport+=String.format("Name %s Exists\n", nam.getName());
+							//							oReport+=String.format("Name %s Exists\n", nam.getName());
 							nam.incrementFrequency();
 							nam.addOccurances(getOccurance(year, nam.getName(), gender));
 							alreadyOccurred = true;
@@ -176,7 +176,7 @@ public class AnalyzeNames{
 				}
 				if(!alreadyOccurred) {
 					String currentName = getName(year, k, gender);
-//					oReport+=String.format("Name %s Does not exists\n", currentName);
+					//					oReport+=String.format("Name %s Does not exists\n", currentName);
 					int currentOccurance = getOccurance(year, currentName, gender);
 					names[namesIndex]= new T2Names(currentName, currentOccurance, 1);
 					namesIndex++;
@@ -187,17 +187,34 @@ public class AnalyzeNames{
 			for(T2Names nam : names) {
 				if(nam!=null) {
 					nam.setPercentage();
-//					oReport+=String.format("Name: %s   Occurances: %,d   Frequency : %,d \n", nam.getName(), nam.getOccurances(), nam.getFrequency());
+					//					oReport+=String.format("Name: %s   Occurances: %,d   Frequency : %,d \n", nam.getName(), nam.getOccurances(), nam.getFrequency());
 				}
 			}
 			
 			return names;
 		}
 		
-//		public static String getCompatiblePairT5X1(String iGenderMate, int iYOB){
-//			String oReport = "";
-//			
-//			return oReport;
-//		}
+		
+		public static T3Names [] getPopularityOfNames(int startYear, int endYear, String name, String gender) {
+			//Compute the popularity of names
+			T3Names [] names = new T3Names[endYear-startYear + 1];
+			int nameIndex = 0;
+			
+			for(int i = startYear; i<=endYear;i++)
+			{
+				if(getRank(i, name, gender)> 1000)
+				{
+					continue;
+				}
+				names[nameIndex] = new T3Names("", 0, "0.0", 0, 0);
+				names[nameIndex].name = name;
+				names[nameIndex].birthCount = getTotalMales(i);;
+				names[nameIndex].occurances = getOccurance(i, name, gender);
+				names[nameIndex].rank = getRank(i, name, gender);
+				names[nameIndex].setPercentage();
+				nameIndex++;
+			}
+			return names;	
+		}
  
 }

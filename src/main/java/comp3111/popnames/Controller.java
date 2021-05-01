@@ -20,6 +20,7 @@ import javafx.scene.control.ColorPicker;
 
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.LineChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
@@ -411,6 +412,52 @@ public class Controller {
     @FXML
     private Tab tabApp3;
     
+    //=======================     Task 3 variables        ==============================
+    @FXML
+    private TextField T3StartYearInput;
+    @FXML
+    private TextField T3EndYearInput;
+    @FXML
+    private TextField T3NameInput;
+    @FXML
+    private TextField T3GenderInput;
+    @FXML
+    private CheckBox T3SummaryCheckBox;
+    @FXML
+    private CheckBox T3DataTableCheckBox;
+    @FXML
+    private CheckBox T3BarChartCheckBox;
+    @FXML
+    private CheckBox T3LineChartCheckBox;
+    @FXML
+    private Tab T3ConsoleTab;
+    @FXML
+    private Tab T3SummaryTab;
+    @FXML
+    private Tab T3DataTable;
+    @FXML
+    private Tab T3LineChart;
+    @FXML
+    private Tab T3BarChart;
+    @FXML
+    private TextArea T3TextAreaConsole;
+    @FXML
+    private TextArea T3SummaryDisplay;
+    @FXML
+    private TableView<T3Names> T3DataTableDisplay;
+    @FXML
+    private TableColumn<T3Names, Integer> T3Year;
+    @FXML
+    private TableColumn<T3Names, Integer> T3Rank;
+    @FXML
+    private TableColumn<T3Names, Integer> T3Occurances;
+    @FXML
+    private TableColumn<T3Names, String> T3Percentage;
+    @FXML
+    private BarChart<String, Integer> T3BarChartDisplay;
+    @FXML
+    private LineChart<String, Integer> T3LineChartDisplay;
+
     
     /**
      *  Task Zero
@@ -1306,10 +1353,209 @@ public class Controller {
     	textAreaConsole.setText(oReport);
     }
     
+    @FXML
+    void T3GenerateResults()
+    {		
+    	T3BarChartDisplay.getData().clear();
+    	System.out.println("T3GenerateResults Executed");
+    	String consoleOutput = "";
+    	boolean inputError = false;
+    	
+    	//Validation of Starting Year 
+    	int startYear=0;
+    	try {
+    		if(T3StartYearInput.getText() =="") {
+    			throw new Exception("Error: Please enter the starting year\n");
+    		}
+    		
+    		startYear = Integer.parseInt(T3StartYearInput.getText());
+    		if(startYear < 1880 || startYear > 2019) {
+    			throw new Exception("Error: Invalid starting year. Please input an year between 1880 and 2019.\n");
+    		}
+    	}
+    	catch (NumberFormatException e) {
+    		consoleOutput += "Error: The starting year is not an integer. Please enter an integer.\n";
+    		inputError=true;
+    	}
+    	catch (Exception e) {
+    		consoleOutput += e.getMessage();
+    		inputError=true;
+    	}
+    	System.out.println("T3GenerateResults Executed 1");
+    	//Validation of End Year
+    	int endYear=0;
+    	try {
+    		if(T3EndYearInput.getText() =="") {
+    			throw new Exception("Error: Please enter the end year\n");
+    		}
+    		endYear = Integer.parseInt(T3EndYearInput.getText());
+    		if(endYear < 1880 || endYear > 2019) {
+    			throw new Exception("Error: Invalid end year. Please input an year between 1880 and 2019.\n");
+    		}
+    	}
+    	catch (NumberFormatException e) {
+    		consoleOutput += "Error: The end year is not an integer. Please enter an integer.\n";
+    		inputError=true;
+    	}
+    	catch (Exception e) {
+    		consoleOutput += e.getMessage();
+    		inputError=true;
+    	}
+    	
+    	//Validation of Gender
+		String genderOut = "";
+    	String gender = T3GenderInput.getText();
+    	try {
+    		if(gender =="") {
+    			throw new Exception("Error: Please enter the gender.\n");
+    		}
+    		if(gender.contentEquals("M")) {
+    			genderOut="boys";
+    		}
+    		else if (gender.contentEquals("F")) {
+    			genderOut="girls";
+    		}
+    		else {
+    			throw new Exception("Error: Please enter the a valid gender, 'M' or 'F'.\n");
+    		}
+    	}
+    	catch (Exception e) {
+    		consoleOutput += e.getMessage();
+    		inputError=true;
+    	}
+    	
+    	//Validation of Name
+    	String name = T3NameInput.getText();
+    	name = name.replace(" ", "");
+    	int nameLength = name.length();
+    	
+    	try {
+    		if(nameLength > 15 || nameLength < 2)
+    		{
+    			throw new Exception("Error: Please enter a name containing 2 to 15 letters.\n");
+    		}
+    	}
+    	catch(Exception e)
+    	{
+    		consoleOutput += e.getMessage();
+    		inputError = true;
+    	}
+    	
+    	//CheckBox Validation
+    	System.out.println("T3GenerateResults Executed 2");
+    	boolean summary = T3SummaryCheckBox.isSelected();
+    	System.out.println("T3GenerateResults Executed 3");
+    	boolean datatable = T3DataTableCheckBox.isSelected();
+    	boolean barchart = T3BarChartCheckBox.isSelected();
+    	boolean linechart = T3LineChartCheckBox.isSelected();
+       	if(!(summary | datatable | barchart | linechart)) {
+    		consoleOutput += "Error: Please choose one of the data reporting methods offered above.\n";
+    		inputError=true;
+    	}
+    	
+       	// ============= Data Reporting ===============
+       	
+       	T3Names Result[] = null;
+       	if(inputError == false)
+       	{
+        	T3SummaryTab.setDisable(!summary);
+        	T3DataTable.setDisable(!datatable);
+        	T3BarChart.setDisable(!barchart);
+        	T3LineChart.setDisable(!linechart);
+        	consoleOutput += "The data reports will be visible in their respective tabs. Please click on the tabs to view.\n";
+        	//Analyze and calculate the results
+	    	Result = AnalyzeNames.getPopularityOfNames(startYear, endYear, name, gender);
+	    	System.out.println(Result);
+	    	if(Result != null)
+	    	{
+	    		int maxIndex = 0;
+	    		T3Names maxName = new T3Names("", 0, "0.0", 0, 0);
+	    		int maxOccurances = 0;
+	    		for(int i = 0;i<endYear-startYear+1;i++)
+	    		{
+	    			if(Result[i].occurances >= maxOccurances)
+	    			{
+	    				maxIndex = i;
+	    				maxName = new T3Names(Result[i].name, Result[i].occurances, Result[i].percentage, Result[i].rank, Result[i].birthCount);
+	    				maxOccurances = Result[i].occurances;
+	    			}
+	    		}
+	    		//Summary
+	    		if(summary) {
+	    			String summaryContent = "";
+	    			summaryContent += String.format("The year when the name %s was most popular is %d at rank %d. In that year, the\r\n" + 
+	    					"number of occurrences is %d, which represents %s of total male births in %d.", name, maxIndex+1880, maxName.rank, maxName.occurances, maxName.percentage, maxIndex+1880);
+	    			T3SummaryDisplay.setText(summaryContent);
+	    		}
+	    		//BarChart
+	    		if(barchart) {
+	    			T3BarChartDisplay.setTitle(String.format("Popularity of %s from %d to %d", name, startYear, endYear));
+	    			XYChart.Series<String, Integer> set1 = new XYChart.Series<>();
+	    			int year = startYear;
+	    			for (T3Names nam : Result) {
+	    				if(nam.name!="") {
+	    					set1.getData().add(new XYChart.Data<>(String.valueOf(year), nam.occurances));
+	    				}
+	    				year++;
+	    			}
+	    			T3BarChartDisplay.getData().addAll(set1);
+	    		}
+	    		//DataTable
+	    		if(datatable) {
+
+	    		}
+	    		
+	    		//LineChart
+	    		if(linechart) {
+	    			
+	    			
+	    			
+	    			
+	    			
+	    			
+	    			
+	    		}
+	    	}
+	    	else
+	    	{
+	        	T3SummaryTab.setDisable(true);
+	        	T3DataTable.setDisable(true);
+	        	T3BarChart.setDisable(true);
+	        	T3LineChart.setDisable(true);
+	        	T3ConsoleTab.setStyle("-fx-text-base-color: red;");
+	        	T3TextAreaConsole.setStyle("-fx -text-base-color: blue;");
+	    	}
+       	}
+       	if(inputError)
+       	{
+       		T3TextAreaConsole.setStyle("-fx-text-base-color: red;");
+    	}
+       	else
+       	{
+       		T3ConsoleTab.setStyle("-fx-text-base-color: black;");
+       	}
+       	T3TextAreaConsole.setText(consoleOutput);
+    }
+    
+    
+    
+    
     public ObservableList<T2Names> getNames(T2Names [] names) {
 		ObservableList<T2Names> Names = FXCollections.observableArrayList();
 		
 		for(T2Names nam : names) {
+			if(nam!=null) {
+				Names.add(nam);
+			}
+		}
+
+		
+		return Names;
+	}
+    public ObservableList<T3Names> getNames(T3Names [] names) {
+		ObservableList<T3Names> Names = FXCollections.observableArrayList();
+		
+		for(T3Names nam : names) {
 			if(nam!=null) {
 				Names.add(nam);
 			}

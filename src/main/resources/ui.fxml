@@ -2,6 +2,7 @@
 
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
@@ -22,7 +23,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="679.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="comp3111.popnames.Controller">
+<VBox prefHeight="679.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="comp3111.popnames.Controller">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="316.0" prefWidth="719.0">
       <children>
@@ -355,9 +356,126 @@
                     <content>
                         <AnchorPane>
                            <children>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="318.0" prefWidth="719.0">
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="339.0" prefWidth="719.0">
                                  <children>
-                                    <TextArea layoutX="112.0" layoutY="26.0" prefHeight="111.0" prefWidth="362.0" text="Task #3: Popularity of Names (data reporting)&#10;&#10;Generate a report in response to the queries on the popularity of a name over a given period.&#10;&#10;" wrapText="true" />
+                                    <TextField fx:id="T3StartYearInput" layoutX="250.0" layoutY="102.0" prefHeight="26.0" prefWidth="189.0" promptText="Range: 1880 to 2019" />
+                                    <TextField fx:id="T3EndYearInput" layoutX="250.0" layoutY="137.0" prefHeight="26.0" prefWidth="189.0" promptText="Range: 1880 to 2019" />
+                                    <Label fx:id="T3InputLabel" layoutX="41.0" layoutY="67.0" prefHeight="18.0" prefWidth="87.0" text="Inputs" underline="true">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="41.0" layoutY="106.0" prefHeight="19.0" prefWidth="200.0" text="Start Year of interest">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="41.0" layoutY="141.0" prefHeight="19.0" prefWidth="200.0" text="End Year of interest">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="T3NameInput" layoutX="250.0" layoutY="170.0" prefHeight="26.0" prefWidth="190.0" promptText=" Must be between 2 to 15 letters" />
+                                    <Label layoutX="41.0" layoutY="174.0" prefHeight="19.0" prefWidth="200.0" text="Name of interest">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="T3GenderInput" layoutX="251.0" layoutY="205.0" prefHeight="26.0" prefWidth="190.0" promptText="Char: 'M' or 'F'" />
+                                    <Label layoutX="42.0" layoutY="209.0" prefHeight="19.0" prefWidth="200.0" text="Gender of interest">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <CheckBox fx:id="T3SummaryCheckBox" layoutX="221.0" layoutY="246.0" mnemonicParsing="false" text="Summary" />
+                                    <Label layoutX="42.0" layoutY="246.0" prefHeight="19.0" prefWidth="151.0" text="Data Display Format:">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <CheckBox fx:id="T3DataTableCheckBox" layoutX="321.0" layoutY="246.0" mnemonicParsing="false" text="Data Table" />
+                                    <CheckBox fx:id="T3BarChartCheckBox" layoutX="421.0" layoutY="246.0" mnemonicParsing="false" text="Bar Chart" />
+                                    <CheckBox fx:id="T3LineChartCheckBox" layoutX="521.0" layoutY="246.0" mnemonicParsing="false" text="Line Chart" />
+                                    <Button fx:id="T3GenerateResults" layoutX="289.0" layoutY="278.0" mnemonicParsing="false" onAction="#T3GenerateResults" text="Generate Results!" />
+                                    <TextArea fx:id="T3InformationTab" layoutX="41.0" layoutY="16.0" prefHeight="41.0" prefWidth="637.0" text="Task #3: Popularity of names(data reporting)&#10;Generate a report in response to the queries on the popularity of a name over a given period.&#10;" wrapText="true" />
+                                    <TabPane layoutY="323.0" prefHeight="325.0" prefWidth="720.0" tabClosingPolicy="UNAVAILABLE">
+                                       <tabs>
+                                          <Tab fx:id="T3ConsoleTab" text="Console">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <ScrollPane prefHeight="295.0" prefWidth="719.0">
+                                                         <content>
+                                                            <TextArea fx:id="T3TextAreaConsole" prefHeight="295.0" prefWidth="700.0" />
+                                                         </content>
+                                                      </ScrollPane>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </Tab>
+                                          <Tab fx:id="T3SummaryTab" disable="true" text="Summary">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <ScrollPane prefHeight="295.0" prefWidth="719.0">
+                                                         <content>
+                                                            <TextArea fx:id="T3SummaryDisplay" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="295.0" prefWidth="700.0" wrapText="true" />
+                                                         </content>
+                                                      </ScrollPane>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </Tab>
+                                          <Tab fx:id="T3DataTable" disable="true" text="Data Table">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <TableView fx:id="T3DataTableDisplay" prefHeight="263.0" prefWidth="720.0">
+                                                         <columns>
+                                                            <TableColumn fx:id="t2Name1" prefWidth="175.0" text="Year" />
+                                                            <TableColumn fx:id="t2Frequency1" prefWidth="175.0" text="Rank" />
+                                                            <TableColumn fx:id="t2Occurances1" prefWidth="175.0" text="Occurances" />
+                                                            <TableColumn fx:id="t2Percentage1" prefWidth="175.0" text="Percentage" />
+                                                         </columns>
+                                                      </TableView>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </Tab>
+                                          <Tab fx:id="T3BarChart" disable="true" text="Bar Chart">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <BarChart fx:id="T3BarChartDisplay" layoutY="1.0" prefHeight="295.0" prefWidth="719.0" title="K-th Popular Names Over a Given Period">
+                                                         <xAxis>
+                                                            <CategoryAxis fx:id="t2BarChartNames1" label="Names" side="BOTTOM" />
+                                                         </xAxis>
+                                                         <yAxis>
+                                                            <NumberAxis fx:id="t2BarChartOccurances1" label="Occurances" side="LEFT" />
+                                                         </yAxis>
+                                                      </BarChart>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </Tab>
+                                          <Tab fx:id="T3LineChart" disable="true" text="Line Chart">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <LineChart fx:id="T3LineChartDisplay">
+                                                        <xAxis>
+                                                          <CategoryAxis side="BOTTOM" />
+                                                        </xAxis>
+                                                        <yAxis>
+                                                          <NumberAxis side="LEFT" />
+                                                        </yAxis>
+                                                      </LineChart>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </Tab>
+                                       </tabs>
+                                    </TabPane>
                                  </children>
                               </AnchorPane>
                            </children>
