@@ -21,6 +21,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.paint.RadialGradient?>
 <?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <VBox prefHeight="679.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="comp3111.popnames.Controller">
@@ -406,7 +407,10 @@
                                                    <children>
                                                       <ScrollPane prefHeight="295.0" prefWidth="719.0">
                                                          <content>
-                                                            <TextArea fx:id="T3TextAreaConsole" prefHeight="295.0" prefWidth="700.0" />
+                                                            <TextArea fx:id="T3TextAreaConsole" editable="false" prefHeight="295.0" prefWidth="700.0">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font></TextArea>
                                                          </content>
                                                       </ScrollPane>
                                                    </children>
@@ -432,10 +436,10 @@
                                                    <children>
                                                       <TableView fx:id="T3DataTableDisplay" prefHeight="263.0" prefWidth="720.0">
                                                          <columns>
-                                                            <TableColumn fx:id="t2Name1" prefWidth="175.0" text="Year" />
-                                                            <TableColumn fx:id="t2Frequency1" prefWidth="175.0" text="Rank" />
-                                                            <TableColumn fx:id="t2Occurances1" prefWidth="175.0" text="Occurances" />
-                                                            <TableColumn fx:id="t2Percentage1" prefWidth="175.0" text="Percentage" />
+                                                            <TableColumn fx:id="T3Year" prefWidth="175.0" text="Year" />
+                                                            <TableColumn fx:id="T3Rank" prefWidth="175.0" text="Rank" />
+                                                            <TableColumn fx:id="T3Occurances" prefWidth="175.0" text="Occurances" />
+                                                            <TableColumn fx:id="T3Percentage" prefWidth="175.0" text="Percentage" />
                                                          </columns>
                                                       </TableView>
                                                    </children>
@@ -446,7 +450,7 @@
                                              <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                    <children>
-                                                      <BarChart fx:id="T3BarChartDisplay" layoutY="1.0" prefHeight="295.0" prefWidth="719.0" title="K-th Popular Names Over a Given Period">
+                                                      <BarChart fx:id="T3BarChartDisplay" layoutY="1.0" prefHeight="295.0" prefWidth="719.0" title="Popularity of name over start year and end year">
                                                          <xAxis>
                                                             <CategoryAxis fx:id="t2BarChartNames1" label="Names" side="BOTTOM" />
                                                          </xAxis>
@@ -462,7 +466,7 @@
                                              <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                    <children>
-                                                      <LineChart fx:id="T3LineChartDisplay">
+                                                      <LineChart fx:id="T3LineChartDisplay" prefHeight="293.0" prefWidth="719.0" title="Popularity of Name over start year and end year">
                                                         <xAxis>
                                                           <CategoryAxis side="BOTTOM" />
                                                         </xAxis>
@@ -799,7 +803,89 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TextArea layoutX="40.0" layoutY="39.0" prefHeight="105.0" prefWidth="450.0" text="Task #6: Prediction on Scores for Compatible Pairs (application)&#10;&#10;Develop and implement an online service using empirical data to help make informed decisions on predicting scores for compatible pairs.&#10;" wrapText="true" />
+                              <TextArea fx:id="T6Description" layoutX="37.0" layoutY="21.0" prefHeight="69.0" prefWidth="643.0" text="Task #6: Prediction on Scores for Compatible Pairs (application)&#10;Develop and implement an online service using empirical data to help make informed decisions on predicting scores for compatible pairs.&#10;" wrapText="true" />
+                              <Label layoutX="37.0" layoutY="95.0" prefHeight="18.0" prefWidth="87.0" text="Inputs" underline="true">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="T6iNameInput" layoutX="175.0" layoutY="155.0" prefHeight="27.0" prefWidth="150.0" promptText="Name" />
+                              <Label layoutX="37.0" layoutY="232.0" prefHeight="19.0" prefWidth="79.0" text="Gender">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="37.0" layoutY="195.0" prefHeight="19.0" prefWidth="114.0" text="Year of Birth">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="T6iYOBInput" layoutX="175.0" layoutY="191.0" prefHeight="27.0" prefWidth="150.0" promptText="Range: 1880 to 2019" />
+                              <Label layoutX="37.0" layoutY="131.0" prefHeight="19.0" prefWidth="276.0" text="Please enter your paticulars:">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="37.0" layoutY="159.0" prefHeight="19.0" prefWidth="41.0" text="Name">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="T6iGenderInput" layoutX="175.0" layoutY="228.0" prefHeight="27.0" prefWidth="150.0" promptText="Char: 'M' or 'F'" />
+                              <Label layoutX="37.0" layoutY="268.0" prefHeight="19.0" prefWidth="171.0" text="Age preference">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="T6iPreferenceInput" layoutX="175.0" layoutY="264.0" prefHeight="27.0" prefWidth="150.0" promptText="&quot;Younger&quot; or &quot;Older&quot;" />
+                              <Label layoutX="33.0" layoutY="313.0" prefHeight="19.0" prefWidth="285.0" text="Please select algorithm to perform prediction:">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="T6X1" layoutX="360.0" layoutY="308.0" mnemonicParsing="false" onAction="#T6ComputeT6X1" prefHeight="30.0" prefWidth="120.0" text="T6X1">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="T6X2" layoutX="526.0" layoutY="307.0" mnemonicParsing="false" onAction="#T6ComputeT6X2" prefHeight="30.0" prefWidth="120.0" text="T6X2">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Button>
+                              <Label layoutX="360.0" layoutY="131.0" prefHeight="19.0" prefWidth="239.0" text="Please enter your partner's paticulars:">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="T6iNameMateInput" layoutX="498.0" layoutY="155.0" prefHeight="27.0" prefWidth="150.0" promptText="Name" />
+                              <Label layoutX="360.0" layoutY="195.0" prefHeight="19.0" prefWidth="79.0" text="Gender">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="360.0" layoutY="159.0" prefHeight="19.0" prefWidth="41.0" text="Name">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="T6iGenderMateInput" layoutX="498.0" layoutY="191.0" prefHeight="27.0" prefWidth="150.0" promptText="Char: 'M' or 'F'" />
+                              <Line endX="-18.0" endY="-121.0" layoutX="359.0" layoutY="255.0" startX="-18.0" startY="33.0" />
+                              <Label layoutX="496.0" layoutY="314.0" prefHeight="19.0" prefWidth="19.0" text="or">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <ScrollPane layoutX="1.0" layoutY="394.0" prefHeight="257.0" prefWidth="719.0">
+                                 <content>
+                                    <TextArea fx:id="T6TextAreaConsole" prefHeight="257.0" prefWidth="700.0" />
+                                 </content>
+                              </ScrollPane>
+                              <Label layoutX="29.0" layoutY="355.0" prefHeight="18.0" prefWidth="87.0" text="Results" underline="true">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </AnchorPane>
                     </content>

@@ -7,6 +7,8 @@ package comp3111.popnames;
 
 import java.util.concurrent.TimeUnit;
 
+import com.gargoylesoftware.htmlunit.javascript.host.Console;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -458,6 +460,23 @@ public class Controller {
     @FXML
     private LineChart<String, Integer> T3LineChartDisplay;
 
+    //=======================     Task 6 variables        ==============================
+    @FXML
+    private TextArea T6Description;
+    @FXML
+    private TextField T6iNameInput;
+    @FXML
+    private TextField T6iYOBInput;
+    @FXML
+    private TextField T6iGenderInput;
+    @FXML
+    private TextField T6iPreferenceInput;
+    @FXML
+    private TextField T6iNameMateInput;
+    @FXML
+    private TextField T6iGenderMateInput;
+    @FXML
+    private TextArea T6TextAreaConsole;
     
     /**
      *  Task Zero
@@ -1357,6 +1376,7 @@ public class Controller {
     void T3GenerateResults()
     {		
     	T3BarChartDisplay.getData().clear();
+    	T3LineChartDisplay.getData().clear();
     	System.out.println("T3GenerateResults Executed");
     	String consoleOutput = "";
     	boolean inputError = false;
@@ -1469,14 +1489,14 @@ public class Controller {
 	    	if(Result != null)
 	    	{
 	    		int maxIndex = 0;
-	    		T3Names maxName = new T3Names("", 0, "0.0", 0, 0);
+	    		T3Names maxName = new T3Names("", 0, "0.0", 0, 0, 0);
 	    		int maxOccurances = 0;
 	    		for(int i = 0;i<endYear-startYear+1;i++)
 	    		{
 	    			if(Result[i].occurances >= maxOccurances)
 	    			{
 	    				maxIndex = i;
-	    				maxName = new T3Names(Result[i].name, Result[i].occurances, Result[i].percentage, Result[i].rank, Result[i].birthCount);
+	    				maxName = new T3Names(Result[i].name, Result[i].occurances, Result[i].percentage, Result[i].rank, Result[i].birthCount, i+startYear);
 	    				maxOccurances = Result[i].occurances;
 	    			}
 	    		}
@@ -1484,7 +1504,7 @@ public class Controller {
 	    		if(summary) {
 	    			String summaryContent = "";
 	    			summaryContent += String.format("The year when the name %s was most popular is %d at rank %d. In that year, the\r\n" + 
-	    					"number of occurrences is %d, which represents %s of total male births in %d.", name, maxIndex+1880, maxName.rank, maxName.occurances, maxName.percentage, maxIndex+1880);
+	    					"number of occurrences is %d, which represents %s of total male births in %d.", name, maxIndex+startYear, maxName.rank, maxName.occurances, maxName.percentage, maxIndex+startYear);
 	    			T3SummaryDisplay.setText(summaryContent);
 	    		}
 	    		//BarChart
@@ -1503,17 +1523,25 @@ public class Controller {
 	    		//DataTable
 	    		if(datatable) {
 
+	    	    	T3Year.setCellValueFactory(new PropertyValueFactory<T3Names,Integer>("year"));
+	    	    	T3Rank.setCellValueFactory(new PropertyValueFactory<T3Names,Integer>("rank"));
+	    	    	T3Occurances.setCellValueFactory(new PropertyValueFactory<T3Names,Integer>("occurances"));
+	    	    	T3Percentage.setCellValueFactory(new PropertyValueFactory<T3Names,String>("percentage"));   
+	    			T3DataTableDisplay.setItems(T3getNames(Result)); 
 	    		}
 	    		
 	    		//LineChart
 	    		if(linechart) {
-	    			
-	    			
-	    			
-	    			
-	    			
-	    			
-	    			
+	    			T3LineChartDisplay.setTitle(String.format("Popularity of %s from %d to %d", name, startYear, endYear));
+	    			XYChart.Series<String, Integer> set1 = new XYChart.Series<>();
+	    			int year = startYear;
+	    			for (T3Names nam : Result) {
+	    				if(nam.name!="") {
+	    					set1.getData().add(new XYChart.Data<>(String.valueOf(year), nam.occurances));
+	    				}
+	    				year++;
+	    			}
+	    			T3LineChartDisplay.getData().addAll(set1);	
 	    		}
 	    	}
 	    	else
@@ -1528,6 +1556,11 @@ public class Controller {
        	}
        	if(inputError)
        	{
+        	T3SummaryTab.setDisable(true);
+        	T3DataTable.setDisable(true);
+        	T3BarChart.setDisable(true);
+        	T3LineChart.setDisable(true);
+        	T3ConsoleTab.setStyle("-fx-text-base-color: red;");
        		T3TextAreaConsole.setStyle("-fx-text-base-color: red;");
     	}
        	else
@@ -1535,6 +1568,142 @@ public class Controller {
        		T3ConsoleTab.setStyle("-fx-text-base-color: black;");
        	}
        	T3TextAreaConsole.setText(consoleOutput);
+    }
+    
+    boolean T6InputValidation() {
+    	//Input Validation
+    	String consoleOutput = "";
+    	boolean inputError = false;
+    	int startYear = 1880;
+    	int endYear = 2019;
+    	
+    	//Validation of Starting Year 
+    	int YOB=0;
+    	try {
+    		if(T6iYOBInput.getText() =="") {
+    			throw new Exception("Error: Please enter the starting year\n");
+    		}
+    		
+    		YOB = Integer.parseInt(T3StartYearInput.getText());
+    		if(YOB < 1880 || YOB > 2019) {
+    			throw new Exception("Error: Invalid starting year. Please input an year between 1880 and 2019.\n");
+    		}
+    	}
+    	catch (NumberFormatException e) {
+    		consoleOutput += "Error: The starting year is not an integer. Please enter an integer.\n";
+    		inputError=true;
+    	}
+    	catch (Exception e) {
+    		consoleOutput += e.getMessage();
+    		inputError=true;
+    	}
+    	
+    	
+    	//Validation of iGender
+		String igenderOut = "";
+    	String iGender = T3GenderInput.getText();
+    	try {
+    		if(iGender =="") {
+    			throw new Exception("Error: Please enter the gender.\n");
+    		}
+    		if(iGender.contentEquals("M")) {
+    			igenderOut="boys";
+    		}
+    		else if (iGender.contentEquals("F")) {
+    			igenderOut="girls";
+    		}
+    		else {
+    			throw new Exception("Error: Please enter the a valid gender, 'M' or 'F'.\n");
+    		}
+    	}
+    	catch (Exception e) {
+    		consoleOutput += e.getMessage();
+    		inputError=true;
+    	}
+    	
+    	//Validation of iMateGender
+		String iMategenderOut = "";
+    	String iMateGender = T3GenderInput.getText();
+    	try {
+    		if(iMateGender =="") {
+    			throw new Exception("Error: Please enter the gender.\n");
+    		}
+    		if(iMateGender.contentEquals("M")) {
+    			iMategenderOut="boys";
+    		}
+    		else if (iMateGender.contentEquals("F")) {
+    			iMategenderOut="girls";
+    		}
+    		else {
+    			throw new Exception("Error: Please enter the a valid gender, 'M' or 'F'.\n");
+    		}
+    	}
+    	catch (Exception e) {
+    		consoleOutput += e.getMessage();
+    		inputError=true;
+    	}
+    	
+    	//Validation of preference
+    	try 
+    	{
+	    	boolean isPreferenceYounger = false;
+	    	String iPreference = T6iPreferenceInput.getText();
+			if(iPreference.contentEquals("Younger")) {
+				isPreferenceYounger = true;
+			}
+			else if (iPreference.contentEquals("Older")) {
+				isPreferenceYounger = false;
+			}
+			else {
+				throw new Exception("Please enter 'Younger' or 'Older' as the age preference");
+			}
+			if(isPreferenceYounger) {
+				endYear = Integer.parseInt(T6iYOBInput.getText());
+			} 
+			else {
+				startYear = Integer.parseInt(T6iYOBInput.getText());
+			}
+			
+    	}
+    	catch(Exception e)
+    	{
+    		consoleOutput += e.getMessage();
+    	}
+    	
+       	T6TextAreaConsole.setText(consoleOutput);
+
+    	if(inputError)
+    	{
+    		return false;
+    	}
+    	return true;
+    }
+    
+    @FXML
+    void T6ComputeT6X1() {
+    	//Analyze and generate results for T6X1
+    	boolean inputError = T6InputValidation();
+    	if(!inputError)
+    	{
+    		
+    	}
+    	else
+    	{
+    		
+    	}
+    }
+    
+    void T6ComputeT6X2() {
+    	//Analyze and generate results for T6X2
+    	boolean inputError = T6InputValidation();
+    	if(!inputError)
+    	{
+    		
+    	}
+    	else
+    	{
+    		
+    	}
     }
     
     
@@ -1552,16 +1721,15 @@ public class Controller {
 		
 		return Names;
 	}
-    public ObservableList<T3Names> getNames(T3Names [] names) {
+    public ObservableList<T3Names> T3getNames(T3Names [] names) {
 		ObservableList<T3Names> Names = FXCollections.observableArrayList();
 		
 		for(T3Names nam : names) {
-			if(nam!=null) {
+			if(nam.name!= "") {
+				System.out.println(nam.name);
 				Names.add(nam);
 			}
 		}
-
-		
 		return Names;
 	}
 

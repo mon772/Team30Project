@@ -202,16 +202,17 @@ public class AnalyzeNames{
 			
 			for(int i = startYear; i<=endYear;i++)
 			{
+				names[nameIndex] = new T3Names("", 0, "0.0", 0, 0, 0);
 				if(getRank(i, name, gender)> 1000)
 				{
 					continue;
 				}
-				names[nameIndex] = new T3Names("", 0, "0.0", 0, 0);
 				names[nameIndex].name = name;
-				names[nameIndex].birthCount = getTotalMales(i);;
+				names[nameIndex].birthCount = getTotalMales(i);
 				names[nameIndex].occurances = getOccurance(i, name, gender);
 				names[nameIndex].rank = getRank(i, name, gender);
 				names[nameIndex].setPercentage();
+				names[nameIndex].year = i;
 				nameIndex++;
 			}
 			return names;	
