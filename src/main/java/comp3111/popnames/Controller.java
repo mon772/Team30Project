@@ -38,6 +38,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.scene.control.Slider;
+import javafx.scene.control.ChoiceBox;
 
 public class Controller {
 
@@ -491,6 +493,50 @@ public class Controller {
 
     @FXML
     private Label t4X1AnswerPrompt;
+    
+    @FXML
+    private Label t4X2ExtraYearsPrompt;
+
+    @FXML
+    private Slider t4X2UniquenessScaleAnswer;
+
+    @FXML
+    private TextField t4X2ExtraYearsAnswer;
+
+    @FXML
+    private Label t4X2UniquenessScale;
+
+    @FXML
+    private Label t4X2PriorityPrompt;
+
+    @FXML
+    private Button t4X2GetNamePrediction;
+    
+    ObservableList<String> choicesList = FXCollections.observableArrayList("Yes" , "No");
+
+    @FXML
+    private ChoiceBox<String> t4X2PriorityPromptAnswerChoice;
+    
+    @FXML
+    private Tab t4X2NameGeneration;
+
+    @FXML
+    private TextArea t4X2NamePredictionTextArea;
+    
+    @FXML
+    private BarChart<String, Integer> t4X2BarChart;
+    
+    
+    @FXML
+    private void initialize() {
+    	t4X2PriorityPromptAnswerChoice.setValue("Yes");
+    	t4X2PriorityPromptAnswerChoice.setItems(choicesList);
+    }
+
+    @FXML
+    private Label t4X2ExtraYearsError;
+    
+    private String t4_selected_gender = "";
 
     /**
      *  Task Zero
@@ -503,6 +549,8 @@ public class Controller {
     	String oReport = AnalyzeNames.getSummary(year);
     	textAreaConsole.setText(oReport);
     }
+    
+    
     /**
      *  Task Zero
      *  To be triggered by the "Rank (female)" button on the Task Zero Tab
@@ -900,6 +948,9 @@ public class Controller {
     	t4X1AnswerPrompt.setVisible(false);
     	t4X1PieChart.setVisible(false);
     	t4X1PieChart.getData().clear();
+    	t4X2BarChart.getData().clear();
+    	t4X2ExtraYearsError.setVisible(false);
+    	
     	
     }
    
@@ -1080,31 +1131,121 @@ public class Controller {
     
     @FXML
     void t4X2FemalePrediction(ActionEvent event) {
+    	t4_selected_gender = "F";
+    	t4X2ExtraYearsPrompt.setText("Enter the extra years to be checked before and after Moms YOB");
+    	t4X2PriorityPrompt.setText("Do you want to give priority to names with the same first letter of Mom's Name?");
     	t4ResultsTabPane.getSelectionModel().select(t4X2Computation);
-    	int int_dad_yob = Integer.parseInt(T4textFieldDadsYOB.getText());
-    	int int_mom_yob = Integer.parseInt(T4textFieldMomsYOB.getText());
-    	String dad_name = T4textFieldDadsName.getText();
-    	String mom_name = T4textFieldMomsName.getText();
-    	String oreport = "";
-    	oreport += String.format("Since the little girl and Mother %s will have such a close relationship. It will be wise to look at the top names in %s's YOB %d\n", mom_name , mom_name , int_mom_yob );
-    	oreport += String.format("Therefore we will look at the top names so that mother and daughter have something in common :)\n");
-    	t4X2ComputeTextArea.setText(oreport);
+    	
     }
 
     @FXML
     void t4X2MalePrediction(ActionEvent event) {
+    	t4_selected_gender = "M";
+    	t4X2ExtraYearsPrompt.setText("Enter the extra years to be checked before and after Dads YOB");
+    	t4X2PriorityPrompt.setText("Do you want to give priority to names with the same first letter of Dad's Name?");
     	t4ResultsTabPane.getSelectionModel().select(t4X2Computation);
+    }
+    
+    @FXML
+    void t4X2GenerateNames(ActionEvent event) {
     	int int_dad_yob = Integer.parseInt(T4textFieldDadsYOB.getText());
     	int int_mom_yob = Integer.parseInt(T4textFieldMomsYOB.getText());
     	String dad_name = T4textFieldDadsName.getText();
     	String mom_name = T4textFieldMomsName.getText();
-    	String oreport = "";
-    	oreport +=  String.format("T4X2 Dad name %s \n", dad_name);
-    	oreport +=  String.format("T4X2 Mom name %s \n", mom_name);
-    	oreport +=  String.format("T4X2 Dad YOB %d \n", int_dad_yob);
-    	oreport +=  String.format("T4X2 Mom YOB %d \n", int_mom_yob);
-    	t4X2ComputeTextArea.setText(oreport);
-    	
+    	String extra_years = t4X2ExtraYearsAnswer.getText();
+    	boolean year_validated = false ;
+    	String validation_error = "";
+    	int int_year = 0 ;
+    	try {
+    		int_year = Integer.parseInt(extra_years);
+    		if((int_year >=5)&&(int_year <= 25)) {
+    			year_validated = true ; 
+    		}
+    		else {
+    			validation_error += "Enter data value in the range between 5 and 25 for accurate prediction \n";
+    		}
+    		
+    	}
+    	catch (Exception e) {
+    		validation_error += "Enter the Correct Datatype for extra years. Enter a Number! \n";
+    	}
+    	if(year_validated == false) {
+        	t4X2ExtraYearsError.setVisible(true);
+    		t4X2ExtraYearsError.setText(validation_error);
+    		return ; 
+    	}
+    	//String oreport = t4X2ExtraYearsAnswer.getText() + '\n';
+    	//double x = t4X2UniquenessScaleAnswer.getValue();
+    	//oreport += String.format("Answer %.2f", x);
+    	//oreport += t4X2PriorityPromptAnswerChoice.getSelectionModel().getSelectedItem();
+    	t4ResultsTabPane.getSelectionModel().select(t4X2NameGeneration);
+    	int scaled_value = 0;
+    	int upper_limit = 0;
+    	int lower_limit = 0;
+    	if(t4_selected_gender.contentEquals("F")) {
+    		scaled_value = (dad_name.length()+mom_name.length()) * (int)t4X2UniquenessScaleAnswer.getValue();
+    		upper_limit = int_mom_yob + int_year;
+    		lower_limit = int_mom_yob - int_year;
+    	}
+    	else {
+    		scaled_value = (dad_name.length()+mom_name.length()) * (int)t4X2UniquenessScaleAnswer.getValue();
+    		upper_limit = int_dad_yob + int_year;
+    		lower_limit = int_dad_yob - int_year;
+    	}
+    	if(lower_limit<=1880) {
+    		lower_limit = 1880;
+    	}
+    	if(upper_limit >=2019) {
+    		upper_limit = 2019;
+    	}
+    	String []  names = new String [upper_limit - lower_limit+1];
+    	int [] occurences = new int[upper_limit - lower_limit+1];
+    	AnalyzeNames obj = new AnalyzeNames();
+    	if(t4_selected_gender.contentEquals("F")) {
+    		for (int i=lower_limit ,  j=0 ; i<=upper_limit ; i++  ,j++) {
+        		names[j] = obj.getName(i , scaled_value , "F") ;
+        		occurences[j] = obj.getOccurance( i , names[j] , "F");
+        		names[j] = obj.getName(i , scaled_value , "F") + String.valueOf(i);
+        	}
+    	}
+    	else {
+    		for (int i=lower_limit , j=0 ; i<=upper_limit ; i++  , j++) {
+    			names[j] = obj.getName(i , scaled_value , "M") ;
+        		occurences[j] = obj.getOccurance( i , names[j] , "M");
+        		names[j] = obj.getName(i , scaled_value , "M") + String.valueOf(i);
+        	}
+    	}
+    	T1Names [] data = new T1Names[upper_limit - lower_limit+1];
+    	System.out.println(upper_limit - lower_limit +1);
+    	for(int i=0 ; i <=upper_limit -lower_limit; i++) {
+    		data[i] = new T1Names(i, names[i] , occurences[i] , "");
+    		System.out.println(names[i]);
+    		System.out.println(occurences[i]);
+    	}
+    	if(t4_selected_gender.contentEquals("F")) {
+    		t4X2BarChart.setTitle(String.format("%d position Names (female) from year %d to %d" ,  scaled_value , upper_limit , lower_limit));
+    		XYChart.Series<String, Integer> set_female = new XYChart.Series<>();
+    		set_female.setName("Female Occurences"); 
+    		for (T1Names one_name : data) {
+				if(one_name!=null) {
+					set_female.getData().add(new XYChart.Data<>(one_name.getName(), one_name.getOccurences()));
+				}
+			}
+    		t4X2BarChart.getData().addAll(set_female);
+    		
+    	}
+    	else {
+    		t4X2BarChart.setTitle(String.format("%d position Names (male) from year %d to %d" ,  scaled_value , upper_limit , lower_limit));
+    		XYChart.Series<String, Integer> set_male = new XYChart.Series<>();
+    		set_male.setName("Male Occurences"); 
+    		for (T1Names one_name : data) {
+				if(one_name!=null) {
+					set_male.getData().add(new XYChart.Data<>(one_name.getName(), one_name.getOccurences()));
+				}
+			}
+    		t4X2BarChart.getData().addAll(set_male);
+    	}
+    	//System.out.println("Hello World!");
 
     }
 

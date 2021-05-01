@@ -7,9 +7,11 @@
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -508,7 +510,20 @@
                                        <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <TextArea fx:id="t4X2ComputeTextArea" prefHeight="391.0" prefWidth="709.0" />
+                                                <Label fx:id="t4X2ExtraYearsPrompt" layoutX="52.0" layoutY="67.0" text="Enter the extra years to be checked before and after dads YOB" />
+                                                <Slider fx:id="t4X2UniquenessScaleAnswer" blockIncrement="1.0" layoutX="387.0" layoutY="157.0" max="10.0" min="1.0" prefHeight="16.0" prefWidth="264.0" />
+                                                <TextField fx:id="t4X2ExtraYearsAnswer" layoutX="490.0" layoutY="60.0" promptText="Range 5 to 25" />
+                                                <Label fx:id="t4X2UniquenessScale" layoutX="52.0" layoutY="157.0" text="Enter the Scale of Uniqueness" />
+                                                <Label fx:id="t4X2PriorityPrompt" layoutX="52.0" layoutY="250.0" text="Do you want to give priority to names with the same first letter of Dad's Name?" />
+                                                <Button fx:id="t4X2GetNamePrediction" layoutX="224.0" layoutY="314.0" mnemonicParsing="false" onAction="#t4X2GenerateNames" prefHeight="54.0" prefWidth="262.0" text="GET NAME!" />
+                                                <ChoiceBox fx:id="t4X2PriorityPromptAnswerChoice" layoutX="494.0" layoutY="246.0" prefHeight="27.0" prefWidth="156.0" />
+                                                <Label fx:id="t4X2ExtraYearsError" layoutX="421.0" layoutY="97.0" prefHeight="41.0" prefWidth="249.0" text="Error Label enter the correct datatype. Enter a value between 1 and 25" textFill="#e80c0c" wrapText="true">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="390.0" layoutY="176.0" text="1" />
+                                                <Label layoutX="637.0" layoutY="176.0" text="10" />
                                              </children>
                                           </AnchorPane>
                                        </content>
@@ -554,6 +569,24 @@
                                                       <Tooltip text="Click for Girl Name" />
                                                    </tooltip>
                                                 </Button>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </Tab>
+                                    <Tab fx:id="t4X2NameGeneration" text="T4X2NamePrediction">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <BarChart fx:id="t4X2BarChart" layoutX="99.0" layoutY="65.0" prefHeight="255.0" prefWidth="514.0">
+                                                  <xAxis>
+                                                    <CategoryAxis side="BOTTOM" />
+                                                  </xAxis>
+                                                  <yAxis>
+                                                    <NumberAxis side="LEFT" />
+                                                  </yAxis>
+                                                </BarChart>
+                                                <Label layoutX="17.0" layoutY="3.0" prefHeight="70.0" prefWidth="667.0" text="Since x was selected on the uniqueness scale we will try to add the number of characters of mom and dads name and then multiply it on the uniquness scale and pick the name that is x years above or below the mom/dad year of birth " wrapText="true" />
+                                                <Label layoutX="19.0" layoutY="322.0" prefHeight="55.0" prefWidth="667.0" text="Answer: We pick x name becuase it has highest occurence and is of the same letter" wrapText="true" />
                                              </children>
                                           </AnchorPane>
                                        </content>
