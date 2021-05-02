@@ -41,6 +41,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ChoiceBox;
 
+
 public class Controller {
 
     @FXML
@@ -526,6 +527,22 @@ public class Controller {
     @FXML
     private BarChart<String, Integer> t4X2BarChart;
     
+    @FXML
+    private CategoryAxis t4X2BarChartXAxis;
+    
+    @FXML
+    private Label t4X2NameGenerationExplanation;
+
+    @FXML
+    private Label t4X2NameGenerationResultsOccurences;
+
+    @FXML
+    private Label t4X2NameGenerationResults;
+
+    
+
+   
+    
     
     @FXML
     private void initialize() {
@@ -950,7 +967,7 @@ public class Controller {
     	t4X1PieChart.getData().clear();
     	t4X2BarChart.getData().clear();
     	t4X2ExtraYearsError.setVisible(false);
-    	
+    	t4X2BarChartXAxis.setAnimated(false);
     	
     }
    
@@ -1182,16 +1199,21 @@ public class Controller {
     	int scaled_value = 0;
     	int upper_limit = 0;
     	int lower_limit = 0;
+    	String compare_name_with = "";
     	if(t4_selected_gender.contentEquals("F")) {
     		scaled_value = (dad_name.length()+mom_name.length()) * (int)t4X2UniquenessScaleAnswer.getValue();
     		upper_limit = int_mom_yob + int_year;
     		lower_limit = int_mom_yob - int_year;
+    		compare_name_with = mom_name;
     	}
     	else {
     		scaled_value = (dad_name.length()+mom_name.length()) * (int)t4X2UniquenessScaleAnswer.getValue();
     		upper_limit = int_dad_yob + int_year;
     		lower_limit = int_dad_yob - int_year;
+    		compare_name_with = dad_name ; 
+    		
     	}
+    	
     	if(lower_limit<=1880) {
     		lower_limit = 1880;
     	}
@@ -1205,25 +1227,38 @@ public class Controller {
     		for (int i=lower_limit ,  j=0 ; i<=upper_limit ; i++  ,j++) {
         		names[j] = obj.getName(i , scaled_value , "F") ;
         		occurences[j] = obj.getOccurance( i , names[j] , "F");
-        		names[j] = obj.getName(i , scaled_value , "F") + String.valueOf(i);
+        		names[j] = obj.getName(i , scaled_value , "F") + " " +String.valueOf(i);
         	}
     	}
     	else {
     		for (int i=lower_limit , j=0 ; i<=upper_limit ; i++  , j++) {
     			names[j] = obj.getName(i , scaled_value , "M") ;
         		occurences[j] = obj.getOccurance( i , names[j] , "M");
-        		names[j] = obj.getName(i , scaled_value , "M") + String.valueOf(i);
+        		names[j] = obj.getName(i , scaled_value , "M") + " " +String.valueOf(i);
         	}
     	}
     	T1Names [] data = new T1Names[upper_limit - lower_limit+1];
-    	System.out.println(upper_limit - lower_limit +1);
+    	//System.out.println(upper_limit - lower_limit +1);
     	for(int i=0 ; i <=upper_limit -lower_limit; i++) {
     		data[i] = new T1Names(i, names[i] , occurences[i] , "");
-    		System.out.println(names[i]);
-    		System.out.println(occurences[i]);
+    		//System.out.println(names[i]);
+    		//System.out.println(occurences[i]);
     	}
+    	String oreport = "";
+    	boolean priority = false ;
+    	oreport += String.format("Depending on the extra years chosen we will look at Year %d to Year %d\n", lower_limit , upper_limit);
+    	oreport += String.format("Multiplying the scale of uniqueness with the total characters in the mom and dad's name to find the rank we need %.2f * (%d + %d) = %d [scaled accordingly]\n" ,t4X2UniquenessScaleAnswer.getValue() , mom_name.length(), dad_name.length() ,scaled_value);
+    	if(t4X2PriorityPromptAnswerChoice.getSelectionModel().getSelectedItem().equals("Yes")) {
+    		priority = true;
+    		oreport += String.format("You have opted in for the priority :) You will get the name of the highest occurences with same first letter as parents name (if present) from the data generated below");
+    	}
+    	else {
+    		priority = false ;
+    		oreport += String.format("You have opted out for the priority :( You will get the name of the highest occurences from the data generated below");
+    	}
+    	t4X2NameGenerationExplanation.setText(oreport);
     	if(t4_selected_gender.contentEquals("F")) {
-    		t4X2BarChart.setTitle(String.format("%d position Names (female) from year %d to %d" ,  scaled_value , upper_limit , lower_limit));
+    		t4X2BarChart.setTitle(String.format("%d ranked Names (female) from year %d to %d" ,  scaled_value , upper_limit , lower_limit));
     		XYChart.Series<String, Integer> set_female = new XYChart.Series<>();
     		set_female.setName("Female Occurences"); 
     		for (T1Names one_name : data) {
@@ -1235,7 +1270,7 @@ public class Controller {
     		
     	}
     	else {
-    		t4X2BarChart.setTitle(String.format("%d position Names (male) from year %d to %d" ,  scaled_value , upper_limit , lower_limit));
+    		t4X2BarChart.setTitle(String.format("%d ranked Names (male) from year %d to %d" ,  scaled_value , upper_limit , lower_limit));
     		XYChart.Series<String, Integer> set_male = new XYChart.Series<>();
     		set_male.setName("Male Occurences"); 
     		for (T1Names one_name : data) {
@@ -1246,7 +1281,55 @@ public class Controller {
     		t4X2BarChart.getData().addAll(set_male);
     	}
     	//System.out.println("Hello World!");
+    	String result_name = ""; 
+    	int result_occurences = 0;
+    	int max_position = 0;
+    	int flag = 0 ; 
+    	for(int i = 0 ; i<=upper_limit-lower_limit ; i++) {
+    		if(Character.toLowerCase(compare_name_with.charAt(0)) == Character.toLowerCase(names[i].charAt(0)) && priority) {
+    			if(occurences[i] == result_occurences) {
+        			if(names[i].compareTo(result_name)<0) {
+        				max_position =  i ;
+        				result_name = names[i];
+        				result_occurences = occurences[i];
+        				flag = 1 ;
+        				continue;
+        			}
+        		}
+        		if(occurences[i]>result_occurences) {
+        			max_position = i ;
+        			result_name = names[i];
+        			result_occurences = occurences[i];
+        			flag = 1;
+        			continue;
+        		}
+        	if(flag!=1) {
+        		max_position =  i ;
+				result_name = names[i];
+				result_occurences = occurences[i];
+				flag = 1 ; 
+        		continue;
+        	}
+    		}
+    		if(flag!=1) {
+    		if(occurences[i] == result_occurences) {
+    			if(names[i].compareTo(result_name)<0) {
+    				max_position =  i ;
+    				result_name = names[i];
+    				result_occurences = occurences[i];
+    			}
+    		}
+    		if(occurences[i]>result_occurences) {
+    			max_position = i ;
+    			result_name = names[i];
+    			result_occurences = occurences[i];
+    		}
+    	}
+    	}
+    	String[] ary = result_name.split(" ");
+    	t4X2NameGenerationResults.setText(ary[0]);
 
+        t4X2NameGenerationResultsOccurences.setText(Integer.toString(result_occurences));
     }
 
     @FXML

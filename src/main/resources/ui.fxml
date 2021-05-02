@@ -577,16 +577,61 @@
                                        <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <BarChart fx:id="t4X2BarChart" layoutX="99.0" layoutY="65.0" prefHeight="255.0" prefWidth="514.0">
+                                                <BarChart fx:id="t4X2BarChart" layoutX="4.0" layoutY="89.0" prefHeight="203.0" prefWidth="706.0">
                                                   <xAxis>
-                                                    <CategoryAxis side="BOTTOM" />
+                                                    <CategoryAxis fx:id="t4X2BarChartXAxis" side="BOTTOM" />
                                                   </xAxis>
                                                   <yAxis>
                                                     <NumberAxis side="LEFT" />
                                                   </yAxis>
                                                 </BarChart>
-                                                <Label layoutX="17.0" layoutY="3.0" prefHeight="70.0" prefWidth="667.0" text="Since x was selected on the uniqueness scale we will try to add the number of characters of mom and dads name and then multiply it on the uniquness scale and pick the name that is x years above or below the mom/dad year of birth " wrapText="true" />
-                                                <Label layoutX="19.0" layoutY="322.0" prefHeight="55.0" prefWidth="667.0" text="Answer: We pick x name becuase it has highest occurence and is of the same letter" wrapText="true" />
+                                                <Label fx:id="t4X2NameGenerationResults" layoutX="138.0" layoutY="300.0" prefHeight="60.0" prefWidth="246.0" text="Jacob">
+                                                   <font>
+                                                      <Font size="48.0" />
+                                                   </font>
+                                                   <textFill>
+                                                      <RadialGradient centerX="0.5224089635854342" centerY="0.5767386091127098" radius="0.5">
+                                                         <stops>
+                                                            <Stop>
+                                                               <color>
+                                                                  <Color />
+                                                               </color>
+                                                            </Stop>
+                                                            <Stop offset="1.0">
+                                                               <color>
+                                                                  <Color red="0.9078947305679321" green="0.06304824352264404" blue="0.06304824352264404" />
+                                                               </color>
+                                                            </Stop>
+                                                         </stops>
+                                                      </RadialGradient>
+                                                   </textFill></Label>
+                                                <Label fx:id="t4X2NameGenerationExplanation" layoutX="25.0" layoutY="2.0" prefHeight="99.0" prefWidth="680.0" text="Lets look at years .... to .......Lets count the number of characters in the mom and dads name and multiply it with the scale of uniquness selected to get the rank! No priority" textFill="#0d29e4" wrapText="true">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font></Label>
+                                                <Label layoutX="11.0" layoutY="322.0" text="T4X2 Name Prediction " />
+                                                <Label fx:id="t4X2NameGenerationResultsOccurences" layoutX="494.0" layoutY="300.0" prefHeight="60.0" prefWidth="211.0" text="Jacob" wrapText="true">
+                                                   <font>
+                                                      <Font size="48.0" />
+                                                   </font>
+                                                   <textFill>
+                                                      <RadialGradient centerX="0.5224089635854342" centerY="0.5767386091127098" radius="0.5">
+                                                         <stops>
+                                                            <Stop>
+                                                               <color>
+                                                                  <Color />
+                                                               </color>
+                                                            </Stop>
+                                                            <Stop offset="1.0">
+                                                               <color>
+                                                                  <Color red="0.9078947305679321" green="0.06304824352264404" blue="0.06304824352264404" />
+                                                               </color>
+                                                            </Stop>
+                                                         </stops>
+                                                      </RadialGradient>
+                                                   </textFill>
+                                                </Label>
+                                                <Label layoutX="376.0" layoutY="313.0" prefHeight="38.0" prefWidth="122.0" text="Occurences in Year Selected" textAlignment="CENTER" wrapText="true" />
                                              </children>
                                           </AnchorPane>
                                        </content>
