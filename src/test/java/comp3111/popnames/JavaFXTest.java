@@ -90,18 +90,6 @@ public class JavaFXTest extends ApplicationTest {
 	@Test
 	public void testReporting2Empty() {	
 		clickOn("#tabReport2");
-//		clickOn("#t2Year1");
-//		write("2000");
-//		clickOn("#t2Year2");
-//		write("2010");
-//		clickOn("#t1Pop");
-//		write("3");
-//		clickOn("#t1Gender");
-//		write("F");
-		clickOn("#t2Summary");
-		clickOn("#t2DataTable");
-		clickOn("#t2BarChartCheck");
-		clickOn("#t2PieChartCheck");
 		
 		clickOn("#t2GenerateResults");
 		//sleep(1000);
@@ -337,12 +325,76 @@ public class JavaFXTest extends ApplicationTest {
 		t = (TextArea)s.lookup("#T6TextAreaConsole");
 		String s1 = t.getText();
 		clickOn("#T6X1");
+    
+  @Test
+  public void testT5X1True() {	
+		clickOn("#tabApp2");
+		clickOn("#t5Name");
+		write("Dave");
+		clickOn("#t5Gender");
+		write("M");
+		clickOn("#t5YOB");
+		write("2000");
+		clickOn("#t5GenderMate");
+		write("F");
+		clickOn("#t5Preference");
+		write("Younger");
+		clickOn("#t5T5X1");
+		sleep(12000);
+		clickOn("#a2ViewResults");
+		clickOn("#a2ResultsNext");
+		
+		t = (TextArea)s.lookup("#textAreaSummary2");
+		String s1 = t.getText();
+		clickOn("#t5T5X1");
+		sleep(12000);
+		clickOn("#a2ViewResults");
+		clickOn("#a2ResultsNext");
 		//sleep(1000);
 		String s2 = t.getText();
 		assertTrue(s1.equals(s2));
 	}
+  
 	
 	@Test
+	public void testT5X2True() {	
+		clickOn("#tabApp2");
+		clickOn("#t5Name");
+		write("Dave");
+		clickOn("#t5Gender");
+		write("M");
+		clickOn("#t5YOB");
+		write("2000");
+		clickOn("#t5GenderMate");
+		write("F");
+		clickOn("#t5Preference");
+		write("Younger");
+		clickOn("#t5T5X2");
+		clickOn("#a2EnterAdditionalData");
+		clickOn("#t5RandInt1");
+		write("4");
+		clickOn("#t5RandInt2");
+		write("14");
+		clickOn("#a2ComputeResultsTX2");
+		clickOn("#a2ResultsNextX2");
+		
+		
+		t = (TextArea)s.lookup("#a2TextAreaConsoleX2");
+		String s1 = t.getText();
+		clickOn("#t5T5X2");
+		clickOn("#a2EnterAdditionalData");
+//		clickOn("#t5RandInt1");
+//		write("4");
+//		clickOn("#t5RandInt2");
+//		write("14");
+		clickOn("#a2ComputeResultsTX2");
+		clickOn("#a2ResultsNextX2");
+		
+		String s2 = t.getText();
+		assertTrue(s1.equals(s2));
+	}
+		
+  @Test
 	public void testApplication3T6X1False() {	
 		clickOn("#tabApp3");
 		clickOn("#T6iNameInput");
