@@ -174,8 +174,12 @@ public class AnalyzeNames{
 			//				oReport+=String.format("Year %d, :", year);
 			for(T2Names nam : names) {
 				if(nam!=null) {
-					nam.setPercentage();
-					//					oReport+=String.format("Name: %s   Occurances: %,d   Frequency : %,d \n", nam.getName(), nam.getOccurances(), nam.getFrequency());
+					if (getName(year, k, gender).contentEquals(nam.getName())) {
+						//							oReport+=String.format("Name %s Exists\n", nam.getName());
+						nam.incrementFrequency();
+						nam.addOccurances(getOccurance(year, nam.getName(), gender));
+						alreadyOccurred = true;
+					}
 				}
 			}
 			if(!alreadyOccurred) {
@@ -187,7 +191,7 @@ public class AnalyzeNames{
 			}
 			alreadyOccurred = false;
 		}
-    Arrays.sort(names,0,namesIndex);
+		Arrays.sort(names,0,namesIndex);
 		for(T2Names nam : names) {
 			if(nam!=null) {
 				nam.setPercentage();
