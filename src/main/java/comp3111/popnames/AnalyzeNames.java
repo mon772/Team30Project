@@ -253,6 +253,7 @@ public class AnalyzeNames{
 				names[nameIndex].year = i;
 				if(getOccurance(i, iMateName, iMateGender) == -1)
 				{
+					System.out.println("here");
 					continue;
 				}
 				names[nameIndex].occurances = getOccurance(i, iMateName, iMateGender);

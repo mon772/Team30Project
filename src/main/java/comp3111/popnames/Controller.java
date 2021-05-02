@@ -2489,10 +2489,6 @@ public class Controller {
     		}
     		T6TextAreaConsole.setText(output);
     	}
-    	else
-    	{
-       		T6TextAreaConsole.setStyle("-fx-text-base-color: red;");
-    	}
     }
     
     @FXML
@@ -2527,7 +2523,7 @@ public class Controller {
     		double iPercentage = Double.parseDouble(iName.percentage);
     		for(int i = 0; i<endYear-startYear+1;i++)
     		{
-    			System.out.println(mateNames[i].percentage);
+    			System.out.println("Hi"+ mateNames[i].percentage);
     			averagePercentage += Double.parseDouble(mateNames[i].percentage);
     		}
     		averagePercentage = averagePercentage/(endYear-startYear+1);
