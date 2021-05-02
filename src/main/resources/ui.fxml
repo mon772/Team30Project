@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
@@ -408,6 +414,238 @@
                               </Label>
                               <Button fx:id="t4ButtonT4X1" layoutX="164.0" layoutY="184.0" mnemonicParsing="false" onAction="#t4_computeT4X1" prefHeight="27.0" prefWidth="192.0" text="T4X1" />
                               <Button fx:id="t4ButtonT4X2" layoutX="372.0" layoutY="184.0" mnemonicParsing="false" onAction="#t4_computeT4X2" prefHeight="27.0" prefWidth="192.0" text="T4X2" />
+                              <TabPane fx:id="t4ResultsTabPane" layoutY="257.0" prefHeight="444.0" prefWidth="721.0" side="BOTTOM" tabClosingPolicy="UNAVAILABLE">
+                                <tabs>
+                                  <Tab fx:id="t4Console" text="Console">
+                                    <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="721.0">
+                                             <children>
+                                                <TextArea fx:id="t4ConsoleTextArea" prefHeight="358.0" prefWidth="718.0" />
+                                             </children>
+                                          </AnchorPane>
+                                    </content>
+                                  </Tab>
+                                  <Tab fx:id="t4X1GenderSelection" text="T4X1Gender Selection">
+                                    <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <Label fx:id="t4X1UserGenderPrompt" layoutX="127.0" layoutY="2.0" text="Select the Gender of the Name to be Predicted" textFill="#be07d7" underline="true">
+                                                   <font>
+                                                      <Font name="System Bold" size="24.0" />
+                                                   </font>
+                                                </Label>
+                                                <ImageView fx:id="t4MaleImage" fitHeight="253.0" fitWidth="262.0" layoutX="59.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="file:/Users/dhirenanandani/Desktop/Uni/Sem%204/COMP%203111/Labs/Group%20Project/male.png" />
+                                                   </image>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </ImageView>
+                                                <ImageView fx:id="t4FemaleImage" fitHeight="253.0" fitWidth="266.0" layoutX="388.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="file:/Users/dhirenanandani/Desktop/Uni/Sem%204/COMP%203111/Labs/Group%20Project/femenine.png" />
+                                                   </image>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </ImageView>
+                                                <Button fx:id="t4X1MaleButton" layoutX="59.0" layoutY="80.0" mnemonicParsing="false" onAction="#t4X1MalePrediction" opacity="0.0" prefHeight="253.0" prefWidth="262.0">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <tooltip>
+                                                      <Tooltip text="Click for Boy Name" />
+                                                   </tooltip>
+                                                </Button>
+                                                <Button fx:id="t4X1FemleButton" layoutX="388.0" layoutY="87.0" mnemonicParsing="false" onAction="#t4X1FemalePrediction" opacity="0.0" prefHeight="253.0" prefWidth="266.0">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <tooltip>
+                                                      <Tooltip text="Click for Girl Name" />
+                                                   </tooltip>
+                                                </Button>
+                                             </children>
+                                          </AnchorPane>
+                                    </content>
+                                  </Tab>
+                                    <Tab fx:id="t4X1Computation" text="T4X1">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <Label fx:id="t4X1MainMessage" layoutX="10.0" layoutY="7.0" prefHeight="62.0" prefWidth="682.0" text="Since the little boy and Father %s will have such a close \n relationship. It will be wise to look at the top names in %s's YOB %d\n The top names are as follows" textFill="#0923d6" wrapText="true">
+                                                   <font>
+                                                      <Font size="12.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="t4X1TopNames" layoutX="97.0" layoutY="63.0" prefHeight="83.0" prefWidth="84.0" text="Andrew Andy Samuel" wrapText="true">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <ImageView fx:id="t4X1ThinkingImage" fitHeight="100.0" fitWidth="122.0" layoutX="303.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../../Desktop/Uni/Sem%204/COMP%203111/Labs/Group%20Project/769-7698760_new-thinking-emoji-png-emojis-de-iphone-x.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Label fx:id="t4X1AskingText" layoutX="415.0" layoutY="82.0" prefHeight="60.0" prefWidth="254.0" text="Nice choices but which name to choose?" wrapText="true">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <PieChart fx:id="t4X1PieChart" layoutX="35.0" layoutY="189.0" prefHeight="198.0" prefWidth="278.0" />
+                                                <Label fx:id="t4X1TryPieChartMessage" layoutX="83.0" layoutY="152.0" prefHeight="40.0" prefWidth="186.0" text="Lets try deciding from a pie chart!" textAlignment="CENTER" wrapText="true">
+                                                   <font>
+                                                      <Font name="System Bold" size="13.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="t4X1AnswerPrompt" layoutX="385.0" layoutY="183.0" prefHeight="161.0" prefWidth="254.0" text="Answer: Since it is the most popular name" textFill="#bf5e19" wrapText="true">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </Tab>
+                                    <Tab fx:id="t4X2Computation" text="T4X2">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <Label fx:id="t4X2ExtraYearsPrompt" layoutX="52.0" layoutY="67.0" text="Enter the extra years to be checked before and after dads YOB" />
+                                                <Slider fx:id="t4X2UniquenessScaleAnswer" blockIncrement="1.0" layoutX="387.0" layoutY="157.0" max="10.0" min="1.0" prefHeight="16.0" prefWidth="264.0" />
+                                                <TextField fx:id="t4X2ExtraYearsAnswer" layoutX="490.0" layoutY="60.0" promptText="Range 5 to 25" />
+                                                <Label fx:id="t4X2UniquenessScale" layoutX="52.0" layoutY="157.0" text="Enter the Scale of Uniqueness" />
+                                                <Label fx:id="t4X2PriorityPrompt" layoutX="52.0" layoutY="250.0" text="Do you want to give priority to names with the same first letter of Dad's Name?" />
+                                                <Button fx:id="t4X2GetNamePrediction" layoutX="224.0" layoutY="314.0" mnemonicParsing="false" onAction="#t4X2GenerateNames" prefHeight="54.0" prefWidth="262.0" text="GET NAME!" />
+                                                <ChoiceBox fx:id="t4X2PriorityPromptAnswerChoice" layoutX="494.0" layoutY="246.0" prefHeight="27.0" prefWidth="156.0" />
+                                                <Label fx:id="t4X2ExtraYearsError" layoutX="421.0" layoutY="97.0" prefHeight="41.0" prefWidth="249.0" text="Error Label enter the correct datatype. Enter a value between 1 and 25" textFill="#e80c0c" wrapText="true">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="390.0" layoutY="176.0" text="1" />
+                                                <Label layoutX="637.0" layoutY="176.0" text="10" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </Tab>
+                                    <Tab fx:id="t4X2GenderSelection" text="T4X2Gender Selection">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <Label fx:id="t4X2UserGenderPrompt" layoutX="127.0" layoutY="2.0" text="Select the Gender of the Name to be Predicted" textFill="#be07d7" underline="true">
+                                                   <font>
+                                                      <Font name="System Bold" size="24.0" />
+                                                   </font>
+                                                </Label>
+                                                <ImageView fx:id="t4X2MaleImage" fitHeight="253.0" fitWidth="262.0" layoutX="59.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="file:/Users/dhirenanandani/Desktop/Uni/Sem%204/COMP%203111/Labs/Group%20Project/male.png" />
+                                                   </image>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </ImageView>
+                                                <ImageView fx:id="t4X2FemaleImage" fitHeight="253.0" fitWidth="266.0" layoutX="388.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="file:/Users/dhirenanandani/Desktop/Uni/Sem%204/COMP%203111/Labs/Group%20Project/femenine.png" />
+                                                   </image>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </ImageView>
+                                                <Button fx:id="t4X2MaleButton" layoutX="59.0" layoutY="80.0" mnemonicParsing="false" onAction="#t4X2MalePrediction" opacity="0.0" prefHeight="253.0" prefWidth="262.0">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <tooltip>
+                                                      <Tooltip text="Click for Boy Name" />
+                                                   </tooltip>
+                                                </Button>
+                                                <Button fx:id="t4X2FemleButton" layoutX="388.0" layoutY="87.0" mnemonicParsing="false" onAction="#t4X2FemalePrediction" opacity="0.0" prefHeight="253.0" prefWidth="266.0">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <tooltip>
+                                                      <Tooltip text="Click for Girl Name" />
+                                                   </tooltip>
+                                                </Button>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </Tab>
+                                    <Tab fx:id="t4X2NameGeneration" text="T4X2NamePrediction">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <BarChart fx:id="t4X2BarChart" layoutX="4.0" layoutY="89.0" prefHeight="203.0" prefWidth="706.0">
+                                                  <xAxis>
+                                                    <CategoryAxis fx:id="t4X2BarChartXAxis" side="BOTTOM" />
+                                                  </xAxis>
+                                                  <yAxis>
+                                                    <NumberAxis side="LEFT" />
+                                                  </yAxis>
+                                                </BarChart>
+                                                <Label fx:id="t4X2NameGenerationResults" layoutX="138.0" layoutY="300.0" prefHeight="60.0" prefWidth="246.0" text="Jacob">
+                                                   <font>
+                                                      <Font size="48.0" />
+                                                   </font>
+                                                   <textFill>
+                                                      <RadialGradient centerX="0.5224089635854342" centerY="0.5767386091127098" radius="0.5">
+                                                         <stops>
+                                                            <Stop>
+                                                               <color>
+                                                                  <Color />
+                                                               </color>
+                                                            </Stop>
+                                                            <Stop offset="1.0">
+                                                               <color>
+                                                                  <Color red="0.9078947305679321" green="0.06304824352264404" blue="0.06304824352264404" />
+                                                               </color>
+                                                            </Stop>
+                                                         </stops>
+                                                      </RadialGradient>
+                                                   </textFill></Label>
+                                                <Label fx:id="t4X2NameGenerationExplanation" layoutX="25.0" layoutY="2.0" prefHeight="99.0" prefWidth="680.0" text="Lets look at years .... to .......Lets count the number of characters in the mom and dads name and multiply it with the scale of uniquness selected to get the rank! No priority" textFill="#0d29e4" wrapText="true">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font></Label>
+                                                <Label layoutX="11.0" layoutY="322.0" text="T4X2 Name Prediction " />
+                                                <Label fx:id="t4X2NameGenerationResultsOccurences" layoutX="494.0" layoutY="300.0" prefHeight="60.0" prefWidth="211.0" text="Jacob" wrapText="true">
+                                                   <font>
+                                                      <Font size="48.0" />
+                                                   </font>
+                                                   <textFill>
+                                                      <RadialGradient centerX="0.5224089635854342" centerY="0.5767386091127098" radius="0.5">
+                                                         <stops>
+                                                            <Stop>
+                                                               <color>
+                                                                  <Color />
+                                                               </color>
+                                                            </Stop>
+                                                            <Stop offset="1.0">
+                                                               <color>
+                                                                  <Color red="0.9078947305679321" green="0.06304824352264404" blue="0.06304824352264404" />
+                                                               </color>
+                                                            </Stop>
+                                                         </stops>
+                                                      </RadialGradient>
+                                                   </textFill>
+                                                </Label>
+                                                <Label layoutX="376.0" layoutY="313.0" prefHeight="38.0" prefWidth="122.0" text="Occurences in Year Selected" textAlignment="CENTER" wrapText="true" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </Tab>
+                                </tabs>
+                              </TabPane>
+                              <Label layoutX="22.0" layoutY="224.0" text="Data Reporting Results" underline="true">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </AnchorPane>
                     </content>
