@@ -64,9 +64,9 @@ public class T2Names implements Comparable<T2Names> {
 		} else {
 			//equals case
 			if(getName().compareTo(secondName.getName()) <0) {
-				return 1;
-			} else {
 				return -1;
+			} else {
+				return 1;
 			}
 		}
 	}

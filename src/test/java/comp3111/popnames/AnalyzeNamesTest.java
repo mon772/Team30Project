@@ -39,5 +39,51 @@ public class AnalyzeNamesTest {
     	String name = a.getName(2019, 2192, "F");
     	assertTrue(name.equals("Desire"));
     }
+    
+    @Test 
+    public void testGetNameNotFound() {
+    	AnalyzeNames a = new AnalyzeNames();
+    	String name = a.getName(2010, 500000, "F");
+    	assertTrue(name.equals("information on the name at the specified rank is not available"));
+    }
+    
+    @Test 
+    public void testGetOccuranceNotFound() {
+    	AnalyzeNames a = new AnalyzeNames();
+    	int i = a.getOccurance(2019, "XXX", "M");
+		assertEquals(i, -1);
+    }
+    
+    @Test 
+    public void testGetOccuranceMale() {
+    	AnalyzeNames a = new AnalyzeNames();
+    	int i = a.getOccurance(2007, "Jacob", "M");
+		assertEquals(i, 24252);
+    }
+    
+    @Test 
+    public void testGetOccuranceFemale() {
+    	AnalyzeNames a = new AnalyzeNames();
+    	int i = a.getOccurance(2007, "Emily", "F");
+		assertEquals(i, 19345);
+    }
+
+    
+    @Test 
+    public void testgetKthPopularNamesF() {
+    	AnalyzeNames a = new AnalyzeNames();
+    	T2Names [] result = null;
+    	result = a.getKthPopularNames(2000, 2010, 8, "F");
+		assertTrue(result[0].getName().equals("Abigail"));
+    }
+    
+    @Test 
+    public void testgetKthPopularNamesM() {
+    	AnalyzeNames a = new AnalyzeNames();
+    	T2Names [] result = null;
+    	result = a.getKthPopularNames(2000, 2010, 8, "M");
+		assertTrue(result[0].getName().equals("Joseph"));
+    }
+    
 
 }
