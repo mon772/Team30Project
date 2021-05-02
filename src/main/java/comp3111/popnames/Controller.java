@@ -459,6 +459,8 @@ public class Controller {
     private BarChart<String, Integer> T3BarChartDisplay;
     @FXML
     private LineChart<String, Integer> T3LineChartDisplay;
+    @FXML
+    private TabPane T3ResultsTabPane;
 
     //=======================     Task 6 variables        ==============================
     @FXML
@@ -477,7 +479,10 @@ public class Controller {
     private TextField T6iGenderMateInput;
     @FXML
     private TextArea T6TextAreaConsole;
-    
+    @FXML 
+    private TextField T6VariabilityInput;
+    @FXML
+    private LineChart<String, Double> T6LineChartDisplay;
     /**
      *  Task Zero
      *  To be triggered by the "Summary" button on the Task Zero Tab 
@@ -1560,7 +1565,8 @@ public class Controller {
         	T3DataTable.setDisable(true);
         	T3BarChart.setDisable(true);
         	T3LineChart.setDisable(true);
-        	T3ConsoleTab.setStyle("-fx-text-base-color: red;");
+    		T3ConsoleTab.setStyle("-fx-text-base-color: red;");
+    		T3ResultsTabPane.getSelectionModel().select(T3ConsoleTab);
        		T3TextAreaConsole.setStyle("-fx-text-base-color: red;");
     	}
        	else
@@ -1574,23 +1580,21 @@ public class Controller {
     	//Input Validation
     	String consoleOutput = "";
     	boolean inputError = false;
-    	int startYear = 1880;
-    	int endYear = 2019;
     	
-    	//Validation of Starting Year 
+    	//Validation of Year 
     	int YOB=0;
     	try {
     		if(T6iYOBInput.getText() =="") {
-    			throw new Exception("Error: Please enter the starting year\n");
+    			throw new Exception("Error: Please enter your year of birth\n");
     		}
     		
-    		YOB = Integer.parseInt(T3StartYearInput.getText());
+    		YOB = Integer.parseInt(T6iYOBInput.getText());
     		if(YOB < 1880 || YOB > 2019) {
-    			throw new Exception("Error: Invalid starting year. Please input an year between 1880 and 2019.\n");
+    			throw new Exception("Error: Invalid year or birth. Please input an year between 1880 and 2019.\n");
     		}
     	}
     	catch (NumberFormatException e) {
-    		consoleOutput += "Error: The starting year is not an integer. Please enter an integer.\n";
+    		consoleOutput += "Error: The year of birth is not an integer. Please enter an integer.\n";
     		inputError=true;
     	}
     	catch (Exception e) {
@@ -1601,7 +1605,7 @@ public class Controller {
     	
     	//Validation of iGender
 		String igenderOut = "";
-    	String iGender = T3GenderInput.getText();
+    	String iGender = T6iGenderInput.getText();
     	try {
     		if(iGender =="") {
     			throw new Exception("Error: Please enter the gender.\n");
@@ -1623,7 +1627,7 @@ public class Controller {
     	
     	//Validation of iMateGender
 		String iMategenderOut = "";
-    	String iMateGender = T3GenderInput.getText();
+    	String iMateGender = T6iGenderMateInput.getText();
     	try {
     		if(iMateGender =="") {
     			throw new Exception("Error: Please enter the gender.\n");
@@ -1646,66 +1650,182 @@ public class Controller {
     	//Validation of preference
     	try 
     	{
-	    	boolean isPreferenceYounger = false;
 	    	String iPreference = T6iPreferenceInput.getText();
-			if(iPreference.contentEquals("Younger")) {
-				isPreferenceYounger = true;
-			}
-			else if (iPreference.contentEquals("Older")) {
-				isPreferenceYounger = false;
-			}
-			else {
+			if(iPreference.contentEquals("Younger") == false && iPreference.contentEquals("Older") == false) {
 				throw new Exception("Please enter 'Younger' or 'Older' as the age preference");
 			}
-			if(isPreferenceYounger) {
-				endYear = Integer.parseInt(T6iYOBInput.getText());
-			} 
-			else {
-				startYear = Integer.parseInt(T6iYOBInput.getText());
-			}
-			
     	}
     	catch(Exception e)
     	{
     		consoleOutput += e.getMessage();
     	}
     	
+    	//Validation of Variability
+    	try {
+    		if(T6VariabilityInput.getText() =="") {
+    			throw new Exception("Error: Please enter a variability allowance.\n");
+    		}
+    		int variability = Integer.parseInt(T6VariabilityInput.getText());
+    		if(variability < 1 || variability > 10) {
+    			throw new Exception("Error: Invalid variability allowance. Please input a number between 1 and 10.\n");
+    		}
+    	}
+    	catch(NumberFormatException e) {
+    		consoleOutput += "Error: The variability allowance entered is not an integer. Please enter an integer.\n";
+    		inputError=true;
+    	}
+    	catch(Exception e)
+    	{
+    		consoleOutput += e.getMessage();
+    		inputError = true;
+    	}
+
        	T6TextAreaConsole.setText(consoleOutput);
 
-    	if(inputError)
+    	if(!inputError)
     	{
     		return false;
     	}
     	return true;
     }
     
+    boolean T6NameInputValidation() {
+    	boolean error = false;
+    	String consoleOutput = "";
+    	try {
+    		if(T6iNameInput.getText() == "")
+    		{
+    			error = true;
+    			throw new Exception("Error: Please enter your name.\n");
+    		}
+    		if(T6iNameMateInput.getText() == "") {
+    			error = true;
+    			throw new Exception("Error: Please enter your desired mate's name.\n");
+    		}
+    	}
+    	catch(Exception e) {
+    		consoleOutput = e.getMessage();
+    	}
+		T6TextAreaConsole.setText(consoleOutput);
+		return error;
+    }
+    
     @FXML
     void T6ComputeT6X1() {
     	//Analyze and generate results for T6X1
-    	boolean inputError = T6InputValidation();
+    	boolean inputError = T6NameInputValidation();
+    	String output = "";
     	if(!inputError)
     	{
-    		
+    		int oScore = 0;
+    		String iName = T6iNameInput.getText();
+    		iName = iName.replace(" ", "");
+    		String iMateName =  T6iNameMateInput.getText();
+    		iMateName = iMateName.replace(" ", "");
+    		if(iName.length() == iMateName.length())
+    		{
+    			oScore = 100;
+    			output = "Congratulations! You are compatible with your partner! You have a compatibility oScore of 100%\n";
+    		}
+    		else {
+    			output = "Alas! You are not compatible with your partner. You have a compatibility oScore of 0%\n";
+    		}
+    		T6TextAreaConsole.setText(output);
     	}
     	else
     	{
-    		
+       		T6TextAreaConsole.setStyle("-fx-text-base-color: red;");
     	}
     }
     
+    @FXML
     void T6ComputeT6X2() {
     	//Analyze and generate results for T6X2
     	boolean inputError = T6InputValidation();
+    	T6LineChartDisplay.getData().clear();
+    	String consoleOutput = "";
+    	System.out.println(inputError);
     	if(!inputError)
     	{
-    		
-    	}
-    	else
-    	{
-    		
+	    	String iPreference = T6iPreferenceInput.getText();
+	    	String iMateGender = T6iGenderMateInput.getText();
+	    	String iMateName = T6iNameMateInput.getText();
+	    	String iname = T6iNameInput.getText();
+	    	String iGender = T6iGenderInput.getText();
+	    	int variability = Integer.parseInt(T6VariabilityInput.getText());
+	    	int YOB = Integer.parseInt(T6iYOBInput.getText());
+	    	int startYear = 1880;
+	    	int endYear = 2019;
+	    	if(iPreference.contentEquals("Younger"))
+	    	{
+	    		endYear = YOB;
+	    	}
+	    	else 
+	    	{
+	    		startYear = YOB;
+	    	}
+    		T3Names [] mateNames = AnalyzeNames.T6getNames(startYear, endYear, iMateGender, iMateName);
+    		T3Names iName = AnalyzeNames.T6getiName(iname, iGender, YOB);
+    		double averagePercentage = 0.0;
+    		double iPercentage = Double.parseDouble(iName.percentage);
+    		for(int i = 0; i<endYear-startYear+1;i++)
+    		{
+    			System.out.println(mateNames[i].percentage);
+    			averagePercentage += Double.parseDouble(mateNames[i].percentage);
+    		}
+    		averagePercentage = averagePercentage/(endYear-startYear+1);
+    		double marginPercentage = 1.0*variability;
+    		System.out.println("average percentage = "+ averagePercentage);
+    		System.out.println("average percentage = "+ iPercentage);
+
+    		T3LineChartDisplay.setTitle(String.format("Percentage of the name '%s' over the years", iMateName));
+			XYChart.Series<String, Double> set1 = new XYChart.Series<>();
+			XYChart.Series<String, Double> set2 = new XYChart.Series<>();
+
+			int year = startYear;
+			for (T3Names name : mateNames) {
+				
+				set1.getData().add(new XYChart.Data<>(String.valueOf(year), Double.parseDouble(name.percentage)));
+				set2.getData().add(new XYChart.Data<>(String.valueOf(year), averagePercentage));
+				year++;
+			}
+			T6LineChartDisplay.getData().addAll(set1);
+			T6LineChartDisplay.getData().addAll(set2);
+			String LesserOrGreater = "lesser";
+			if(iPreference == "Older")
+			{
+				LesserOrGreater = "greater";
+			}
+			double percentageDifference = (averagePercentage - iPercentage < 0)? -1*(averagePercentage - iPercentage): averagePercentage - iPercentage;
+			double oScore = 0.0;
+    		if(percentageDifference <= marginPercentage) 
+    		{
+    			oScore = 100.0 - (percentageDifference/marginPercentage)*100;
+    			
+        		consoleOutput += "According to many astrologers, two individuals are more likely be partners if their names have a similar amount of popularity in the "
+        				+ "years they were born. This links to the psychological working of the family of the individuals because they named them. 'The way people choose names tells "
+        				+ "a lot about their personality', say these astrologers.\nthe popularity of name in a prticular year can be linked to its percentage. Therefore, becasue "
+        				+ "you chose "+ String.valueOf(iPreference) + " as your preference, the algorithm calculated the average percentage of the name "
+        				+ iMateName + " over the years " + LesserOrGreater + " than " + String.valueOf(YOB) + "(your YOB).\nAverage Percentage of Mate's Name = " + String.valueOf(averagePercentage)
+        				+ "\nPercentage of your name for year " + String.valueOf(YOB) + " = " + String.valueOf(iPercentage) + ".\nThe variability is then used to set the margin beyond which the compatibility is 0.0%."+
+        				"In this case, the variability is " + String.valueOf(marginPercentage) + "%.\n Therefore, the oScore is percentage deviation of the popularity of your mate's name and the popularity of your name in the "
+        						+ "given variability range./nYour oScore = " +String.valueOf(oScore)+".\nYou would be " + String.valueOf(oScore) + "% compatible with your desired mate."; 
+    		}
+    		else
+    		{
+    			consoleOutput += "According to many astrologers, two individuals are more likely be partners if their names have a similar amount of popularity in the "
+        				+ "years they were born. This links to the psychological working of the family of the individuals because they named them. 'The way people choose names tells "
+        				+ "a lot about their personality', say these astrologers.\nthe popularity of name in a prticular year can be linked to its percentage. Therefore, becasue "
+        				+ "you chose "+ String.valueOf(iPreference) + " as your preference, the algorithm calculated the average percentage of the name "
+        				+ iMateName + " over the years " + LesserOrGreater + " than " + String.valueOf(YOB) + "(your YOB).\nAverage Percentage of Mate's Name = " + String.valueOf(averagePercentage)
+        				+ "\nPercentage of your name for year " + String.valueOf(YOB) + " = " + String.valueOf(iPercentage) + ".\nThe variability is then used to set the margin beyond which the compatibility is 0.0%."+
+        				"In this case, the variability is " + String.valueOf(marginPercentage) + "%.\n Therefore, the oScore is percentage deviation of the popularity of your mate's name and the popularity of your name in the "
+        						+ "given variability range./nYour oScore = " +String.valueOf(oScore)+". This means that you are not likely to be compatible with the desired mate at all.";
+    		}
+    		T6TextAreaConsole.setWrapText(true);
+    		T6TextAreaConsole.setText(consoleOutput);
     	}
     }
-    
     
     
     
@@ -1725,7 +1845,7 @@ public class Controller {
 		ObservableList<T3Names> Names = FXCollections.observableArrayList();
 		
 		for(T3Names nam : names) {
-			if(nam.name!= "") {
+			if(nam.occurances != 0) {
 				System.out.println(nam.name);
 				Names.add(nam);
 			}

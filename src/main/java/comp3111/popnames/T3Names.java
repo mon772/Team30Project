@@ -24,6 +24,7 @@ public class T3Names {
 	}
 	
 	public void setPercentage() {
-		percentage = String.format("%.1f%%", (float)(occurances *100.0/ birthCount));
+		percentage = String.format("%.1f", (float)(occurances *100.0/ birthCount));
+		System.out.println(percentage);
 	}
 }

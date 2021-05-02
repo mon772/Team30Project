@@ -202,20 +202,78 @@ public class AnalyzeNames{
 			
 			for(int i = startYear; i<=endYear;i++)
 			{
-				names[nameIndex] = new T3Names("", 0, "0.0", 0, 0, 0);
+				names[nameIndex] = new T3Names(name, 0, "0.0", 0, 0, 0);
 				if(getRank(i, name, gender)> 1000)
 				{
 					continue;
 				}
 				names[nameIndex].name = name;
-				names[nameIndex].birthCount = getTotalMales(i);
+				if(gender == "M")
+				{
+					names[nameIndex].birthCount = getTotalMales(i);
+				}
+				else {
+					names[nameIndex].birthCount = getTotalFemales(i);
+				}
+				
+				names[nameIndex].year = i;
+				if(getOccurance(i, name, gender) == -1)
+				{
+					continue;
+				}
 				names[nameIndex].occurances = getOccurance(i, name, gender);
 				names[nameIndex].rank = getRank(i, name, gender);
 				names[nameIndex].setPercentage();
-				names[nameIndex].year = i;
 				nameIndex++;
 			}
 			return names;	
 		}
+		
+		public static T3Names [] T6getNames(int startYear, int endYear, String iMateGender, String iMateName)
+		{
+			T3Names [] names = new T3Names[endYear - startYear + 1];
+			int nameIndex = 0;
+			
+			for(int i = startYear; i<=endYear;i++)
+			{
+				names[nameIndex] = new T3Names(iMateName, 0, "0.0", 0, 0, 0);
+				names[nameIndex].name = iMateName;
+				if(iMateGender == "M")
+				{
+					names[nameIndex].birthCount = getTotalMales(i);
+				}
+				else {
+					names[nameIndex].birthCount = getTotalFemales(i);
+				}
+				
+				names[nameIndex].year = i;
+				if(getOccurance(i, iMateName, iMateGender) == -1)
+				{
+					continue;
+				}
+				names[nameIndex].occurances = getOccurance(i, iMateName, iMateGender);
+				names[nameIndex].rank = getRank(i, iMateName, iMateGender);
+				names[nameIndex].setPercentage();
+				nameIndex++;
+			}			
+			return names;
+		}
  
+		public static T3Names T6getiName(String iName, String iGender, int YOB)
+		{
+			int rank = getRank(YOB, iName, iGender);
+			int occurances = getOccurance(YOB, iName, iGender);
+			int birthCount;
+			if(iGender == "M")
+			{
+				 birthCount = getTotalMales(YOB);
+			}
+			else {
+				birthCount = getTotalFemales(YOB);
+			}
+			T3Names iname = new T3Names(iName, occurances, "0.0", rank, birthCount, YOB);
+			iname.setPercentage();
+			return iname;
+		 
+		}
 }
