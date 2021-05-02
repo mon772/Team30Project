@@ -216,5 +216,269 @@ public class JavaFXTest extends ApplicationTest {
 		String s2 = t.getText();
 		assertTrue(s1.equals(s2));
 	}
-		
+	
+	@Test
+	public void testReporting3True() {	
+		clickOn("#tabReport3");
+		clickOn("#T3StartYearInput");
+		write("2000");
+		clickOn("#T3EndYearInput");
+		write("2010");
+		clickOn("#T3NameInput");
+		write("John");
+		clickOn("#T3GenderInput");
+		write("M");
+		clickOn("#T3SummaryCheckBox");
+		clickOn("#T3DataTableCheckBox");
+		clickOn("#T3BarChartCheckBox");
+		clickOn("#T3LineChartCheckBox");
+		clickOn("#T3GenerateResults");
+		//sleep(1000);
+		t = (TextArea)s.lookup("#T3TextAreaConsole");
+		String s1 = t.getText();
+		clickOn("#T3GenerateResults");
+		//sleep(1000);
+		String s2 = t.getText();
+		assertTrue(s1.equals(s2));
+	}
+	
+	@Test
+	public void testReporting3TrueEmpty() {	
+		clickOn("#tabReport3");
+		clickOn("#T3StartYearInput");
+		write("");
+		clickOn("#T3EndYearInput");
+		write("");
+		clickOn("#T3NameInput");
+		write("");
+		clickOn("#T3GenderInput");
+		write("");
+		clickOn("#T3SummaryCheckBox");
+		clickOn("#T3DataTableCheckBox");
+		clickOn("#T3BarChartCheckBox");
+		clickOn("#T3LineChartCheckBox");
+		clickOn("#T3GenerateResults");
+		//sleep(1000);
+		t = (TextArea)s.lookup("#T3TextAreaConsole");
+		String s1 = t.getText();
+		clickOn("#T3GenerateResults");
+		//sleep(1000);
+		String s2 = t.getText();
+		assertTrue(s1.equals(s2));
+	}
+	
+	@Test
+	public void testReporting3TrueEmptyCheckBox() {	
+		clickOn("#tabReport3");
+		clickOn("#T3StartYearInput");
+		write("");
+		clickOn("#T3EndYearInput");
+		write("");
+		clickOn("#T3NameInput");
+		write("");
+		clickOn("#T3GenderInput");
+		write("");
+		clickOn("#T3GenerateResults");
+		//sleep(1000);
+		t = (TextArea)s.lookup("#T3TextAreaConsole");
+		String s1 = t.getText();
+		clickOn("#T3GenerateResults");
+		//sleep(1000);
+		String s2 = t.getText();
+		assertTrue(s1.equals(s2));
+	}
+	
+	@Test
+	public void testReporting3False() {	
+		clickOn("#tabReport3");
+		clickOn("#T3StartYearInput");
+		write("2000");
+		clickOn("#T3EndYearInput");
+		write("2010");
+		clickOn("#T3NameInput");
+		write("John");
+		clickOn("#T3GenderInput");
+		write("M");
+		clickOn("#T3SummaryCheckBox");
+		clickOn("#T3DataTableCheckBox");
+		clickOn("#T3BarChartCheckBox");
+		clickOn("#T3LineChartCheckBox");
+		clickOn("#T3GenerateResults");
+		//sleep(1000);
+		t = (TextArea)s.lookup("#T3TextAreaConsole");
+		String s1 = t.getText();
+		clickOn("#T3GenderInput");
+		write("F");
+		clickOn("#T3GenerateResults");
+		//sleep(1000);
+		String s2 = t.getText();
+		assertTrue(s1.equals(s2));
+	}
+	
+	@Test
+	public void testApplication3T6X1True() {	
+		clickOn("#tabApp3");
+		clickOn("#T6iNameInput");
+		write("John");
+		clickOn("#T6iYOBInput");
+		write("2001");
+		clickOn("#T6iGenderInput");
+		write("M");
+		clickOn("#T6iPreferenceInput");
+		write("Younger");
+		clickOn("#T6iNameMateInput");
+		write("Mary");
+		clickOn("#T6iGenderMateInput");
+		write("F");
+		clickOn("#T6VariabilityInput");
+		write("5");
+		clickOn("#T6X1");
+		//sleep(1000);
+		t = (TextArea)s.lookup("#T6TextAreaConsole");
+		String s1 = t.getText();
+		clickOn("#T6X1");
+		//sleep(1000);
+		String s2 = t.getText();
+		assertTrue(s1.equals(s2));
+	}
+	
+	@Test
+	public void testApplication3T6X1False() {	
+		clickOn("#tabApp3");
+		clickOn("#T6iNameInput");
+		write("John");
+		clickOn("#T6iYOBInput");
+		write("2001");
+		clickOn("#T6iGenderInput");
+		write("M");
+		clickOn("#T6iPreferenceInput");
+		write("Younger");
+		clickOn("#T6iNameMateInput");
+		write("Mary");
+		clickOn("#T6iGenderMateInput");
+		write("F");
+		clickOn("#T6VariabilityInput");
+		write("5");
+		clickOn("#T6X1");
+		//sleep(1000);
+		t = (TextArea)s.lookup("#T6TextAreaConsole");
+		clickOn("#T6iNameMateInput");
+		write("Elizabeth");
+		String s1 = t.getText();
+		clickOn("#T6X1");
+		//sleep(1000);
+		String s2 = t.getText();
+		assertTrue(s1.equals(s2));
+	}
+	
+	@Test
+	public void testApplication3T6X2True() {	
+		clickOn("#tabApp3");
+		clickOn("#T6iNameInput");
+		write("John");
+		clickOn("#T6iYOBInput");
+		write("2001");
+		clickOn("#T6iGenderInput");
+		write("M");
+		clickOn("#T6iPreferenceInput");
+		write("Younger");
+		clickOn("#T6iNameMateInput");
+		write("Mary");
+		clickOn("#T6iGenderMateInput");
+		write("F");
+		clickOn("#T6VariabilityInput");
+		write("5");
+		clickOn("#T6X2");
+		//sleep(1000);
+		t = (TextArea)s.lookup("#T6TextAreaConsole");
+		String s1 = t.getText();
+		clickOn("#T6X2");
+		//sleep(1000);
+		String s2 = t.getText();
+		assertTrue(s1.equals(s2));
+	}
+	
+	@Test
+	public void testApplication3T6X2True1() {	
+		clickOn("#tabApp3");
+		clickOn("#T6iNameInput");
+		write("5");
+		clickOn("#T6iYOBInput");
+		write("a");
+		clickOn("#T6iGenderInput");
+		write("sdfljk");
+		clickOn("#T6iPreferenceInput");
+		write("young");
+		clickOn("#T6iNameMateInput");
+		write("5");
+		clickOn("#T6iGenderMateInput");
+		write("1");
+		clickOn("#T6VariabilityInput");
+		write("0");
+		clickOn("#T6X2");
+		//sleep(1000);
+		t = (TextArea)s.lookup("#T6TextAreaConsole");
+		String s1 = t.getText();
+		clickOn("#T6X2");
+		//sleep(1000);
+		String s2 = t.getText();
+		assertTrue(s1.equals(s2));
+	}
+	@Test
+	public void testApplication3T6X2TrueEmpty() {	
+		clickOn("#tabApp3");
+		clickOn("#T6iNameInput");
+		write("");
+		clickOn("#T6iYOBInput");
+		write("");
+		clickOn("#T6iGenderInput");
+		write("");
+		clickOn("#T6iPreferenceInput");
+		write("");
+		clickOn("#T6iNameMateInput");
+		write("");
+		clickOn("#T6iGenderMateInput");
+		write("");
+		clickOn("#T6VariabilityInput");
+		write("");
+		clickOn("#T6X2");
+		//sleep(1000);
+		t = (TextArea)s.lookup("#T6TextAreaConsole");
+		String s1 = t.getText();
+		clickOn("#T6X2");
+		//sleep(1000);
+		String s2 = t.getText();
+		assertTrue(s1.equals(s2));
+	}
+	
+	
+	
+	@Test
+	public void testApplication3T6X2False() {	
+		clickOn("#tabApp3");
+		clickOn("#T6iNameInput");
+		write("John");
+		clickOn("#T6iYOBInput");
+		write("2001");
+		clickOn("#T6iGenderInput");
+		write("M");
+		clickOn("#T6iPreferenceInput");
+		write("Younger");
+		clickOn("#T6iNameMateInput");
+		write("Mary");
+		clickOn("#T6iGenderMateInput");
+		write("F");
+		clickOn("#T6VariabilityInput");
+		write("5");
+		clickOn("#T6X2");
+		//sleep(1000);
+		t = (TextArea)s.lookup("#T6TextAreaConsole");
+		clickOn("#T6iNameMateInput");
+		write("Elizabeth");
+		String s1 = t.getText();
+		clickOn("#T6X2");
+		//sleep(1000);
+		String s2 = t.getText();
+		assertTrue(s1.equals(s2));
+	}
 }
