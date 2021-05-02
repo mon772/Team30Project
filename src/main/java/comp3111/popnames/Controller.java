@@ -7,6 +7,8 @@ package comp3111.popnames;
 
 import java.util.concurrent.TimeUnit;
 
+import com.gargoylesoftware.htmlunit.javascript.host.Console;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -21,6 +23,7 @@ import javafx.scene.control.ColorPicker;
 
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.LineChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
@@ -493,6 +496,77 @@ public class Controller {
     @FXML
     private Tab tabApp3;
     
+    //=======================     Task 3 variables        ==============================
+    @FXML
+    private TextField T3StartYearInput;
+    @FXML
+    private TextField T3EndYearInput;
+    @FXML
+    private TextField T3NameInput;
+    @FXML
+    private TextField T3GenderInput;
+    @FXML
+    private CheckBox T3SummaryCheckBox;
+    @FXML
+    private CheckBox T3DataTableCheckBox;
+    @FXML
+    private CheckBox T3BarChartCheckBox;
+    @FXML
+    private CheckBox T3LineChartCheckBox;
+    @FXML
+    private Tab T3ConsoleTab;
+    @FXML
+    private Tab T3SummaryTab;
+    @FXML
+    private Tab T3DataTable;
+    @FXML
+    private Tab T3LineChart;
+    @FXML
+    private Tab T3BarChart;
+    @FXML
+    private TextArea T3TextAreaConsole;
+    @FXML
+    private TextArea T3SummaryDisplay;
+    @FXML
+    private TableView<T3Names> T3DataTableDisplay;
+    @FXML
+    private TableColumn<T3Names, Integer> T3Year;
+    @FXML
+    private TableColumn<T3Names, Integer> T3Rank;
+    @FXML
+    private TableColumn<T3Names, Integer> T3Occurances;
+    @FXML
+    private TableColumn<T3Names, String> T3Percentage;
+    @FXML
+    private BarChart<String, Integer> T3BarChartDisplay;
+    @FXML
+    private LineChart<String, Integer> T3LineChartDisplay;
+    @FXML
+    private TabPane T3ResultsTabPane;
+
+    //=======================     Task 6 variables        ==============================
+    @FXML
+    private TextArea T6Description;
+    @FXML
+    private TextField T6iNameInput;
+    @FXML
+    private TextField T6iYOBInput;
+    @FXML
+    private TextField T6iGenderInput;
+    @FXML
+    private TextField T6iPreferenceInput;
+    @FXML
+    private TextField T6iNameMateInput;
+    @FXML
+    private TextField T6iGenderMateInput;
+    @FXML
+    private TextArea T6TextAreaConsole;
+    @FXML 
+    private TextField T6VariabilityInput;
+    @FXML
+    private LineChart<String, Double> T6LineChartDisplay;
+  
+ 
     @FXML
     private Label t4X1MainMessage;
 
@@ -2060,6 +2134,458 @@ public class Controller {
     	textAreaConsole.setText(oReport);
     }
     
+    @FXML
+    void T3GenerateResults()
+    {		
+    	T3BarChartDisplay.getData().clear();
+    	T3LineChartDisplay.getData().clear();
+    	System.out.println("T3GenerateResults Executed");
+    	String consoleOutput = "";
+    	boolean inputError = false;
+    	
+    	//Validation of Starting Year 
+    	int startYear=0;
+    	try {
+    		if(T3StartYearInput.getText() =="") {
+    			throw new Exception("Error: Please enter the starting year\n");
+    		}
+    		
+    		startYear = Integer.parseInt(T3StartYearInput.getText());
+    		if(startYear < 1880 || startYear > 2019) {
+    			throw new Exception("Error: Invalid starting year. Please input an year between 1880 and 2019.\n");
+    		}
+    	}
+    	catch (NumberFormatException e) {
+    		consoleOutput += "Error: The starting year is not an integer. Please enter an integer.\n";
+    		inputError=true;
+    	}
+    	catch (Exception e) {
+    		consoleOutput += e.getMessage();
+    		inputError=true;
+    	}
+    	System.out.println("T3GenerateResults Executed 1");
+    	//Validation of End Year
+    	int endYear=0;
+    	try {
+    		if(T3EndYearInput.getText() =="") {
+    			throw new Exception("Error: Please enter the end year\n");
+    		}
+    		endYear = Integer.parseInt(T3EndYearInput.getText());
+    		if(endYear < 1880 || endYear > 2019) {
+    			throw new Exception("Error: Invalid end year. Please input an year between 1880 and 2019.\n");
+    		}
+    	}
+    	catch (NumberFormatException e) {
+    		consoleOutput += "Error: The end year is not an integer. Please enter an integer.\n";
+    		inputError=true;
+    	}
+    	catch (Exception e) {
+    		consoleOutput += e.getMessage();
+    		inputError=true;
+    	}
+    	
+    	//Validation of Gender
+		String genderOut = "";
+    	String gender = T3GenderInput.getText();
+    	try {
+    		if(gender =="") {
+    			throw new Exception("Error: Please enter the gender.\n");
+    		}
+    		if(gender.contentEquals("M")) {
+    			genderOut="boys";
+    		}
+    		else if (gender.contentEquals("F")) {
+    			genderOut="girls";
+    		}
+    		else {
+    			throw new Exception("Error: Please enter the a valid gender, 'M' or 'F'.\n");
+    		}
+    	}
+    	catch (Exception e) {
+    		consoleOutput += e.getMessage();
+    		inputError=true;
+    	}
+    	
+    	//Validation of Name
+    	String name = T3NameInput.getText();
+    	name = name.replace(" ", "");
+    	int nameLength = name.length();
+    	
+    	try {
+    		if(nameLength > 15 || nameLength < 2)
+    		{
+    			throw new Exception("Error: Please enter a name containing 2 to 15 letters.\n");
+    		}
+    	}
+    	catch(Exception e)
+    	{
+    		consoleOutput += e.getMessage();
+    		inputError = true;
+    	}
+    	
+    	//CheckBox Validation
+    	System.out.println("T3GenerateResults Executed 2");
+    	boolean summary = T3SummaryCheckBox.isSelected();
+    	System.out.println("T3GenerateResults Executed 3");
+    	boolean datatable = T3DataTableCheckBox.isSelected();
+    	boolean barchart = T3BarChartCheckBox.isSelected();
+    	boolean linechart = T3LineChartCheckBox.isSelected();
+       	if(!(summary | datatable | barchart | linechart)) {
+    		consoleOutput += "Error: Please choose one of the data reporting methods offered above.\n";
+    		inputError=true;
+    	}
+    	
+       	// ============= Data Reporting ===============
+       	
+       	T3Names Result[] = null;
+       	if(inputError == false)
+       	{
+        	T3SummaryTab.setDisable(!summary);
+        	T3DataTable.setDisable(!datatable);
+        	T3BarChart.setDisable(!barchart);
+        	T3LineChart.setDisable(!linechart);
+        	consoleOutput += "The data reports will be visible in their respective tabs. Please click on the tabs to view.\n";
+        	//Analyze and calculate the results
+	    	Result = AnalyzeNames.getPopularityOfNames(startYear, endYear, name, gender);
+	    	System.out.println(Result);
+	    	if(Result != null)
+	    	{
+	    		int maxIndex = 0;
+	    		T3Names maxName = new T3Names("", 0, "0.0", 0, 0, 0);
+	    		int maxOccurances = 0;
+	    		for(int i = 0;i<endYear-startYear+1;i++)
+	    		{
+	    			if(Result[i].occurances >= maxOccurances)
+	    			{
+	    				maxIndex = i;
+	    				maxName = new T3Names(Result[i].name, Result[i].occurances, Result[i].percentage, Result[i].rank, Result[i].birthCount, i+startYear);
+	    				maxOccurances = Result[i].occurances;
+	    			}
+	    		}
+	    		//Summary
+	    		if(summary) {
+	    			String summaryContent = "";
+	    			summaryContent += String.format("The year when the name %s was most popular is %d at rank %d. In that year, the\r\n" + 
+	    					"number of occurrences is %d, which represents %s of total male births in %d.", name, maxIndex+startYear, maxName.rank, maxName.occurances, maxName.percentage, maxIndex+startYear);
+	    			T3SummaryDisplay.setText(summaryContent);
+	    		}
+	    		//BarChart
+	    		if(barchart) {
+	    			T3BarChartDisplay.setTitle(String.format("Popularity of %s from %d to %d", name, startYear, endYear));
+	    			XYChart.Series<String, Integer> set1 = new XYChart.Series<>();
+	    			int year = startYear;
+	    			for (T3Names nam : Result) {
+	    				if(nam.name!="") {
+	    					set1.getData().add(new XYChart.Data<>(String.valueOf(year), nam.occurances));
+	    				}
+	    				year++;
+	    			}
+	    			T3BarChartDisplay.getData().addAll(set1);
+	    		}
+	    		//DataTable
+	    		if(datatable) {
+
+	    	    	T3Year.setCellValueFactory(new PropertyValueFactory<T3Names,Integer>("year"));
+	    	    	T3Rank.setCellValueFactory(new PropertyValueFactory<T3Names,Integer>("rank"));
+	    	    	T3Occurances.setCellValueFactory(new PropertyValueFactory<T3Names,Integer>("occurances"));
+	    	    	T3Percentage.setCellValueFactory(new PropertyValueFactory<T3Names,String>("percentage"));   
+	    			T3DataTableDisplay.setItems(T3getNames(Result)); 
+	    		}
+	    		
+	    		//LineChart
+	    		if(linechart) {
+	    			T3LineChartDisplay.setTitle(String.format("Popularity of %s from %d to %d", name, startYear, endYear));
+	    			XYChart.Series<String, Integer> set1 = new XYChart.Series<>();
+	    			int year = startYear;
+	    			for (T3Names nam : Result) {
+	    				if(nam.name!="") {
+	    					set1.getData().add(new XYChart.Data<>(String.valueOf(year), nam.occurances));
+	    				}
+	    				year++;
+	    			}
+	    			T3LineChartDisplay.getData().addAll(set1);	
+	    		}
+	    	}
+	    	else
+	    	{
+	        	T3SummaryTab.setDisable(true);
+	        	T3DataTable.setDisable(true);
+	        	T3BarChart.setDisable(true);
+	        	T3LineChart.setDisable(true);
+	        	T3ConsoleTab.setStyle("-fx-text-base-color: red;");
+	        	T3TextAreaConsole.setStyle("-fx -text-base-color: blue;");
+	    	}
+       	}
+       	if(inputError)
+       	{
+        	T3SummaryTab.setDisable(true);
+        	T3DataTable.setDisable(true);
+        	T3BarChart.setDisable(true);
+        	T3LineChart.setDisable(true);
+    		T3ConsoleTab.setStyle("-fx-text-base-color: red;");
+    		T3ResultsTabPane.getSelectionModel().select(T3ConsoleTab);
+       		T3TextAreaConsole.setStyle("-fx-text-base-color: red;");
+    	}
+       	else
+       	{
+       		T3ConsoleTab.setStyle("-fx-text-base-color: black;");
+       	}
+       	T3TextAreaConsole.setText(consoleOutput);
+    }
+    
+    boolean T6InputValidation() {
+    	//Input Validation
+    	String consoleOutput = "";
+    	boolean inputError = false;
+    	
+    	//Validation of Year 
+    	int YOB=0;
+    	try {
+    		if(T6iYOBInput.getText() =="") {
+    			throw new Exception("Error: Please enter your year of birth\n");
+    		}
+    		
+    		YOB = Integer.parseInt(T6iYOBInput.getText());
+    		if(YOB < 1880 || YOB > 2019) {
+    			throw new Exception("Error: Invalid year or birth. Please input an year between 1880 and 2019.\n");
+    		}
+    	}
+    	catch (NumberFormatException e) {
+    		consoleOutput += "Error: The year of birth is not an integer. Please enter an integer.\n";
+    		inputError=true;
+    	}
+    	catch (Exception e) {
+    		consoleOutput += e.getMessage();
+    		inputError=true;
+    	}
+    	
+    	
+    	//Validation of iGender
+		String igenderOut = "";
+    	String iGender = T6iGenderInput.getText();
+    	try {
+    		if(iGender =="") {
+    			throw new Exception("Error: Please enter the gender.\n");
+    		}
+    		if(iGender.contentEquals("M")) {
+    			igenderOut="boys";
+    		}
+    		else if (iGender.contentEquals("F")) {
+    			igenderOut="girls";
+    		}
+    		else {
+    			throw new Exception("Error: Please enter the a valid gender, 'M' or 'F'.\n");
+    		}
+    	}
+    	catch (Exception e) {
+    		consoleOutput += e.getMessage();
+    		inputError=true;
+    	}
+    	
+    	//Validation of iMateGender
+		String iMategenderOut = "";
+    	String iMateGender = T6iGenderMateInput.getText();
+    	try {
+    		if(iMateGender =="") {
+    			throw new Exception("Error: Please enter the gender.\n");
+    		}
+    		if(iMateGender.contentEquals("M")) {
+    			iMategenderOut="boys";
+    		}
+    		else if (iMateGender.contentEquals("F")) {
+    			iMategenderOut="girls";
+    		}
+    		else {
+    			throw new Exception("Error: Please enter the a valid gender, 'M' or 'F'.\n");
+    		}
+    	}
+    	catch (Exception e) {
+    		consoleOutput += e.getMessage();
+    		inputError=true;
+    	}
+    	
+    	//Validation of preference
+    	try 
+    	{
+	    	String iPreference = T6iPreferenceInput.getText();
+			if(iPreference.contentEquals("Younger") == false && iPreference.contentEquals("Older") == false) {
+				throw new Exception("Please enter 'Younger' or 'Older' as the age preference");
+			}
+    	}
+    	catch(Exception e)
+    	{
+    		consoleOutput += e.getMessage();
+    	}
+    	
+    	//Validation of Variability
+    	try {
+    		if(T6VariabilityInput.getText() =="") {
+    			throw new Exception("Error: Please enter a variability allowance.\n");
+    		}
+    		int variability = Integer.parseInt(T6VariabilityInput.getText());
+    		if(variability < 1 || variability > 10) {
+    			throw new Exception("Error: Invalid variability allowance. Please input a number between 1 and 10.\n");
+    		}
+    	}
+    	catch(NumberFormatException e) {
+    		consoleOutput += "Error: The variability allowance entered is not an integer. Please enter an integer.\n";
+    		inputError=true;
+    	}
+    	catch(Exception e)
+    	{
+    		consoleOutput += e.getMessage();
+    		inputError = true;
+    	}
+
+       	T6TextAreaConsole.setText(consoleOutput);
+
+    	if(!inputError)
+    	{
+    		return false;
+    	}
+    	return true;
+    }
+    
+    boolean T6NameInputValidation() {
+    	boolean error = false;
+    	String consoleOutput = "";
+    	try {
+    		if(T6iNameInput.getText() == "")
+    		{
+    			error = true;
+    			throw new Exception("Error: Please enter your name.\n");
+    		}
+    		if(T6iNameMateInput.getText() == "") {
+    			error = true;
+    			throw new Exception("Error: Please enter your desired mate's name.\n");
+    		}
+    	}
+    	catch(Exception e) {
+    		consoleOutput = e.getMessage();
+    	}
+		T6TextAreaConsole.setText(consoleOutput);
+		return error;
+    }
+    
+    @FXML
+    void T6ComputeT6X1() {
+    	//Analyze and generate results for T6X1
+    	boolean inputError = T6NameInputValidation();
+    	String output = "";
+    	if(!inputError)
+    	{
+    		int oScore = 0;
+    		String iName = T6iNameInput.getText();
+    		iName = iName.replace(" ", "");
+    		String iMateName =  T6iNameMateInput.getText();
+    		iMateName = iMateName.replace(" ", "");
+    		if(iName.length() == iMateName.length())
+    		{
+    			oScore = 100;
+    			output = "Congratulations! You are compatible with your partner! You have a compatibility oScore of 100%\n";
+    		}
+    		else {
+    			output = "Alas! You are not compatible with your partner. You have a compatibility oScore of 0%\n";
+    		}
+    		T6TextAreaConsole.setText(output);
+    	}
+    	else
+    	{
+       		T6TextAreaConsole.setStyle("-fx-text-base-color: red;");
+    	}
+    }
+    
+    @FXML
+    void T6ComputeT6X2() {
+    	//Analyze and generate results for T6X2
+    	boolean inputError = T6InputValidation();
+    	T6LineChartDisplay.getData().clear();
+    	String consoleOutput = "";
+    	System.out.println(inputError);
+    	if(!inputError)
+    	{
+	    	String iPreference = T6iPreferenceInput.getText();
+	    	String iMateGender = T6iGenderMateInput.getText();
+	    	String iMateName = T6iNameMateInput.getText();
+	    	String iname = T6iNameInput.getText();
+	    	String iGender = T6iGenderInput.getText();
+	    	int variability = Integer.parseInt(T6VariabilityInput.getText());
+	    	int YOB = Integer.parseInt(T6iYOBInput.getText());
+	    	int startYear = 1880;
+	    	int endYear = 2019;
+	    	if(iPreference.contentEquals("Younger"))
+	    	{
+	    		endYear = YOB;
+	    	}
+	    	else 
+	    	{
+	    		startYear = YOB;
+	    	}
+    		T3Names [] mateNames = AnalyzeNames.T6getNames(startYear, endYear, iMateGender, iMateName);
+    		T3Names iName = AnalyzeNames.T6getiName(iname, iGender, YOB);
+    		double averagePercentage = 0.0;
+    		double iPercentage = Double.parseDouble(iName.percentage);
+    		for(int i = 0; i<endYear-startYear+1;i++)
+    		{
+    			System.out.println(mateNames[i].percentage);
+    			averagePercentage += Double.parseDouble(mateNames[i].percentage);
+    		}
+    		averagePercentage = averagePercentage/(endYear-startYear+1);
+    		double marginPercentage = 1.0*variability;
+    		System.out.println("average percentage = "+ averagePercentage);
+    		System.out.println("average percentage = "+ iPercentage);
+
+    		T3LineChartDisplay.setTitle(String.format("Percentage of the name '%s' over the years", iMateName));
+			XYChart.Series<String, Double> set1 = new XYChart.Series<>();
+			XYChart.Series<String, Double> set2 = new XYChart.Series<>();
+
+			int year = startYear;
+			for (T3Names name : mateNames) {
+				
+				set1.getData().add(new XYChart.Data<>(String.valueOf(year), Double.parseDouble(name.percentage)));
+				set2.getData().add(new XYChart.Data<>(String.valueOf(year), averagePercentage));
+				year++;
+			}
+			T6LineChartDisplay.getData().addAll(set1);
+			T6LineChartDisplay.getData().addAll(set2);
+			String LesserOrGreater = "lesser";
+			if(iPreference == "Older")
+			{
+				LesserOrGreater = "greater";
+			}
+			double percentageDifference = (averagePercentage - iPercentage < 0)? -1*(averagePercentage - iPercentage): averagePercentage - iPercentage;
+			double oScore = 0.0;
+    		if(percentageDifference <= marginPercentage) 
+    		{
+    			oScore = 100.0 - (percentageDifference/marginPercentage)*100;
+    			
+        		consoleOutput += "According to many astrologers, two individuals are more likely be partners if their names have a similar amount of popularity in the "
+        				+ "years they were born. This links to the psychological working of the family of the individuals because they named them. 'The way people choose names tells "
+        				+ "a lot about their personality', say these astrologers.\nthe popularity of name in a prticular year can be linked to its percentage. Therefore, becasue "
+        				+ "you chose "+ String.valueOf(iPreference) + " as your preference, the algorithm calculated the average percentage of the name "
+        				+ iMateName + " over the years " + LesserOrGreater + " than " + String.valueOf(YOB) + "(your YOB).\nAverage Percentage of Mate's Name = " + String.valueOf(averagePercentage)
+        				+ "\nPercentage of your name for year " + String.valueOf(YOB) + " = " + String.valueOf(iPercentage) + ".\nThe variability is then used to set the margin beyond which the compatibility is 0.0%."+
+        				"In this case, the variability is " + String.valueOf(marginPercentage) + "%.\n Therefore, the oScore is percentage deviation of the popularity of your mate's name and the popularity of your name in the "
+        						+ "given variability range./nYour oScore = " +String.valueOf(oScore)+".\nYou would be " + String.valueOf(oScore) + "% compatible with your desired mate."; 
+    		}
+    		else
+    		{
+    			consoleOutput += "According to many astrologers, two individuals are more likely be partners if their names have a similar amount of popularity in the "
+        				+ "years they were born. This links to the psychological working of the family of the individuals because they named them. 'The way people choose names tells "
+        				+ "a lot about their personality', say these astrologers.\nthe popularity of name in a prticular year can be linked to its percentage. Therefore, becasue "
+        				+ "you chose "+ String.valueOf(iPreference) + " as your preference, the algorithm calculated the average percentage of the name "
+        				+ iMateName + " over the years " + LesserOrGreater + " than " + String.valueOf(YOB) + "(your YOB).\nAverage Percentage of Mate's Name = " + String.valueOf(averagePercentage)
+        				+ "\nPercentage of your name for year " + String.valueOf(YOB) + " = " + String.valueOf(iPercentage) + ".\nThe variability is then used to set the margin beyond which the compatibility is 0.0%."+
+        				"In this case, the variability is " + String.valueOf(marginPercentage) + "%.\n Therefore, the oScore is percentage deviation of the popularity of your mate's name and the popularity of your name in the "
+        						+ "given variability range./nYour oScore = " +String.valueOf(oScore)+". This means that you are not likely to be compatible with the desired mate at all.";
+    		}
+    		T6TextAreaConsole.setWrapText(true);
+    		T6TextAreaConsole.setText(consoleOutput);
+    	}
+    }
+    
+    
+    
     public ObservableList<T2Names> getNames(T2Names [] names) {
 		ObservableList<T2Names> Names = FXCollections.observableArrayList();
 		
@@ -2072,5 +2598,18 @@ public class Controller {
 		
 		return Names;
 	}
-    
+  
+    public ObservableList<T3Names> T3getNames(T3Names [] names) {
+		ObservableList<T3Names> Names = FXCollections.observableArrayList();
+		
+		for(T3Names nam : names) {
+			if(nam.occurances != 0) {
+				System.out.println(nam.name);
+				Names.add(nam);
+			}
+		}
+		return Names;
+	}
+
+
 }

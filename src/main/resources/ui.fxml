@@ -3,6 +3,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
@@ -28,10 +29,11 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.paint.RadialGradient?>
 <?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="679.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="comp3111.popnames.Controller">
+<VBox prefHeight="679.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="comp3111.popnames.Controller">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="316.0" prefWidth="719.0">
       <children>
@@ -364,9 +366,129 @@
                     <content>
                         <AnchorPane>
                            <children>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="318.0" prefWidth="719.0">
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="339.0" prefWidth="719.0">
                                  <children>
-                                    <TextArea layoutX="112.0" layoutY="26.0" prefHeight="111.0" prefWidth="362.0" text="Task #3: Popularity of Names (data reporting)&#10;&#10;Generate a report in response to the queries on the popularity of a name over a given period.&#10;&#10;" wrapText="true" />
+                                    <TextField fx:id="T3StartYearInput" layoutX="250.0" layoutY="102.0" prefHeight="26.0" prefWidth="189.0" promptText="Range: 1880 to 2019" />
+                                    <TextField fx:id="T3EndYearInput" layoutX="250.0" layoutY="137.0" prefHeight="26.0" prefWidth="189.0" promptText="Range: 1880 to 2019" />
+                                    <Label fx:id="T3InputLabel" layoutX="41.0" layoutY="67.0" prefHeight="18.0" prefWidth="87.0" text="Inputs" underline="true">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="41.0" layoutY="106.0" prefHeight="19.0" prefWidth="200.0" text="Start Year of interest">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="41.0" layoutY="141.0" prefHeight="19.0" prefWidth="200.0" text="End Year of interest">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="T3NameInput" layoutX="250.0" layoutY="170.0" prefHeight="26.0" prefWidth="190.0" promptText=" Must be between 2 to 15 letters" />
+                                    <Label layoutX="41.0" layoutY="174.0" prefHeight="19.0" prefWidth="200.0" text="Name of interest">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="T3GenderInput" layoutX="251.0" layoutY="205.0" prefHeight="26.0" prefWidth="190.0" promptText="Char: 'M' or 'F'" />
+                                    <Label layoutX="42.0" layoutY="209.0" prefHeight="19.0" prefWidth="200.0" text="Gender of interest">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <CheckBox fx:id="T3SummaryCheckBox" layoutX="221.0" layoutY="246.0" mnemonicParsing="false" text="Summary" />
+                                    <Label layoutX="42.0" layoutY="246.0" prefHeight="19.0" prefWidth="151.0" text="Data Display Format:">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <CheckBox fx:id="T3DataTableCheckBox" layoutX="321.0" layoutY="246.0" mnemonicParsing="false" text="Data Table" />
+                                    <CheckBox fx:id="T3BarChartCheckBox" layoutX="421.0" layoutY="246.0" mnemonicParsing="false" text="Bar Chart" />
+                                    <CheckBox fx:id="T3LineChartCheckBox" layoutX="521.0" layoutY="246.0" mnemonicParsing="false" text="Line Chart" />
+                                    <Button fx:id="T3GenerateResults" layoutX="289.0" layoutY="278.0" mnemonicParsing="false" onAction="#T3GenerateResults" text="Generate Results!" />
+                                    <TextArea fx:id="T3InformationTab" layoutX="41.0" layoutY="16.0" prefHeight="41.0" prefWidth="637.0" text="Task #3: Popularity of names(data reporting)&#10;Generate a report in response to the queries on the popularity of a name over a given period.&#10;" wrapText="true" />
+                                    <TabPane fx:id="T3ResultsTabPane" layoutY="323.0" prefHeight="325.0" prefWidth="720.0" tabClosingPolicy="UNAVAILABLE">
+                                       <tabs>
+                                          <Tab fx:id="T3ConsoleTab" text="Console">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <ScrollPane prefHeight="295.0" prefWidth="719.0">
+                                                         <content>
+                                                            <TextArea fx:id="T3TextAreaConsole" editable="false" prefHeight="295.0" prefWidth="700.0">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font></TextArea>
+                                                         </content>
+                                                      </ScrollPane>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </Tab>
+                                          <Tab fx:id="T3SummaryTab" disable="true" text="Summary">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <ScrollPane prefHeight="295.0" prefWidth="719.0">
+                                                         <content>
+                                                            <TextArea fx:id="T3SummaryDisplay" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="295.0" prefWidth="700.0" wrapText="true" />
+                                                         </content>
+                                                      </ScrollPane>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </Tab>
+                                          <Tab fx:id="T3DataTable" disable="true" text="Data Table">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <TableView fx:id="T3DataTableDisplay" prefHeight="263.0" prefWidth="720.0">
+                                                         <columns>
+                                                            <TableColumn fx:id="T3Year" prefWidth="175.0" text="Year" />
+                                                            <TableColumn fx:id="T3Rank" prefWidth="175.0" text="Rank" />
+                                                            <TableColumn fx:id="T3Occurances" prefWidth="175.0" text="Occurances" />
+                                                            <TableColumn fx:id="T3Percentage" prefWidth="175.0" text="Percentage" />
+                                                         </columns>
+                                                      </TableView>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </Tab>
+                                          <Tab fx:id="T3BarChart" disable="true" text="Bar Chart">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <BarChart fx:id="T3BarChartDisplay" layoutY="1.0" prefHeight="295.0" prefWidth="719.0" title="Popularity of name over start year and end year">
+                                                         <xAxis>
+                                                            <CategoryAxis fx:id="t2BarChartNames1" label="Names" side="BOTTOM" />
+                                                         </xAxis>
+                                                         <yAxis>
+                                                            <NumberAxis fx:id="t2BarChartOccurances1" label="Occurances" side="LEFT" />
+                                                         </yAxis>
+                                                      </BarChart>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </Tab>
+                                          <Tab fx:id="T3LineChart" disable="true" text="Line Chart">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <LineChart fx:id="T3LineChartDisplay" prefHeight="293.0" prefWidth="719.0" title="Popularity of Name over start year and end year">
+                                                        <xAxis>
+                                                          <CategoryAxis side="BOTTOM" />
+                                                        </xAxis>
+                                                        <yAxis>
+                                                          <NumberAxis side="LEFT" />
+                                                        </yAxis>
+                                                      </LineChart>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </Tab>
+                                       </tabs>
+                                    </TabPane>
                                  </children>
                               </AnchorPane>
                            </children>
@@ -930,7 +1052,100 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TextArea layoutX="40.0" layoutY="39.0" prefHeight="105.0" prefWidth="450.0" text="Task #6: Prediction on Scores for Compatible Pairs (application)&#10;&#10;Develop and implement an online service using empirical data to help make informed decisions on predicting scores for compatible pairs.&#10;" wrapText="true" />
+                              <TextArea fx:id="T6Description" layoutX="37.0" layoutY="21.0" prefHeight="69.0" prefWidth="643.0" text="Task #6: Prediction on Scores for Compatible Pairs (application)&#10;Develop and implement an online service using empirical data to help make informed decisions on predicting scores for compatible pairs.&#10;" wrapText="true" />
+                              <Label layoutX="37.0" layoutY="95.0" prefHeight="18.0" prefWidth="87.0" text="Inputs" underline="true">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="T6iNameInput" layoutX="175.0" layoutY="155.0" prefHeight="27.0" prefWidth="150.0" promptText="Name" />
+                              <Label layoutX="37.0" layoutY="232.0" prefHeight="19.0" prefWidth="79.0" text="Gender">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="37.0" layoutY="195.0" prefHeight="19.0" prefWidth="114.0" text="Year of Birth">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="T6iYOBInput" layoutX="175.0" layoutY="191.0" prefHeight="27.0" prefWidth="150.0" promptText="Range: 1880 to 2019" />
+                              <Label layoutX="37.0" layoutY="131.0" prefHeight="19.0" prefWidth="276.0" text="Please enter your paticulars:">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="37.0" layoutY="159.0" prefHeight="19.0" prefWidth="41.0" text="Name">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="T6iGenderInput" layoutX="175.0" layoutY="228.0" prefHeight="27.0" prefWidth="150.0" promptText="Char: 'M' or 'F'" />
+                              <Label layoutX="37.0" layoutY="268.0" prefHeight="19.0" prefWidth="171.0" text="Age preference">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="T6iPreferenceInput" layoutX="175.0" layoutY="264.0" prefHeight="27.0" prefWidth="150.0" promptText="&quot;Younger&quot; or &quot;Older&quot;" />
+                              <Label layoutX="33.0" layoutY="313.0" prefHeight="19.0" prefWidth="285.0" text="Please select algorithm to perform prediction:">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="T6X1" layoutX="360.0" layoutY="308.0" mnemonicParsing="false" onAction="#T6ComputeT6X1" prefHeight="30.0" prefWidth="120.0" text="T6X1">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="T6X2" layoutX="526.0" layoutY="307.0" mnemonicParsing="false" onAction="#T6ComputeT6X2" prefHeight="30.0" prefWidth="120.0" text="T6X2">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Button>
+                              <Label layoutX="360.0" layoutY="131.0" prefHeight="19.0" prefWidth="239.0" text="Please enter your partner's paticulars:">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="T6iNameMateInput" layoutX="498.0" layoutY="155.0" prefHeight="27.0" prefWidth="150.0" promptText="Name" />
+                              <Label layoutX="360.0" layoutY="195.0" prefHeight="19.0" prefWidth="79.0" text="Gender">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="360.0" layoutY="159.0" prefHeight="19.0" prefWidth="41.0" text="Name">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="T6iGenderMateInput" layoutX="498.0" layoutY="191.0" prefHeight="27.0" prefWidth="150.0" promptText="Char: 'M' or 'F'" />
+                              <Line endX="-18.0" endY="-121.0" layoutX="359.0" layoutY="255.0" startX="-18.0" startY="33.0" />
+                              <Label layoutX="496.0" layoutY="314.0" prefHeight="19.0" prefWidth="19.0" text="or">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextArea fx:id="T6TextAreaConsole" editable="false" layoutX="343.0" layoutY="413.0" prefHeight="228.0" prefWidth="366.0" />
+                              <Label layoutX="29.0" layoutY="371.0" prefHeight="18.0" prefWidth="87.0" text="Results" underline="true">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="31.0" layoutY="346.0" prefHeight="19.0" prefWidth="425.0" text="On a scale of 1 to 10, indicate a variability allowance for the results:">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="T6VariabilityInput" layoutX="456.0" layoutY="342.0" prefHeight="27.0" prefWidth="150.0" promptText="Range: 1 to 10" />
+                              <Line endX="-18.0" endY="-121.0" layoutX="358.0" layoutY="532.0" startX="-18.0" startY="115.0" />
+                              <LineChart fx:id="T6LineChartDisplay" layoutX="3.0" layoutY="410.0" prefHeight="234.0" prefWidth="339.0">
+                                <xAxis>
+                                  <CategoryAxis side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis side="LEFT" />
+                                </yAxis>
+                              </LineChart>
                            </children>
                         </AnchorPane>
                     </content>
