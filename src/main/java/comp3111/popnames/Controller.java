@@ -1696,8 +1696,9 @@ public class Controller {
     	
     	if(!err) {
     		oReport+="Welcome to Prediction on Names for Compatible Pairs Application!\n\n";
-    		oReport+="In order to generate suitable predictions using our patented formula, please enter additional data.\n";
-    		oReport+="Please press the Enter Additional Data Button Below...\n";
+    		oReport+="Research lead by Dhiren Gupta and his team at MIT has shown that Biological Data and Preferences are not sufficient to generate suitable compatibility predictions.\n";
+    		oReport+="Therefore his team has generated a patented formula that incorporates a persons tastes.\nIn order to recieve a compatibility report using their patented formula, you will need to enter additional data.\n";
+    		oReport+="Please press the Enter Additional Data Button Below to do so...\n";
     		a2EnterAdditionalData.setVisible(true);
     	}
     	a2TextAreaConsoleX2.setText(oReport);

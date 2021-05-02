@@ -204,6 +204,121 @@ public class JavaFXTest extends ApplicationTest {
 		String s2 = t.getText();
 		assertTrue(s1.equals(s2));
 	}
+	/*
+	@Test
+  public void testT5X1True() {	
+		clickOn("#tabApp2");
+		clickOn("#t5Name");
+		write("Dave");
+		clickOn("#t5Gender");
+		write("M");
+		clickOn("#t5YOB");
+		write("2000");
+		clickOn("#t5GenderMate");
+		write("F");
+		clickOn("#t5Preference");
+		write("Younger");
+		clickOn("#t5T5X1");
+		sleep(12000);
+		clickOn("#a2ViewResults");
+		clickOn("#a2ResultsNext");
+		
+		t = (TextArea)s.lookup("#textAreaSummary2");
+		String s1 = t.getText();
+		clickOn("#t5T5X1");
+		sleep(12000);
+		clickOn("#a2ViewResults");
+		clickOn("#a2ResultsNext");
+		//sleep(1000);
+		String s2 = t.getText();
+		assertTrue(s1.equals(s2));
+	}
+	
+	@Test
+	public void testT5X2True() {	
+		clickOn("#tabApp2");
+		clickOn("#t5Name");
+		write("Dave");
+		clickOn("#t5Gender");
+		write("M");
+		clickOn("#t5YOB");
+		write("2000");
+		clickOn("#t5GenderMate");
+		write("F");
+		clickOn("#t5Preference");
+		write("Younger");
+		clickOn("#t5T5X2");
+		clickOn("#a2EnterAdditionalData");
+		clickOn("#t5RandInt1");
+		write("4");
+		clickOn("#t5RandInt2");
+		write("14");
+		clickOn("#a2ComputeResultsTX2");
+		clickOn("#a2ResultsNextX2");
+		
+		
+		t = (TextArea)s.lookup("#a2TextAreaConsoleX2");
+		String s1 = t.getText();
+		clickOn("#t5T5X2");
+		clickOn("#a2EnterAdditionalData");
+//		clickOn("#t5RandInt1");
+//		write("4");
+//		clickOn("#t5RandInt2");
+//		write("14");
+		clickOn("#a2ComputeResultsTX2");
+		clickOn("#a2ResultsNextX2");
+		
+		String s2 = t.getText();
+		assertTrue(s1.equals(s2));
+	}
+	*/
+	
+	@Test
+	public void t4X2GenerateNamesTrue() {
+		clickOn("#tabApp1");
+		clickOn("#T4textFieldDadsName");
+		write("Andrew");
+		clickOn("#T4textFieldMomsName");
+		write("Sarah");
+		clickOn("#T4textFieldDadsYOB");
+		write("2000");
+		clickOn("#T4textFieldMomsYOB");
+		write("2000");
+		clickOn("#t4ButtonT4X2");
+		clickOn("#t4X2MaleButton");
+		clickOn("#t4X2ExtraYearsAnswer");
+		write("10");
+		t = (TextArea)s.lookup("#textAreaConsole1");
+		//clickOn("t4X2UniquenessScaleAnswer");
+		String s1 = t.getText();
+		clickOn("#t4X2GetNamePrediction");
+		String s2 = t.getText();
+		assertTrue(s1.equals(s2));
+		
+	}
+	@Test
+	public void t4X2GenerateNamesFalse() {
+		clickOn("#tabApp1");
+		clickOn("#T4textFieldDadsName");
+		write("Andrew");
+		clickOn("#T4textFieldMomsName");
+		write("Sarah");
+		clickOn("#T4textFieldDadsYOB");
+		write("2000");
+		clickOn("#T4textFieldMomsYOB");
+		write("2000");
+		clickOn("#t4ButtonT4X2");
+		clickOn("#t4X2FemleButton");
+		clickOn("#t4X2ExtraYearsAnswer");
+		t = (TextArea)s.lookup("#textAreaConsole1");
+		String s1 = t.getText();
+		write("10");
+		//clickOn("t4X2UniquenessScaleAnswer");
+		clickOn("#t4X2GetNamePrediction");
+		String s2 = "  ";
+		assertFalse(s1.equals(s2));
+	}
+	
 	
 	@Test
 	public void testReporting3True() {	
@@ -276,32 +391,8 @@ public class JavaFXTest extends ApplicationTest {
 		assertTrue(s1.equals(s2));
 	}
 	
-	@Test
-	public void testReporting3False() {	
-		clickOn("#tabReport3");
-		clickOn("#T3StartYearInput");
-		write("2000");
-		clickOn("#T3EndYearInput");
-		write("2010");
-		clickOn("#T3NameInput");
-		write("John");
-		clickOn("#T3GenderInput");
-		write("M");
-		clickOn("#T3SummaryCheckBox");
-		clickOn("#T3DataTableCheckBox");
-		clickOn("#T3BarChartCheckBox");
-		clickOn("#T3LineChartCheckBox");
-		clickOn("#T3GenerateResults");
-		//sleep(1000);
-		t = (TextArea)s.lookup("#T3TextAreaConsole");
-		String s1 = t.getText();
-		clickOn("#T3GenderInput");
-		write("F");
-		clickOn("#T3GenerateResults");
-		//sleep(1000);
-		String s2 = t.getText();
-		assertTrue(s1.equals(s2));
-	}
+	
+
 	
 	@Test
 	public void testApplication3T6X1True() {	
@@ -325,103 +416,11 @@ public class JavaFXTest extends ApplicationTest {
 		t = (TextArea)s.lookup("#T6TextAreaConsole");
 		String s1 = t.getText();
 		clickOn("#T6X1");
-    
-  @Test
-  public void testT5X1True() {	
-		clickOn("#tabApp2");
-		clickOn("#t5Name");
-		write("Dave");
-		clickOn("#t5Gender");
-		write("M");
-		clickOn("#t5YOB");
-		write("2000");
-		clickOn("#t5GenderMate");
-		write("F");
-		clickOn("#t5Preference");
-		write("Younger");
-		clickOn("#t5T5X1");
-		sleep(12000);
-		clickOn("#a2ViewResults");
-		clickOn("#a2ResultsNext");
-		
-		t = (TextArea)s.lookup("#textAreaSummary2");
-		String s1 = t.getText();
-		clickOn("#t5T5X1");
-		sleep(12000);
-		clickOn("#a2ViewResults");
-		clickOn("#a2ResultsNext");
 		//sleep(1000);
 		String s2 = t.getText();
 		assertTrue(s1.equals(s2));
 	}
-  
-	
-	@Test
-	public void testT5X2True() {	
-		clickOn("#tabApp2");
-		clickOn("#t5Name");
-		write("Dave");
-		clickOn("#t5Gender");
-		write("M");
-		clickOn("#t5YOB");
-		write("2000");
-		clickOn("#t5GenderMate");
-		write("F");
-		clickOn("#t5Preference");
-		write("Younger");
-		clickOn("#t5T5X2");
-		clickOn("#a2EnterAdditionalData");
-		clickOn("#t5RandInt1");
-		write("4");
-		clickOn("#t5RandInt2");
-		write("14");
-		clickOn("#a2ComputeResultsTX2");
-		clickOn("#a2ResultsNextX2");
-		
-		
-		t = (TextArea)s.lookup("#a2TextAreaConsoleX2");
-		String s1 = t.getText();
-		clickOn("#t5T5X2");
-		clickOn("#a2EnterAdditionalData");
-//		clickOn("#t5RandInt1");
-//		write("4");
-//		clickOn("#t5RandInt2");
-//		write("14");
-		clickOn("#a2ComputeResultsTX2");
-		clickOn("#a2ResultsNextX2");
-		
-		String s2 = t.getText();
-		assertTrue(s1.equals(s2));
-	}
-		
-  @Test
-	public void testApplication3T6X1False() {	
-		clickOn("#tabApp3");
-		clickOn("#T6iNameInput");
-		write("John");
-		clickOn("#T6iYOBInput");
-		write("2001");
-		clickOn("#T6iGenderInput");
-		write("M");
-		clickOn("#T6iPreferenceInput");
-		write("Younger");
-		clickOn("#T6iNameMateInput");
-		write("Mary");
-		clickOn("#T6iGenderMateInput");
-		write("F");
-		clickOn("#T6VariabilityInput");
-		write("5");
-		clickOn("#T6X1");
-		//sleep(1000);
-		t = (TextArea)s.lookup("#T6TextAreaConsole");
-		clickOn("#T6iNameMateInput");
-		write("Elizabeth");
-		String s1 = t.getText();
-		clickOn("#T6X1");
-		//sleep(1000);
-		String s2 = t.getText();
-		assertTrue(s1.equals(s2));
-	}
+
 	
 	@Test
 	public void testApplication3T6X2True() {	
@@ -441,11 +440,11 @@ public class JavaFXTest extends ApplicationTest {
 		clickOn("#T6VariabilityInput");
 		write("5");
 		clickOn("#T6X2");
-		//sleep(1000);
+		sleep(1000);
 		t = (TextArea)s.lookup("#T6TextAreaConsole");
 		String s1 = t.getText();
 		clickOn("#T6X2");
-		//sleep(1000);
+		sleep(1000);
 		String s2 = t.getText();
 		assertTrue(s1.equals(s2));
 	}
@@ -503,34 +502,4 @@ public class JavaFXTest extends ApplicationTest {
 		assertTrue(s1.equals(s2));
 	}
 	
-	
-	
-	@Test
-	public void testApplication3T6X2False() {	
-		clickOn("#tabApp3");
-		clickOn("#T6iNameInput");
-		write("John");
-		clickOn("#T6iYOBInput");
-		write("2001");
-		clickOn("#T6iGenderInput");
-		write("M");
-		clickOn("#T6iPreferenceInput");
-		write("Younger");
-		clickOn("#T6iNameMateInput");
-		write("Mary");
-		clickOn("#T6iGenderMateInput");
-		write("F");
-		clickOn("#T6VariabilityInput");
-		write("5");
-		clickOn("#T6X2");
-		//sleep(1000);
-		t = (TextArea)s.lookup("#T6TextAreaConsole");
-		clickOn("#T6iNameMateInput");
-		write("Elizabeth");
-		String s1 = t.getText();
-		clickOn("#T6X2");
-		//sleep(1000);
-		String s2 = t.getText();
-		assertTrue(s1.equals(s2));
-	}
 }
