@@ -8,6 +8,8 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -20,6 +22,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.paint.RadialGradient?>
 <?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <VBox prefHeight="679.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="comp3111.popnames.Controller">
@@ -268,7 +271,7 @@
                                        </font>
                                     </Label>
                                     <Button fx:id="t2GenerateResults" layoutX="510.0" layoutY="289.0" mnemonicParsing="false" onAction="#t2GenerateResults" text="Generate Reuslts!" />
-                                    <TabPane layoutY="320.0" prefHeight="325.0" prefWidth="720.0" tabClosingPolicy="UNAVAILABLE">
+                                    <TabPane fx:id="t2TabPane" layoutY="320.0" prefHeight="325.0" prefWidth="720.0" tabClosingPolicy="UNAVAILABLE">
                                        <tabs>
                                           <Tab fx:id="t2ConsoleTab" text="Console">
                                              <content>
@@ -338,7 +341,7 @@
                                              <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                    <children>
-                                                      <PieChart fx:id="t2PieChart" layoutX="-1.0" layoutY="-1.0" prefHeight="296.0" prefWidth="719.0" />
+                                                      <PieChart fx:id="t2PieChart" layoutX="-1.0" layoutY="-1.0" legendSide="LEFT" prefHeight="296.0" prefWidth="719.0" title="Hover over each slice to view percentages" titleSide="BOTTOM" />
                                                    </children>
                                                 </AnchorPane>
                                              </content>
@@ -488,10 +491,12 @@
                                              <children>
                                                 <ScrollPane prefHeight="295.0" prefWidth="719.0">
                                                    <content>
-                                                      <TextArea fx:id="a2TextAreaConsole" prefHeight="296.0" prefWidth="700.0" />
+                                                      <TextArea fx:id="a2TextAreaConsole" editable="false" prefHeight="296.0" prefWidth="700.0" />
                                                    </content>
                                                 </ScrollPane>
                                                 <Button fx:id="a2ViewResults" layoutX="570.0" layoutY="260.0" mnemonicParsing="false" onAction="#a2ViewResults" text="View Results -&gt;" visible="false" />
+                                                <ProgressBar fx:id="t5ProgressBar" layoutX="160.0" layoutY="127.0" prefHeight="30.0" prefWidth="400.0" progress="0.0" visible="false" />
+                                                <ProgressIndicator fx:id="t5ProgressIndicator" layoutX="330.0" layoutY="167.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="60.0" prefWidth="60.0" progress="0.0" visible="false" />
                                              </children>
                                           </AnchorPane>
                                        </content>
@@ -531,7 +536,7 @@
                                        <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <PieChart fx:id="t2PieChart1" prefHeight="260.0" prefWidth="719.0" />
+                                                <PieChart fx:id="t5X1PieChart" legendSide="LEFT" prefHeight="260.0" prefWidth="719.0" title="Hover over each slice to view percentages" />
                                                 <Label layoutX="225.0" layoutY="273.0" text="Thank You for using the Application!">
                                                    <font>
                                                       <Font name="System Bold" size="18.0" />
@@ -576,13 +581,13 @@
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
                                                 <Button fx:id="a2ComputeResultsTX2" layoutX="570.0" layoutY="260.0" mnemonicParsing="false" onAction="#a2ComputeResultsTX2" text="Compute -&gt;" />
-                                                <Label fx:id="RandomNumberLabel" layoutX="65.0" layoutY="54.0" text="Enter Random Number between 1 and 20:">
+                                                <Label fx:id="RandomNumberLabel" layoutX="65.0" layoutY="54.0" text="Enter your Favourite Number (single digit between 1 and 9):">
                                                    <font>
                                                       <Font size="15.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField fx:id="t5RandInt1" layoutX="280.0" layoutY="79.0" prefHeight="27.0" prefWidth="150.0" promptText="Enter Random Integer" />
-                                                <Label fx:id="FavouriteColourLabel" layoutX="65.0" layoutY="114.0" text="Select Favourite Colour (Please avoid White/Gray so that results are clearly visible):">
+                                                <TextField fx:id="t5RandInt1" layoutX="280.0" layoutY="79.0" prefHeight="27.0" prefWidth="150.0" promptText="Enter Favourite Number" />
+                                                <Label fx:id="FavouriteColourLabel" layoutX="65.0" layoutY="114.0" text="Select Favourite Colour:">
                                                    <font>
                                                       <Font size="15.0" />
                                                    </font>
@@ -593,7 +598,7 @@
                                                       <Color />
                                                    </value>
                                                 </ColorPicker>
-                                                <Label fx:id="RandomNumberLabel2" layoutX="65.0" layoutY="179.0" text="Enter Random Number between 1 and 30:">
+                                                <Label fx:id="RandomNumberLabel2" layoutX="65.0" layoutY="179.0" text="Enter Random Number (between 1 and 50):">
                                                    <font>
                                                       <Font size="15.0" />
                                                    </font>
@@ -631,12 +636,18 @@
                                        <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <ScrollPane prefHeight="250.0" prefWidth="719.0">
-                                                   <content>
-                                                      <TextArea fx:id="textAreaResults" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="250.0" prefWidth="700.0" wrapText="true" />
-                                                   </content>
-                                                </ScrollPane>
+                                                <Rectangle fx:id="ResultsX2Background" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="318.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="718.0" />
                                                 <Button fx:id="a2ResultsNextX2" layoutX="625.0" layoutY="260.0" mnemonicParsing="false" onAction="#a2ResultsNextX2" text="Next -&gt;" wrapText="true" />
+                                                <Label fx:id="textAreaResults" layoutX="25.0" layoutY="25.0" text="Label">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="a2ResultName" layoutX="320.0" layoutY="80.0" text="Name" textAlignment="CENTER">
+                                                   <font>
+                                                      <Font name="System Bold" size="20.0" />
+                                                   </font>
+                                                </Label>
                                              </children>
                                           </AnchorPane>
                                        </content>
@@ -645,7 +656,7 @@
                                        <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <PieChart fx:id="t2PieChartX2" prefHeight="260.0" prefWidth="719.0" />
+                                                <PieChart fx:id="t2PieChartX2" legendSide="LEFT" prefHeight="260.0" prefWidth="719.0" title="Hover over each slice to view percentages" />
                                                 <Label layoutX="225.0" layoutY="273.0" text="Thank You for using the Application!">
                                                    <font>
                                                       <Font name="System Bold" size="18.0" />

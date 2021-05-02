@@ -15,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import javafx.scene.control.ColorPicker;
 
@@ -28,12 +29,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
-
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.control.Tooltip;
 import javafx.scene.Scene;
 
 
@@ -305,6 +309,9 @@ public class Controller {
     
     @FXML
     private TabPane a2TabPane;
+    
+    @FXML
+    private TabPane t2TabPane;
 
     @FXML
     private Tab a2ConsoleTab;
@@ -314,6 +321,12 @@ public class Controller {
 
     @FXML
     private Button a2ViewResults;
+
+    @FXML
+    private ProgressBar t5ProgressBar;
+
+    @FXML
+    private ProgressIndicator t5ProgressIndicator;
 
     @FXML
     private Tab a2ResultsTab;
@@ -343,7 +356,7 @@ public class Controller {
     private Tab a2PieChart1;
 
     @FXML
-    private PieChart t2PieChart1;
+    private PieChart t5X1PieChart;
 
     @FXML
     private Tab a2ConsoleTab1;
@@ -395,10 +408,16 @@ public class Controller {
 
     @FXML
     private Tab a2ResultsX2;
+    
+    @FXML
+    private Rectangle ResultsX2Background;
 
     @FXML
-    private TextArea textAreaResults;
-
+    private Label textAreaResults;
+    
+    @FXML
+    private Label a2ResultName;
+    
     @FXML
     private Button a2ResultsNextX2;
     
@@ -733,8 +752,13 @@ public class Controller {
     
     @FXML
     void t5_initT5X1() {
+    	t5ProgressBar.setVisible(false);
+    	t5ProgressIndicator.setVisible(false);
     	a2TextAreaConsole.clear();
+    	a2ViewResults.setVisible(false);
     	a2TabPane.getSelectionModel().select(a2ConsoleTab);
+    	t5X1PieChart.getData().clear();
+    	t5X1PieChart.setAnimated(false);
     	String oReport ="";
     	boolean err = false;
     	
@@ -833,33 +857,30 @@ public class Controller {
     	
     	a2TextAreaConsole.setText(oReport);
     	if(!err) {
-    		
-    		
-    		
-    		
 
     	    new Thread(()->{ //use another thread so long process does not block gui
 	            String text = "";
-    	    	for(int i=0;i<=4;i++)   {
+    	    	for(double i=0;i<=100;i++)   {
     	            if(i == 0 ){
 //    	        		text="";
     	        		text+="Welcome to Prediction on Names for Compatible Pairs Application!\n\n";
-    	        		text+="Your details have been well recieved\n";
+    	        		text+="Our patented prediction algorithms will be used to formulate suitable predictions\n";
     	        		text+="Processing results now...\n";
-//    	        		a2TextAreaConsole.setText(text);
+    	        		t5ProgressBar.setProgress(0.0);
+        	            t5ProgressIndicator.setProgress(0.0);
+        	            t5ProgressBar.setVisible(true);
+        	            t5ProgressIndicator.setVisible(true);
+    	        		a2TextAreaConsole.setText(text);
     	            } else {
-//    	                 final int j = i;
-//    	                 text = "Value "+j;
-    	            	text+=String.format("%d%% Completed...\n", i*25);
-    	            	if(i==4) {
-    	            		text+=String.format("Prediction Complete! Please press the view results button to view the prediction.\n");
-    	            	}
+    	        		t5ProgressBar.setProgress(i/100.0);
+        	            t5ProgressIndicator.setProgress(i/100.0);
     	            }
 
     	            //update gui using fx thread
-    	            final String text2 = text;
-    	            Platform.runLater(() -> a2TextAreaConsole.setText(text2));
-    	            try {Thread.sleep(2000);} catch (InterruptedException ex) { ex.printStackTrace();}
+//    	            final String text2 = text;
+    	            
+//    	            Platform.runLater(() -> );
+    	            try {Thread.sleep(100);} catch (InterruptedException ex) { ex.printStackTrace();}
     	        }
         	    a2ViewResults.setVisible(true);
 
@@ -871,7 +892,7 @@ public class Controller {
     
     @FXML
     void a2ResultsNext() {
-    	t2PieChart1.getData().clear();
+    	t5X1PieChart.getData().clear();
     	a2TabPane.getSelectionModel().select(a2PieChart1);
     }
 
@@ -982,7 +1003,7 @@ public class Controller {
     	
     	if(!err) {
     		oReport+="Welcome to Prediction on Names for Compatible Pairs Application!\n\n";
-    		oReport+="In order to generate suitable predictions, please enter additional data.\n";
+    		oReport+="In order to generate suitable predictions using our patented formula, please enter additional data.\n";
     		oReport+="Please press the Enter Additional Data Button Below...\n";
     		a2EnterAdditionalData.setVisible(true);
     	}
@@ -992,7 +1013,85 @@ public class Controller {
     
     @FXML
     void t5_computeTop5() {
-
+    	int int_n = 5;
+    	int int_year = Integer.parseInt(t5YOB.getText());
+    	AnalyzeNames analyze_obj = new AnalyzeNames(); 
+    	String []  top_male_names = new String[int_n];
+    	String []  top_female_names = new String[int_n];
+    	int [] top_male_occurences = new int[int_n];
+    	int [] top_female_occurences = new int[int_n];
+    	String []  top_male_percentages = new String[int_n];
+    	String [] top_female_percentages = new String[int_n];
+    	int [] top_male_ranks = new int[int_n];
+    	int [] top_female_ranks = new int[int_n];
+    	int all_males = 0 ; 
+    	int all_females = 0 ;
+    	all_males = analyze_obj.getTotalMales(int_year);
+    	all_females = analyze_obj.getTotalFemales(int_year);
+    	String male_gender = "M";
+    	String female_gender = "F";
+    	String test_output = "";
+    	
+    	for (int i=0 ; i<int_n ; i++) {
+    		top_male_ranks[i] = i+1;
+    		top_female_ranks[i] = i+1 ; 
+    		top_male_names[i] = analyze_obj.getName(int_year , i+1 , male_gender);
+    		top_female_names[i] = analyze_obj.getName(int_year , i+1 , female_gender);
+    		top_male_occurences[i] = analyze_obj.getOccurance(int_year, top_male_names[i], male_gender);
+    		System.out.println(top_male_occurences[i]);
+    		top_female_occurences[i] = analyze_obj.getOccurance(int_year, top_female_names[i], female_gender);
+    		float mp = ((float)top_male_occurences[i]/all_males)*100;
+    		float fp = ((float)top_female_occurences[i]/all_females)*100;
+    		top_female_percentages[i] = String.format("%.2f%%", fp);
+    		top_male_percentages[i] = String.format("%.2f%%", mp);
+    	}
+    	for(int i= 0 ; i<int_n ; i++) {
+    		test_output+= String.format("%d %s %d %s\n",top_male_ranks[i] ,top_male_names[i], top_male_occurences[i] , top_male_percentages[i]);
+    	}
+    	for(int i= 0 ; i<int_n ; i++) {
+    		test_output+= String.format("%d %s %d %s\n",top_female_ranks[i] ,top_female_names[i], top_female_occurences[i] , top_female_percentages[i]);
+    	}
+    	System.out.println(test_output);
+    	T1Names []  male_data = new T1Names[int_n];
+		T1Names [] female_data = new T1Names[int_n];
+		for(int i=0 ; i <int_n ; i++) {
+    		male_data[i] = new T1Names(top_male_ranks[i], top_male_names[i] , top_male_occurences[i] , top_male_percentages[i]);
+    		female_data[i] = new T1Names(top_female_ranks[i], top_female_names[i] , top_female_occurences[i] , top_female_percentages[i]);
+    	}
+		int total_top_males = 0 ; 
+    	int total_top_females = 0 ;
+    	for(int i = 0 ; i<int_n ; i++) {
+    		total_top_males += male_data[i].getOccurences();
+    		total_top_females += female_data[i].getOccurences();
+    	}
+    	
+    	if(t5GenderMate.getText().contentEquals("M")) {
+			ObservableList<PieChart.Data> pieChartDataMale= FXCollections.observableArrayList();
+			for(T1Names one_name : male_data) {
+				if(one_name!=null) {
+					pieChartDataMale.add(new PieChart.Data(one_name.getName(), (float)(one_name.getOccurences()*100.0/total_top_males)));
+				}
+			}
+			t5X1PieChart.setData(pieChartDataMale);
+			t5X1PieChart.setStartAngle(90);
+			
+			t5X1PieChart.getData().forEach(data -> {
+			    String percentage = String.format("%.1f%%", (data.getPieValue()));
+			    Tooltip toolTip = new Tooltip(percentage);
+			    Tooltip.install(data.getNode(), toolTip);
+			});
+			
+    	} else {
+			ObservableList<PieChart.Data> pieChartDataFemale= FXCollections.observableArrayList();
+			for(T1Names one_name : female_data) {
+				if(one_name!=null) {
+					pieChartDataFemale.add(new PieChart.Data(one_name.getName(), (float)(one_name.getOccurences()*100.0/total_top_females)));
+				}
+			}
+			t5X1PieChart.setData(pieChartDataFemale);
+			t5X1PieChart.setStartAngle(90);
+    	}
+    	
     }
     
     @FXML
@@ -1011,13 +1110,6 @@ public class Controller {
 			isPreferenceYounger = false;
 		}
 		
-		int RandomRange = 1;
-		if(isPreferenceYounger) {
-			RandomRange = 2019-Integer.parseInt(t5YOB.getText())+1;
-		} else {
-			RandomRange = Integer.parseInt(t5YOB.getText()) - 1880 + 1;
-		}
-    	
     	boolean err = false;
     	
     	int randInt1=0;
@@ -1026,13 +1118,13 @@ public class Controller {
     			throw new Exception("Error: Random Number has\n not been inputted\n");
     		}
     		randInt1 = Integer.parseInt(t5RandInt1.getText());
-    		if(randInt1 < 1 || randInt1 > RandomRange) {
-    			throw new Exception("Invalid Random Number:\n Year Out of Range\n");
+    		if(randInt1 < 1 || randInt1 > 9) {
+    			throw new Exception("Invalid Random Number:\n Number Out of Range\n");
     		}
     	}
     	catch (NumberFormatException e) {
     		ErrorLabel1.setVisible(true);
-    		ErrorLabel1.setText(String.format("Please input valid Random Number\n(Integer Value between 1 and %d)\n", RandomRange));
+    		ErrorLabel1.setText(String.format("Please input valid Random Number\n(Integer Value between 1 and 9)\n"));
     		err=true;
     	}
     	catch (Exception e) {
@@ -1041,14 +1133,23 @@ public class Controller {
     		err=true;
     	}
     	
+
+//    	Color favColor = t5FavouriteColour.getValue();
+//		if(favColor.getBrightness() > 0.85 && favColor.getSaturation() <0.15) {
+//			err=true;
+//			ErrorLabel2.setVisible(true);
+//			ErrorLabel2.setText("Colour too light,\n Please choose a darker Colour");
+//		}
+    	
+    	
     	int randInt2=0;
     	try {
     		if(t5RandInt2.getText() =="") {
     			throw new Exception("Error: Random Number has\n not been inputted\n");
     		}
     		randInt2 = Integer.parseInt(t5RandInt2.getText());
-    		if(randInt2 < 1 || randInt2 > 30) {
-    			throw new Exception("Invalid Random Number:\n Year Out of Range\n");
+    		if(randInt2 < 1 || randInt2 > 50) {
+    			throw new Exception("Invalid Random Number:\n Number Out of Range\n");
     		}
     	}
     	catch (NumberFormatException e) {
@@ -1075,28 +1176,24 @@ public class Controller {
     	ErrorLabel2.setVisible(false);
     	ErrorLabel3.setVisible(false);
     	
-    	boolean isPreferenceYounger = false;
-    	String iPreference = t5Preference.getText();
-		if(iPreference.contentEquals("Younger")) {
-			isPreferenceYounger = true;
-		}
-		else if (iPreference.contentEquals("Older")) {
-			isPreferenceYounger = false;
-		}
-		
-		int RandomRange = 1;
-		if(isPreferenceYounger) {
-			RandomRange = 2019-Integer.parseInt(t5YOB.getText())+1;
-		} else {
-			RandomRange = Integer.parseInt(t5YOB.getText()) - 1880 + 1;
-		}
-    	RandomNumberLabel.setText(String.format("Enter Random Number between 1 and %d:", RandomRange));
+//    	boolean isPreferenceYounger = false;
+//    	String iPreference = t5Preference.getText();
+//		if(iPreference.contentEquals("Younger")) {
+//			isPreferenceYounger = true;
+//		}
+//		else if (iPreference.contentEquals("Older")) {
+//			isPreferenceYounger = false;
+//		}
+//		
+//		int RandomRange = 1;
+//		if(isPreferenceYounger) {
+//			RandomRange = 2019-Integer.parseInt(t5YOB.getText())+1;
+//		} else {
+//			RandomRange = Integer.parseInt(t5YOB.getText()) - 1880 + 1;
+//		}
+//    	RandomNumberLabel.setText(String.format("Enter Random Number between 1 and %d:", RandomRange));
     	a2TabPane.getSelectionModel().select(a2AdditionalData);
-    	
-//    	String oReport = "";
-    	
-    	
-    	
+    
     }
     
     @FXML
@@ -1107,27 +1204,49 @@ public class Controller {
 
     @FXML
     void a2ResultsX2() {
+    	T2Names.resetbirthCount();
+
+		t2PieChartX2.setAnimated(false);
     	
     	boolean isPreferenceYounger = false;
     	String iPreference = t5Preference.getText();
 		int RandInt1 = Integer.parseInt(t5RandInt1.getText());
 		int RandInt2 = Integer.parseInt(t5RandInt2.getText());
 		int iYOB = Integer.parseInt(t5YOB.getText());
+		String oReport = "";
+		
+		Color favColor = t5FavouriteColour.getValue();
+		textAreaResults.setTextFill(favColor);
+		a2ResultName.setTextFill(favColor);
+		Color contrastingColour = new Color(1.0-favColor.getRed(),1.0-favColor.getGreen(), 1.0-favColor.getBlue(), 1.0);
+    	
+    	ResultsX2Background.setFill(contrastingColour);
+		
+		
+		RandInt2 = ((RandInt1 * RandInt2 + iYOB)/20)%30 + 1;
+		RandInt1+=2;
 //		int ending_Year;
 		T2Names [] result = null;
 		if(iPreference.contentEquals("Younger")) {
+			if(iYOB+RandInt1 > 2019) {
+				iYOB-=2;
+				RandInt1 = 2019-iYOB;
+			}
+//			oReport += String.format("Starting Year: %d, Ending Year: %d, K: %d\n", iYOB, iYOB+RandInt1, RandInt2 );
 			result = AnalyzeNames.getKthPopularNames(iYOB, iYOB+RandInt1, RandInt2, t5GenderMate.getText());
 		}
 		else if (iPreference.contentEquals("Older")) {
+//			oReport += String.format("Starting Year: %d, Ending Year: %d, K: %d\n", iYOB-RandInt1, iYOB, RandInt2);
 			result = AnalyzeNames.getKthPopularNames(iYOB-RandInt1, iYOB, RandInt2, t5GenderMate.getText());
 		}
-		String oReport = "";
-    	oReport += String.format("Results have been processed...\n");
-    	oReport += String.format("Your compatible pair will most likely be called %s\n", result[0].getName());
+//		result[0].setPercentage();
+    	oReport += String.format("Our Patented Formula has been applied and its results have been processed...\n");
+    	oReport += String.format("Your compatible pair will most likely be called ...\n\n\n\n");
     	oReport += String.format("To view the probabilities of your most likely compatible pair, please press the Next button...\n");
     	textAreaResults.setText(oReport);
+    	a2ResultName.setText(result[0].getName());
     	
-
+    	
 		ObservableList<PieChart.Data> pieChartData= FXCollections.observableArrayList();
 		for(T2Names nam : result) {
 			if(nam!=null) {
@@ -1136,6 +1255,12 @@ public class Controller {
 		}
 		t2PieChartX2.setData(pieChartData);
 		t2PieChartX2.setStartAngle(90);
+		t2PieChartX2.layout();
+		t2PieChartX2.getData().forEach(data -> {
+		    String percentage = String.format("%.1f%%", (data.getPieValue()));
+		    Tooltip toolTip = new Tooltip(percentage);
+		    Tooltip.install(data.getNode(), toolTip);
+		});
     	
     }
     
@@ -1146,6 +1271,8 @@ public class Controller {
     	T2Names.resetbirthCount();
     	//Reset bar chart data set
 		t2BarChart.getData().clear();
+		t2BarChart.setAnimated(false);
+		t2PieChart.setAnimated(false);
     	
 //    	textAreaConsole.setText("Testing T2");
     	String oReport = "";
@@ -1294,6 +1421,12 @@ public class Controller {
 	    			}
 	    			t2PieChart.setData(pieChartData);
 	    			t2PieChart.setStartAngle(90);
+	    			
+	    			t2PieChart.getData().forEach(data -> {
+	    			    String percentage = String.format("%.1f%%", (data.getPieValue()));
+	    			    Tooltip toolTip = new Tooltip(percentage);
+	    			    Tooltip.install(data.getNode(), toolTip);
+	    			});
 	    		}
 	    	}
     	} else {
@@ -1302,6 +1435,8 @@ public class Controller {
         	t2BarChartTab.setDisable(true);
         	t2PieChartTab.setDisable(true);
         	t2ConsoleTab.setStyle("-fx-text-base-color: red;");
+        	t2TabPane.getSelectionModel().select(t2ConsoleTab);
+        	
     	}
     	textAreaConsole.setText(oReport);
     }
@@ -1318,5 +1453,5 @@ public class Controller {
 		
 		return Names;
 	}
-
+    
 }
