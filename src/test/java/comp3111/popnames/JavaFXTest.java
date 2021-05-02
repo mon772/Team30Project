@@ -304,13 +304,13 @@ public class JavaFXTest extends ApplicationTest {
 		clickOn("#T3BarChartCheckBox");
 		clickOn("#T3LineChartCheckBox");
 		clickOn("#T3GenerateResults");
-		//sleep(1000);
+		sleep(1000);
 		t = (TextArea)s.lookup("#T3TextAreaConsole");
 		String s1 = t.getText();
 		clickOn("#T3GenderInput");
 		write("F");
 		clickOn("#T3GenerateResults");
-		//sleep(1000);
+		sleep(1000);
 		String s2 = t.getText();
 		assertTrue(s1.equals(s2));
 	}
@@ -360,14 +360,16 @@ public class JavaFXTest extends ApplicationTest {
 		clickOn("#T6VariabilityInput");
 		write("5");
 		clickOn("#T6X1");
-		//sleep(1000);
+		sleep(1000);
 		t = (TextArea)s.lookup("#T6TextAreaConsole");
 		clickOn("#T6iNameMateInput");
 		write("Elizabeth");
-		String s1 = t.getText();
+		String s1 = "";
+		s1 = t.getText();
 		clickOn("#T6X1");
-		//sleep(1000);
-		String s2 = t.getText();
+		sleep(1000);
+		String s2 = "";
+		s2 = t.getText();
 		assertTrue(s1.equals(s2));
 	}
 	
@@ -389,11 +391,11 @@ public class JavaFXTest extends ApplicationTest {
 		clickOn("#T6VariabilityInput");
 		write("5");
 		clickOn("#T6X2");
-		//sleep(1000);
+		sleep(1000);
 		t = (TextArea)s.lookup("#T6TextAreaConsole");
 		String s1 = t.getText();
 		clickOn("#T6X2");
-		//sleep(1000);
+		sleep(1000);
 		String s2 = t.getText();
 		assertTrue(s1.equals(s2));
 	}
@@ -475,10 +477,12 @@ public class JavaFXTest extends ApplicationTest {
 		t = (TextArea)s.lookup("#T6TextAreaConsole");
 		clickOn("#T6iNameMateInput");
 		write("Elizabeth");
-		String s1 = t.getText();
+		String s1 = "";
+		s1 = t.getText();
 		clickOn("#T6X2");
 		//sleep(1000);
-		String s2 = t.getText();
+		String s2 = "";
+		s2 = t.getText();
 		assertTrue(s1.equals(s2));
 	}
 }

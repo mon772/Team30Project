@@ -2553,7 +2553,7 @@ public class Controller {
 			{
 				LesserOrGreater = "greater";
 			}
-			double percentageDifference = (averagePercentage - iPercentage < 0)? -1*(averagePercentage - iPercentage): averagePercentage - iPercentage;
+			double percentageDifference = (averagePercentage - iPercentage < 0)? (-1)*(averagePercentage - iPercentage): averagePercentage - iPercentage;
 			double oScore = 0.0;
     		if(percentageDifference <= marginPercentage) 
     		{
