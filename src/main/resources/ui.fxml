@@ -33,7 +33,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="679.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="comp3111.popnames.Controller">
+<VBox prefHeight="679.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="comp3111.popnames.Controller">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="316.0" prefWidth="719.0">
       <children>
@@ -558,7 +558,7 @@
                                                 </Label>
                                                 <ImageView fx:id="t4MaleImage" fitHeight="253.0" fitWidth="262.0" layoutX="59.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="file:/Users/dhirenanandani/Desktop/Uni/Sem%204/COMP%203111/Labs/Group%20Project/male.png" />
+                                                      <Image url="@dataset/male.png" />
                                                    </image>
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
@@ -566,7 +566,7 @@
                                                 </ImageView>
                                                 <ImageView fx:id="t4FemaleImage" fitHeight="253.0" fitWidth="266.0" layoutX="388.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="file:/Users/dhirenanandani/Desktop/Uni/Sem%204/COMP%203111/Labs/Group%20Project/femenine.png" />
+                                                      <Image url="@dataset/femenine.png" />
                                                    </image>
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
@@ -608,7 +608,7 @@
                                                 </Label>
                                                 <ImageView fx:id="t4X1ThinkingImage" fitHeight="100.0" fitWidth="122.0" layoutX="303.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@../../../../../Desktop/Uni/Sem%204/COMP%203111/Labs/Group%20Project/769-7698760_new-thinking-emoji-png-emojis-de-iphone-x.png" />
+                                                      <Image url="@dataset/769-7698760_new-thinking-emoji-png-emojis-de-iphone-x.png" />
                                                    </image>
                                                 </ImageView>
                                                 <Label fx:id="t4X1AskingText" layoutX="415.0" layoutY="82.0" prefHeight="60.0" prefWidth="254.0" text="Nice choices but which name to choose?" wrapText="true">
@@ -664,7 +664,7 @@
                                                 </Label>
                                                 <ImageView fx:id="t4X2MaleImage" fitHeight="253.0" fitWidth="262.0" layoutX="59.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="file:/Users/dhirenanandani/Desktop/Uni/Sem%204/COMP%203111/Labs/Group%20Project/male.png" />
+                                                      <Image url="@dataset/male.png" />
                                                    </image>
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
@@ -672,7 +672,7 @@
                                                 </ImageView>
                                                 <ImageView fx:id="t4X2FemaleImage" fitHeight="253.0" fitWidth="266.0" layoutX="388.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="file:/Users/dhirenanandani/Desktop/Uni/Sem%204/COMP%203111/Labs/Group%20Project/femenine.png" />
+                                                      <Image url="@dataset/femenine.png" />
                                                    </image>
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
