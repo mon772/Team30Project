@@ -2439,7 +2439,7 @@ public class Controller {
      */
 
     @FXML
-    protected void T3GenerateResults()
+    void T3GenerateResults()
     {		
     	//Resetting the line and bar charts
     	T3BarChartDisplay.getData().clear();
@@ -2447,7 +2447,7 @@ public class Controller {
     	
     	String consoleOutput = "";
     	boolean inputError = false;
-    	
+    	   
     	//Validation of Starting Year 
     	int startYear=0;
     	try {
@@ -2542,6 +2542,11 @@ public class Controller {
        	T3Names Result[] = null;
        	if(inputError == false)
        	{
+    		T3GenderInput.setStyle("-fx-text-box-border: green ; -fx-border-width: 4px ;");
+    		T3NameInput.setStyle("-fx-text-box-border: green ; -fx-border-width: 4px ;");
+    		T3StartYearInput.setStyle("-fx-text-box-border: green ; -fx-border-width: 4px ;");
+    		T3EndYearInput.setStyle("-fx-text-box-border: green ; -fx-border-width: 4px ;");
+ 
         	T3SummaryTab.setDisable(!summary);
         	T3DataTable.setDisable(!datatable);
         	T3BarChart.setDisable(!barchart);
@@ -2634,18 +2639,13 @@ public class Controller {
        	}
        	T3TextAreaConsole.setText(consoleOutput);
     }
-    /**
-     *  Does the input validation for the 6th task
-     *  @return True if the input is validated and False if the input is not validated 
-     */
-
     
     boolean T6InputValidation() {
     	//Input Validation
-    	String consoleOutput = "";
+    	String consoleOutput = T6TextAreaConsole.getText();;
     	boolean inputError = false;
     	
-    	//Validation of Year 
+    	//Validation of Year  
     	int YOB=0;
     	try {
     		if(T6iYOBInput.getText() =="") {
@@ -2720,7 +2720,7 @@ public class Controller {
     	{
 	    	String iPreference = T6iPreferenceInput.getText();
 			if(iPreference.contentEquals("Younger") == false && iPreference.contentEquals("Older") == false) {
-				throw new Exception("Please enter 'Younger' or 'Older' as the age preference");
+				throw new Exception("Please enter 'Younger' or 'Older' as the age preference\n");
 			}
     	}
     	catch(Exception e)
@@ -2765,56 +2765,68 @@ public class Controller {
     	}
     	return true;
     }
-    /**
-     *  Does the input validation for the 6th Name entered
-     *  @return True if the input is validated and False if the input is not validated 
-     */
-
     
     boolean T6NameInputValidation() {
     	boolean error = false;
-    	String consoleOutput = "";
+    	String consoleOutput = T6TextAreaConsole.getText();
     	try {
-    		if(T6iNameInput.getText() == "")
+    		if(T6iNameInput.getText().equals(""))
     		{
     			error = true;
         		T6iNameInput.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
+    		}
+    		if(T6iNameInput.getText().equals(""))
+    		{
     			throw new Exception("Error: Please enter your name.\n");
     		}
-    		if(T6iNameMateInput.getText() == "") {
+ 
+    	}
+    	catch(Exception e) {
+    		consoleOutput += e.getMessage();
+    	}
+    	
+    	try {
+  
+    		if(T6iNameMateInput.getText().equals("")) {
     			error = true;
         		T6iNameMateInput.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
+    		}
+    		if(T6iNameMateInput.getText().equals("")) {
     			throw new Exception("Error: Please enter your desired mate's name.\n");
     		}
     	}
     	catch(Exception e) {
-    		consoleOutput = e.getMessage();
+    		consoleOutput += e.getMessage();
     	}
     	if(error)
     	{
 			T6ResultsTabPane.getSelectionModel().select(T6General);
 			T6NextGeneral.setVisible(false);
 			T6skipGeneral.setVisible(false);
-			T6TextAreaConsole.setWrapText(true);
-			T6TextAreaConsole.setText(consoleOutput);
     	}
+		T6TextAreaConsole.setWrapText(true);
+		T6TextAreaConsole.setText(consoleOutput);
 		return error;
     }
-    /**
-     * Analyze and generate results for T6X1
-     *  
-     */
-
+    
     @FXML
-    protected void T6ComputeT6X1() {
+    void T6ComputeT6X1() {
     	//Analyze and generate results for T6X1
     	boolean inputError = T6NameInputValidation();
 		T6NextGeneral.setVisible(false);
 		T6skipGeneral.setVisible(false);
     	T6ResultsTabPane.getSelectionModel().select(T6General);
-    	String output = "";
+
     	if(!inputError)
     	{
+        	String output = "";
+    		T6iGenderMateInput.setStyle("-fx-text-box-border: green ; -fx-border-width: 4px ;");
+    		T6iGenderInput.setStyle("-fx-text-box-border: green ; -fx-border-width: 4px ;");
+    		T6iNameMateInput.setStyle("-fx-text-box-border: green ; -fx-border-width: 4px ;");
+    		T6iNameInput.setStyle("-fx-text-box-border: green ; -fx-border-width: 4px ;");
+    		T6iPreferenceInput.setStyle("-fx-text-box-border: green ; -fx-border-width: 4px ;");
+    		T6iYOBInput.setStyle("-fx-text-box-border: green ; -fx-border-width: 4px ;");
+    		
     		int oScore = 0;
     		String iName = T6iNameInput.getText();
     		iName = iName.replace(" ", "");
@@ -2828,87 +2840,60 @@ public class Controller {
     		else {
     			output = "Alas! You are not compatible with your partner. You have a compatibility oScore of 0%.\n";
     		}
+    		T6TextAreaConsole.setWrapText(true);
+    		T6TextAreaConsole.setText(output);
     	}
-		T6TextAreaConsole.setWrapText(true);
-		T6TextAreaConsole.setText(output);
+
     }
-    /**
-    * Transfers control for the next button in T6
-    *  
-    */
     
     @FXML
-    protected void T6clickNextGeneral() {
+    void T6clickNextGeneral() {
 		T6ResultsTabPane.getSelectionModel().select(T6YourInput);
     }
-    /**
-     * Transfers control for the next button to go to the next score
-     *  
-     */
-     
     
     @FXML
-    protected void T6clickNextoScore() {
+    void T6clickNextoScore() {
     	T6ResultsTabPane.getSelectionModel().select(T6LineChart);
     }
-    /**
-     * Transfers control for the next input button in T6
-     *  
-     */
+    
     @FXML
-    protected void T6clickNextInput() {
+    void T6clickNextInput() {
     	T6ResultsTabPane.getSelectionModel().select(T6oScoreCalculation);
     }
-    
-    /**
-    * Transfers control for the back button in T6
-    *  
-    */
     @FXML
-    protected void T6clickBackInput() {
+    void T6clickBackInput() {
     	T6ResultsTabPane.getSelectionModel().select(T6General);
     }
-    /**
-     * Transfers control for the back to score button in T6
-     *  
-     */
-    
     @FXML
-    protected void T6clickBackoScore() {
+    void T6clickBackoScore() {
     	T6ResultsTabPane.getSelectionModel().select(T6YourInput);
     }
-    
-   /**
-    * Transfers control for the back to evidence  button in T6
-    *  
-    */
-    
     @FXML
-    protected void T6clickBackEvidence() {
+    void T6clickBackEvidence() {
     	T6ResultsTabPane.getSelectionModel().select(T6oScoreCalculation);
     }
-    
-    /**
-     * Transfers control for the skip to results button in T6
-     *  
-     */
-    
     @FXML
-    protected void T6skipToResults() {
+    void T6skipToResults() {
     	T6ResultsTabPane.getSelectionModel().select(T6LineChart);
     }
-    /**
-     * Computes the results for the second algorithm for T6
-     */
-
+    
     @FXML
-    protected void T6ComputeT6X2() {
+    void T6ComputeT6X2() {
     	//Analyze and generate results for T6X2
-    	boolean inputError = T6InputValidation() || T6NameInputValidation();
+    	boolean inputError1 = T6InputValidation();
+    	boolean inputError2 =	 T6NameInputValidation();
+    	boolean inputError = inputError1 || inputError2;
     	T6LineChartDisplay.getData().clear();
     	String consoleOutput = "";
     	if(!inputError)
     	{
+    		T6iGenderMateInput.setStyle("-fx-text-box-border: green ; -fx-border-width: 4px ;");
+    		T6iGenderInput.setStyle("-fx-text-box-border: green ; -fx-border-width: 4px ;");
+    		T6iNameMateInput.setStyle("-fx-text-box-border: green ; -fx-border-width: 4px ;");
+    		T6iNameInput.setStyle("-fx-text-box-border: green ; -fx-border-width: 4px ;");
+    		T6iPreferenceInput.setStyle("-fx-text-box-border: green ; -fx-border-width: 4px ;");
+    		T6iYOBInput.setStyle("-fx-text-box-border: green ; -fx-border-width: 4px ;");
+    		T6VariabilityInput.setStyle("-fx-text-box-border: green ; -fx-border-width: 4px ;");
 			T6NextGeneral.setVisible(true);
 			T6skipGeneral.setVisible(true);
 	    	String iPreference = T6iPreferenceInput.getText();
@@ -3008,10 +2993,7 @@ public class Controller {
     	}
     }
     
-    /**
-     * generates an ObservableList for the second task
-     * @return an ObervableList for the graphs, tables and charts 
-     */
+    
     
     public ObservableList<T2Names> getNames(T2Names [] names) {
 		ObservableList<T2Names> Names = FXCollections.observableArrayList();
@@ -3025,10 +3007,7 @@ public class Controller {
 		
 		return Names;
 	}
-    /**
-     * generates an ObservableList for the third task
-     * @return an ObervableList for the graphs, tables and charts 
-     */
+  
     public ObservableList<T3Names> T3getNames(T3Names [] names) {
 		ObservableList<T3Names> Names = FXCollections.observableArrayList();
 		for(T3Names nam : names) {
