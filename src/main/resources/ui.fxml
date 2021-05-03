@@ -57,6 +57,7 @@
                               <Button fx:id="buttonTopF" layoutX="462.0" layoutY="134.0" mnemonicParsing="false" onAction="#doTopF" text="Top 5 (female)" />
                               <Button fx:id="buttonSummary" layoutX="566.0" layoutY="134.0" mnemonicParsing="false" onAction="#doSummary" text="Summary" />
                               <Label layoutX="342.0" layoutY="98.0" text="Range: 1880 - 2019" />
+                              <TextArea fx:id="textArea_Console" layoutX="3.0" layoutY="234.0" prefHeight="399.0" prefWidth="712.0" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -936,7 +937,7 @@
                                     <Font size="15.0" />
                                  </font>
                               </Button>
-                              <Label layoutX="8.0" layoutY="288.0" prefHeight="29.0" prefWidth="277.0" text="Data Reporting Results" underline="true">
+                              <Label layoutX="8.0" layoutY="288.0" prefHeight="29.0" prefWidth="277.0" text="Results" underline="true">
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>
