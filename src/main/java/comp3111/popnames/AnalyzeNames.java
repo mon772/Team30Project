@@ -174,8 +174,12 @@ public class AnalyzeNames{
 			//				oReport+=String.format("Year %d, :", year);
 			for(T2Names nam : names) {
 				if(nam!=null) {
-					nam.setPercentage();
-					//					oReport+=String.format("Name: %s   Occurances: %,d   Frequency : %,d \n", nam.getName(), nam.getOccurances(), nam.getFrequency());
+					if (getName(year, k, gender).contentEquals(nam.getName())) {
+						//							oReport+=String.format("Name %s Exists\n", nam.getName());
+						nam.incrementFrequency();
+						nam.addOccurances(getOccurance(year, nam.getName(), gender));
+						alreadyOccurred = true;
+					}
 				}
 			}
 			if(!alreadyOccurred) {
@@ -187,7 +191,7 @@ public class AnalyzeNames{
 			}
 			alreadyOccurred = false;
 		}
-    Arrays.sort(names,0,namesIndex);
+		Arrays.sort(names,0,namesIndex);
 		for(T2Names nam : names) {
 			if(nam!=null) {
 				nam.setPercentage();
@@ -241,7 +245,6 @@ public class AnalyzeNames{
 			for(int i = startYear; i<=endYear;i++)
 			{
 				names[nameIndex] = new T3Names(iMateName, 0, "0.0", 0, 0, 0);
-				names[nameIndex].name = iMateName;
 				if(iMateGender == "M")
 				{
 					names[nameIndex].birthCount = getTotalMales(i);
@@ -253,7 +256,10 @@ public class AnalyzeNames{
 				names[nameIndex].year = i;
 				if(getOccurance(i, iMateName, iMateGender) == -1)
 				{
-					System.out.println("here");
+					names[nameIndex].occurances = 0;
+					names[nameIndex].rank = 0;
+					names[nameIndex].percentage = "0.0";
+					nameIndex++;
 					continue;
 				}
 				names[nameIndex].occurances = getOccurance(i, iMateName, iMateGender);
@@ -267,7 +273,7 @@ public class AnalyzeNames{
 		public static T3Names T6getiName(String iName, String iGender, int YOB)
 		{
 			int rank = getRank(YOB, iName, iGender);
-			int occurances = getOccurance(YOB, iName, iGender);
+			int occurances = getOccurance(YOB, iName, iGender) == -1? 0:getOccurance(YOB, iName, iGender);
 			int birthCount;
 			if(iGender == "M")
 			{
