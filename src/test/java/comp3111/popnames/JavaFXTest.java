@@ -785,18 +785,11 @@ public class JavaFXTest extends ApplicationTest {
 		clickOn("#T6VariabilityInput");
 		write("5");
 		clickOn("#T6X2");
-		clickOn("#T6skipGeneral");
-		clickOn("T6clickBackEvidence");
-		clickOn("T6clickBackoScore");
-		clickOn("T6clickBackInput");
-		clickOn("T6clickNextGeneral");
-		clickOn("T6clickNextInput");
-		clickOn("T6clickNextoScore");
+		sleep(1000);
 		t = (TextArea)s.lookup("#T6TextAreaConsole");
 		String s1 = t.getText();
-		clickOn("T6iNameInput");
-		write("athan");
 		clickOn("#T6X2");
+		sleep(1000);
 		String s2 = t.getText();
 		assertTrue(s1.equals(s2));
 	}

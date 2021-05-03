@@ -97,7 +97,7 @@
                               <CheckBox fx:id="T1_displayBarChart" layoutX="394.0" layoutY="183.0" mnemonicParsing="false" text="Bar Chart" />
                               <CheckBox fx:id="T1_displayPieChart" layoutX="490.0" layoutY="182.0" mnemonicParsing="false" text="Pie Chart" />
                               <Button fx:id="T1ButtonComputeResults" layoutX="291.0" layoutY="235.0" mnemonicParsing="false" onAction="#t1ComputeResults" prefHeight="27.0" prefWidth="118.0" text="Compute Results!" />
-                              <TabPane layoutY="302.0" prefHeight="339.0" prefWidth="717.0" tabClosingPolicy="UNAVAILABLE">
+                              <TabPane fx:id="t1TabPane" layoutY="302.0" prefHeight="339.0" prefWidth="717.0" tabClosingPolicy="UNAVAILABLE">
                                  <tabs>
                                     <Tab fx:id="t1ConsoleTab" text="Console">
                                        <content>
@@ -175,18 +175,18 @@
                                              <children>
                                                 <BarChart fx:id="t1BarChartMale" layoutY="26.0" prefHeight="281.0" prefWidth="360.0">
                                                    <xAxis>
-                                                      <CategoryAxis side="BOTTOM" />
+                                                      <CategoryAxis fx:id="t1BarChartMaleXaxis" label="Names" side="BOTTOM" />
                                                    </xAxis>
                                                    <yAxis>
-                                                      <NumberAxis side="LEFT" />
+                                                      <NumberAxis fx:id="t1BarChartMaleYaxis" label="Occurences" side="LEFT" />
                                                    </yAxis>
                                                 </BarChart>
                                                 <BarChart fx:id="t1BarChartFemale" layoutX="360.0" layoutY="26.0" prefHeight="281.0" prefWidth="360.0">
                                                    <xAxis>
-                                                      <CategoryAxis side="BOTTOM" />
+                                                      <CategoryAxis fx:id="t1BarChartFemaleXaxis" label="Names" side="BOTTOM" />
                                                    </xAxis>
                                                    <yAxis>
-                                                      <NumberAxis side="LEFT" />
+                                                      <NumberAxis fx:id="t1BarChartFemaleYaxis" label="Occurences" side="LEFT" />
                                                    </yAxis>
                                                 </BarChart>
                                                 <Label layoutX="162.0" layoutY="2.0" text="Male" textFill="#194ad0" underline="true">
@@ -223,8 +223,43 @@
                                           </AnchorPane>
                                        </content>
                                     </Tab>
+                                    <Tab fx:id="t1LineChartTab" disable="true" text="Line Chart">
+                                      <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <LineChart fx:id="t1LineChartMale" layoutY="26.0" prefHeight="281.0" prefWidth="360.0">
+                                                  <xAxis>
+                                                    <CategoryAxis label="Nemes" side="BOTTOM" />
+                                                  </xAxis>
+                                                  <yAxis>
+                                                    <NumberAxis label="Occurences" side="LEFT" />
+                                                  </yAxis>
+                                                </LineChart>
+                                                <LineChart fx:id="t1LineChartFemale" layoutX="360.0" layoutY="26.0" prefHeight="281.0" prefWidth="360.0">
+                                                  <xAxis>
+                                                    <CategoryAxis label="Names" side="BOTTOM" />
+                                                  </xAxis>
+                                                  <yAxis>
+                                                    <NumberAxis label="Occurences" side="LEFT" />
+                                                  </yAxis>
+                                                </LineChart>
+                                                <Label layoutX="162.0" layoutY="2.0" text="Male" textFill="#194ad0" underline="true">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="519.0" layoutY="2.0" text="Female" textFill="#cf1b1b" underline="true">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                      </content>
+                                    </Tab>
                                  </tabs>
                               </TabPane>
+                              <CheckBox fx:id="T1_displayLineChart" layoutX="601.0" layoutY="183.0" mnemonicParsing="false" text="Line Chart" />
                            </children>
                         </AnchorPane>
                     </content>
@@ -241,7 +276,7 @@
                                           <Font size="15.0" />
                                        </font>
                                     </Label>
-                                    <CheckBox fx:id="t2Summary" layoutX="220.0" layoutY="248.0" mnemonicParsing="false" text="Summary" />
+                                    <CheckBox fx:id="t2Summary" layoutX="215.0" layoutY="248.0" mnemonicParsing="false" text="Summary" />
                                     <Label layoutX="40.9" layoutY="168.0" prefHeight="19.0" prefWidth="266.0" text="K-th popular names to be reported">
                                        <font>
                                           <Font size="15.0" />
@@ -252,14 +287,14 @@
                                           <Font size="15.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="40.9" layoutY="248.0" prefHeight="19.0" prefWidth="151.0" text="Data Display Format:">
+                                    <Label fx:id="t2DataDisplayLabel" layoutX="40.9" layoutY="248.0" prefHeight="19.0" prefWidth="151.0" text="Data Display Format:">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
                                     </Label>
-                                    <CheckBox fx:id="t2DataTable" layoutX="320.0" layoutY="248.0" mnemonicParsing="false" text="Data Table" />
-                                    <CheckBox fx:id="t2BarChartCheck" layoutX="420.0" layoutY="248.0" mnemonicParsing="false" text="Bar Chart" />
-                                    <CheckBox fx:id="t2PieChartCheck" layoutX="520.0" layoutY="248.0" mnemonicParsing="false" text="Pie Chart" />
+                                    <CheckBox fx:id="t2DataTable" layoutX="315.0" layoutY="248.0" mnemonicParsing="false" text="Data Table" />
+                                    <CheckBox fx:id="t2BarChartCheck" layoutX="415.0" layoutY="248.0" mnemonicParsing="false" text="Bar Chart" />
+                                    <CheckBox fx:id="t2PieChartCheck" layoutX="514.0" layoutY="248.0" mnemonicParsing="false" text="Pie Chart" />
                                     <Label layoutX="20.0" layoutY="50.0" prefHeight="18.0" prefWidth="87.0" text="Inputs" underline="true">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
@@ -355,8 +390,25 @@
                                                 </AnchorPane>
                                              </content>
                                           </Tab>
+                                          <Tab fx:id="t2LineChartTab" disable="true" text="Line Chart">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <LineChart fx:id="t2LineChart" layoutX="2.0" layoutY="3.0" legendSide="RIGHT" prefHeight="287.0" prefWidth="714.0" title="Occurance Trend for K-th Popular Names during Years of Interest">
+                                                        <xAxis>
+                                                          <CategoryAxis label="Years" side="BOTTOM" />
+                                                        </xAxis>
+                                                        <yAxis>
+                                                          <NumberAxis label="Occurance" side="LEFT" />
+                                                        </yAxis>
+                                                      </LineChart>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </Tab>
                                        </tabs>
                                     </TabPane>
+                                    <CheckBox fx:id="t2LineCheck" layoutX="603.0" layoutY="248.0" mnemonicParsing="false" text="Line Chart" />
                                  </children>
                               </AnchorPane>
                            </children>
@@ -538,8 +590,8 @@
                                     <Font size="15.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="t4ButtonT4X1" layoutX="164.0" layoutY="184.0" mnemonicParsing="false" onAction="#t4_computeT4X1" prefHeight="27.0" prefWidth="192.0" text="T4X1" />
-                              <Button fx:id="t4ButtonT4X2" layoutX="372.0" layoutY="184.0" mnemonicParsing="false" onAction="#t4_computeT4X2" prefHeight="27.0" prefWidth="192.0" text="T4X2" />
+                              <Button fx:id="t4ButtonT4X1" layoutX="164.0" layoutY="184.0" mnemonicParsing="false" onAction="#t4_computeT4X1" prefHeight="27.0" prefWidth="192.0" text="T4X1" textFill="#2c07e4" />
+                              <Button fx:id="t4ButtonT4X2" layoutX="372.0" layoutY="184.0" mnemonicParsing="false" onAction="#t4_computeT4X2" prefHeight="27.0" prefWidth="192.0" text="T4X2" textFill="#2c07e4" />
                               <TabPane fx:id="t4ResultsTabPane" layoutY="257.0" prefHeight="444.0" prefWidth="721.0" side="BOTTOM" tabClosingPolicy="UNAVAILABLE">
                                 <tabs>
                                   <Tab fx:id="t4Console" text="Console">
@@ -600,15 +652,31 @@
                                        <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <Label fx:id="t4X1MainMessage" layoutX="10.0" layoutY="7.0" prefHeight="62.0" prefWidth="682.0" text="Since the little boy and Father %s will have such a close \n relationship. It will be wise to look at the top names in %s's YOB %d\n The top names are as follows" textFill="#0923d6" wrapText="true">
+                                                <Label fx:id="t4X1MainMessage" layoutX="10.0" layoutY="-5.0" prefHeight="62.0" prefWidth="682.0" text="Since the little boy and Father %s will have such a close \n relationship. It will be wise to look at the top names in %s's YOB %d\n The top names are as follows" textFill="#f50a2d" wrapText="true">
                                                    <font>
                                                       <Font size="12.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="t4X1TopNames" layoutX="97.0" layoutY="63.0" prefHeight="83.0" prefWidth="84.0" text="Andrew Andy Samuel" wrapText="true">
+                                                <Label fx:id="t4X1TopNames" layoutX="21.0" layoutY="58.0" prefHeight="94.0" prefWidth="270.0" text="Andrew Andy Samuel" wrapText="true">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font>
+                                                   <textFill>
+                                                      <RadialGradient centerX="0.48879551820728295" centerY="0.5767386091127098" radius="0.5">
+                                                         <stops>
+                                                            <Stop>
+                                                               <color>
+                                                                  <Color />
+                                                               </color>
+                                                            </Stop>
+                                                            <Stop offset="1.0">
+                                                               <color>
+                                                                  <Color red="0.07919999957084656" green="0.035999998450279236" blue="0.8999999761581421" opacity="0.8774193525314331" />
+                                                               </color>
+                                                            </Stop>
+                                                         </stops>
+                                                      </RadialGradient>
+                                                   </textFill>
                                                 </Label>
                                                 <ImageView fx:id="t4X1ThinkingImage" fitHeight="100.0" fitWidth="122.0" layoutX="303.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -620,16 +688,32 @@
                                                       <Font name="System Bold" size="18.0" />
                                                    </font>
                                                 </Label>
-                                                <PieChart fx:id="t4X1PieChart" layoutX="35.0" layoutY="189.0" prefHeight="198.0" prefWidth="278.0" />
-                                                <Label fx:id="t4X1TryPieChartMessage" layoutX="83.0" layoutY="152.0" prefHeight="40.0" prefWidth="186.0" text="Lets try deciding from a pie chart!" textAlignment="CENTER" wrapText="true">
+                                                <PieChart fx:id="t4X1PieChart" layoutX="10.0" layoutY="173.0" prefHeight="214.0" prefWidth="333.0" />
+                                                <Label fx:id="t4X1TryPieChartMessage" layoutX="502.0" layoutY="122.0" prefHeight="70.0" prefWidth="186.0" text="Lets try deciding from a pie chart! That should be a good idea :) We can then pick the largest percentage" textAlignment="CENTER" textFill="#f50a2d" wrapText="true">
                                                    <font>
                                                       <Font name="System Bold" size="13.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="t4X1AnswerPrompt" layoutX="385.0" layoutY="183.0" prefHeight="161.0" prefWidth="254.0" text="Answer: Since it is the most popular name" textFill="#bf5e19" wrapText="true">
+                                                <Label fx:id="t4X1AnswerPrompt" layoutX="350.0" layoutY="195.0" prefHeight="188.0" prefWidth="360.0" text="Answer: Since it is the most popular name" wrapText="true">
                                                    <font>
-                                                      <Font name="System Bold" size="14.0" />
+                                                      <Font name="System Bold" size="18.0" />
                                                    </font>
+                                                   <textFill>
+                                                      <RadialGradient centerX="0.5168067226890757" centerY="0.5971223021582734" radius="0.5">
+                                                         <stops>
+                                                            <Stop>
+                                                               <color>
+                                                                  <Color />
+                                                               </color>
+                                                            </Stop>
+                                                            <Stop offset="1.0">
+                                                               <color>
+                                                                  <Color red="0.07559999823570251" green="0.04899999871850014" blue="0.9800000190734863" />
+                                                               </color>
+                                                            </Stop>
+                                                         </stops>
+                                                      </RadialGradient>
+                                                   </textFill>
                                                 </Label>
                                              </children>
                                           </AnchorPane>
@@ -639,20 +723,30 @@
                                        <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <Label fx:id="t4X2ExtraYearsPrompt" layoutX="52.0" layoutY="67.0" text="Enter the extra years to be checked before and after dads YOB" />
+                                                <Label fx:id="t4X2ExtraYearsPrompt" layoutX="52.0" layoutY="73.0" text="Enter the extra years to be checked before and after dads YOB" textFill="#0d29e4" />
                                                 <Slider fx:id="t4X2UniquenessScaleAnswer" blockIncrement="1.0" layoutX="387.0" layoutY="157.0" max="10.0" min="1.0" prefHeight="16.0" prefWidth="264.0" />
-                                                <TextField fx:id="t4X2ExtraYearsAnswer" layoutX="490.0" layoutY="60.0" promptText="Range 5 to 25" />
-                                                <Label fx:id="t4X2UniquenessScale" layoutX="52.0" layoutY="157.0" text="Enter the Scale of Uniqueness" />
-                                                <Label fx:id="t4X2PriorityPrompt" layoutX="52.0" layoutY="250.0" text="Do you want to give priority to names with the same first letter of Dad's Name?" />
+                                                <TextField fx:id="t4X2ExtraYearsAnswer" layoutX="485.0" layoutY="67.0" promptText="Range 5 to 25" />
+                                                <Label fx:id="t4X2UniquenessScale" layoutX="52.0" layoutY="157.0" text="Enter the Scale of Uniqueness" textFill="#0d29e4" />
+                                                <Label fx:id="t4X2PriorityPrompt" layoutX="52.0" layoutY="250.0" text="Do you want to give priority to names with the same first letter of Dad's Name?" textFill="#0d29e4" />
                                                 <Button fx:id="t4X2GetNamePrediction" layoutX="224.0" layoutY="314.0" mnemonicParsing="false" onAction="#t4X2GenerateNames" prefHeight="54.0" prefWidth="262.0" text="GET NAME!" />
                                                 <ChoiceBox fx:id="t4X2PriorityPromptAnswerChoice" layoutX="494.0" layoutY="246.0" prefHeight="27.0" prefWidth="156.0" />
-                                                <Label fx:id="t4X2ExtraYearsError" layoutX="421.0" layoutY="97.0" prefHeight="41.0" prefWidth="249.0" text="Error Label enter the correct datatype. Enter a value between 1 and 25" textFill="#e80c0c" wrapText="true">
+                                                <Label fx:id="t4X2ExtraYearsError" layoutX="430.0" layoutY="95.0" prefHeight="41.0" prefWidth="249.0" text="Error Label enter the correct datatype. Enter a value between 1 and 25!" textAlignment="CENTER" textFill="#e80c0c" wrapText="true">
                                                    <font>
                                                       <Font size="11.0" />
                                                    </font>
                                                 </Label>
-                                                <Label layoutX="390.0" layoutY="176.0" text="1" />
-                                                <Label layoutX="637.0" layoutY="176.0" text="10" />
+                                                <Label layoutX="390.0" layoutY="173.0" text="1" textFill="#1a10e0" />
+                                                <Label layoutX="639.0" layoutY="173.0" text="10" textFill="#1912de" />
+                                                <Label fx:id="t4X2SliderValue" layoutX="454.0" layoutY="171.0" prefHeight="17.0" prefWidth="145.0" textAlignment="CENTER" textFill="#3601e4">
+                                                   <font>
+                                                      <Font name="System Bold" size="13.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="t4X2NameGenerationExplanation1" layoutX="23.0" layoutY="9.0" prefHeight="55.0" prefWidth="680.0" text="Thank you for carrying on!  At Team 30, we take care of all your interersts! Since we want to make the best descision for you we need some help :) Please enter some additional data for us to understand your preferences and make the best descision for you." textFill="#0d29e4" wrapText="true">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Label>
                                              </children>
                                           </AnchorPane>
                                        </content>
@@ -708,10 +802,10 @@
                                              <children>
                                                 <BarChart fx:id="t4X2BarChart" layoutX="4.0" layoutY="89.0" prefHeight="203.0" prefWidth="706.0">
                                                   <xAxis>
-                                                    <CategoryAxis fx:id="t4X2BarChartXAxis" side="BOTTOM" />
+                                                    <CategoryAxis fx:id="t4X2BarChartXAxis" label="Names in a Year" side="BOTTOM" />
                                                   </xAxis>
                                                   <yAxis>
-                                                    <NumberAxis side="LEFT" />
+                                                    <NumberAxis label="Occurences" side="LEFT" />
                                                   </yAxis>
                                                 </BarChart>
                                                 <Label fx:id="t4X2NameGenerationResults" layoutX="138.0" layoutY="300.0" prefHeight="60.0" prefWidth="246.0" text="Jacob">
@@ -734,10 +828,6 @@
                                                          </stops>
                                                       </RadialGradient>
                                                    </textFill></Label>
-                                                <Label fx:id="t4X2NameGenerationExplanation" layoutX="25.0" layoutY="2.0" prefHeight="99.0" prefWidth="680.0" text="Lets look at years .... to .......Lets count the number of characters in the mom and dads name and multiply it with the scale of uniquness selected to get the rank! No priority" textFill="#0d29e4" wrapText="true">
-                                                   <font>
-                                                      <Font name="System Bold" size="14.0" />
-                                                   </font></Label>
                                                 <Label layoutX="11.0" layoutY="322.0" text="T4X2 Name Prediction " />
                                                 <Label fx:id="t4X2NameGenerationResultsOccurences" layoutX="494.0" layoutY="300.0" prefHeight="60.0" prefWidth="211.0" text="Jacob" wrapText="true">
                                                    <font>
@@ -761,13 +851,18 @@
                                                    </textFill>
                                                 </Label>
                                                 <Label layoutX="376.0" layoutY="313.0" prefHeight="38.0" prefWidth="122.0" text="Occurences in Year Selected" textAlignment="CENTER" wrapText="true" />
+                                                <Label fx:id="t4X2NameGenerationExplanation" layoutX="24.0" layoutY="16.0" prefHeight="55.0" prefWidth="680.0" text="Thank you for carrying on!  At Team 30, we take care of all your interersts! Since we want to make the best descision for you we need some help :) Please enter some additional data for us to understand your preferences and make the best descision for you." textFill="#0d29e4" wrapText="true">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Label>
                                              </children>
                                           </AnchorPane>
                                        </content>
                                     </Tab>
                                 </tabs>
                               </TabPane>
-                              <Label layoutX="22.0" layoutY="224.0" text="Data Reporting Results" underline="true">
+                              <Label layoutX="22.0" layoutY="224.0" text="Results" underline="true">
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>
@@ -932,10 +1027,10 @@
                                              <children>
                                                 <ScrollPane prefHeight="295.0" prefWidth="719.0">
                                                    <content>
-                                                      <TextArea fx:id="a2TextAreaConsoleX2" prefHeight="296.0" prefWidth="700.0" />
+                                                      <TextArea fx:id="a2TextAreaConsoleX2" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="296.0" prefWidth="700.0" />
                                                    </content>
                                                 </ScrollPane>
-                                                <Button fx:id="a2EnterAdditionalData" layoutX="520.0" layoutY="260.0" mnemonicParsing="false" onAction="#a2EnterAdditionalData" text="Enter Additional Data -&gt;" visible="false" />
+                                                <Button fx:id="a2EnterAdditionalData" layoutX="520.0" layoutY="260.0" mnemonicParsing="false" onAction="#a2EnterAdditionalData" text="Enter Additional Data -&gt;" visible="false" wrapText="true" />
                                              </children>
                                           </AnchorPane>
                                        </content>
