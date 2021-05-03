@@ -5,15 +5,23 @@ import java.util.Arrays;
 import org.apache.commons.csv.*;
 import edu.duke.*;
 import javafx.application.Application;
-
+/**
+ * Class used for the computation of the results
+ */
 public class AnalyzeNames{
-
+	/**
+	 * Used the parse the file for a given year
+	 * @param year The year for analysis
+	 */
 	public static CSVParser getFileParser(int year) {
 		FileResource fr = new FileResource(String.format("dataset/yob%s.csv", year));
 		return fr.getCSVParser(false);
 	}
 
-
+	/**
+	 * Used the get the summary for a given year
+	 * @param year The year for analysis
+	 */
 	public static String getSummary(int year) {
 		String oReport = "";	
 		int totalBirths = 0;
@@ -51,12 +59,12 @@ public class AnalyzeNames{
 
 	/**
 	 * 
-	 * Returns the number of occurances for a name in a particular year
+	 * Returns the number of occurences for a name in a particular year
 	 * 
-	 * @param year	Year to look for occurance in
-	 * @param name	Name of individual to find number of occurance
-	 * @param gender	Gender of Name to look for occurances of
-	 * @return Number of Occurrances (-1 if occurance not found)
+	 * @param year	Year to look for occurences in
+	 * @param name	Name of individual to find number of occurence
+	 * @param gender	Gender of Name to look for occurences of
+	 * @return Number of Occurrences (-1 if occurence not found)
 	 */
 
 	public static int getOccurance(int year, String name, String gender) {
@@ -79,7 +87,11 @@ public class AnalyzeNames{
 			return -1;
 	}
 
-
+	/**
+	 * Used to get the total males for a given year
+	 * @param year The year for analysis
+	 * @return the total males of a given year 
+	 */
 
 	public static int getTotalMales(int year) {	
 		int totalBoys = 0;
@@ -91,7 +103,11 @@ public class AnalyzeNames{
 		}
 		return totalBoys; 	
 	}
-
+	/**
+	 * Used to get the total females for a given year
+	 * @param year The year for analysis
+	 * @return the total males of a given year
+	 */
 
 	public static int getTotalFemales(int year) {
 		int totalGirls = 0;
@@ -103,7 +119,13 @@ public class AnalyzeNames{
 		}
 		return totalGirls; 	
 	}
-
+	/**
+	 * Used to get the rank for a given year
+	 * @param year The year used for analysis
+	 * @param name The name for which the rank has to be found 
+	 * @param gender 
+	 * @return the rank of the name
+	 */
 
 	public static int getRank(int year, String name, String gender) {
 		boolean found = false;
@@ -126,7 +148,13 @@ public class AnalyzeNames{
 		else
 			return -1;
 	}
-
+	/**
+	 * Function used to get the Name of a given year, rank and gender
+	 * @param year The year used for analysis
+	 * @param rank The rank used for analysis
+	 * @param gender The gender to be found
+	 * @return
+	 */
 
 	public static String getName(int year, int rank, String gender) {
 		boolean found = false;
@@ -201,7 +229,14 @@ public class AnalyzeNames{
 
 		return names;
 	}
-		
+	/**
+	 * Used to get the popularity of the names of a given year for the third task	
+	 * @param startYear Starting Year of searching range
+	 * @param endYear Ending Year of searching range
+	 * @param name Rank of Name to search for
+	 * @param gender Gender of Name to search for
+	 * @return an array of names for the third task
+	 */
 		
 	public static T3Names [] getPopularityOfNames(int startYear, int endYear, String name, String gender) {
 		//Compute the popularity of names
@@ -232,6 +267,14 @@ public class AnalyzeNames{
 		}
 		return names;	
 	}
+	/**
+	 * Used to get the names for the 6th task 
+	 * @param startYear Starting Year of searching range
+	 * @param endYear Ending Year of searching range
+	 * @param iMateGender Gender of the soulmate wanted
+	 * @param iMateName Name of the soulmate wanted 
+	 * @return an array of names for the 6th task
+	 */
 	
 	public static T3Names [] T6getNames(int startYear, int endYear, String iMateGender, String iMateName)
 	{
@@ -265,7 +308,13 @@ public class AnalyzeNames{
 		}			
 		return names;
 	}
-
+	/**
+	 * Used to get the name for the sixth task
+	 * @param iName the name of the person
+	 * @param iGender the gender of the person
+	 * @param YOB the year of birth of the person
+	 * @return an array of T3 names 
+	 */
 	public static T3Names T6getiName(String iName, String iGender, int YOB)
 	{
 		int rank = getRank(YOB, iName, iGender);

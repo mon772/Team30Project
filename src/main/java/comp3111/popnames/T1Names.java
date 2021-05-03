@@ -1,4 +1,8 @@
+
 package comp3111.popnames;
+/**
+ * Class used to populate the data elements for the first task
+ */
 
 public class T1Names {
 	public String name ;

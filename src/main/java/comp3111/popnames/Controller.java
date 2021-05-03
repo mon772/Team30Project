@@ -48,7 +48,9 @@ import javafx.beans.property.IntegerProperty;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ChoiceBox;
 
-
+/**
+ * Class used to recevieve the events from the user
+ */
 public class Controller {
 
     @FXML
@@ -2190,11 +2192,10 @@ public class Controller {
     	
     }
     
-
-    @FXML
     /**
      *  Generates results for the second task
      */
+    @FXML
     protected void t2GenerateResults() {
     	//Reset T2Names Static Variable
     	T2Names.resetbirthCount();
@@ -2809,39 +2810,73 @@ public class Controller {
 		T6TextAreaConsole.setWrapText(true);
 		T6TextAreaConsole.setText(output);
     }
+    /**
+    * Transfers control for the next button in T6
+    *  
+    */
     
     @FXML
     protected void T6clickNextGeneral() {
 		T6ResultsTabPane.getSelectionModel().select(T6YourInput);
     }
+    /**
+     * Transfers control for the next button to go to the next score
+     *  
+     */
+     
     
     @FXML
     protected void T6clickNextoScore() {
     	T6ResultsTabPane.getSelectionModel().select(T6LineChart);
     }
-    
+    /**
+     * Transfers control for the next input button in T6
+     *  
+     */
     @FXML
     protected void T6clickNextInput() {
     	T6ResultsTabPane.getSelectionModel().select(T6oScoreCalculation);
     }
+    
+    /**
+    * Transfers control for the back button in T6
+    *  
+    */
     @FXML
     protected void T6clickBackInput() {
     	T6ResultsTabPane.getSelectionModel().select(T6General);
     }
+    /**
+     * Transfers control for the back to score button in T6
+     *  
+     */
+    
     @FXML
     protected void T6clickBackoScore() {
     	T6ResultsTabPane.getSelectionModel().select(T6YourInput);
     }
+    
+   /**
+    * Transfers control for the back to evidence  button in T6
+    *  
+    */
+    
     @FXML
     protected void T6clickBackEvidence() {
     	T6ResultsTabPane.getSelectionModel().select(T6oScoreCalculation);
     }
+    
+    /**
+     * Transfers control for the skip to results button in T6
+     *  
+     */
+    
     @FXML
     protected void T6skipToResults() {
     	T6ResultsTabPane.getSelectionModel().select(T6LineChart);
     }
     /**
-     * Analyze and generate results for T6X2
+     * Computes the results for the second algorithm for T6
      */
 
     @FXML
