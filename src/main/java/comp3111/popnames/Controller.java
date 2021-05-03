@@ -842,12 +842,12 @@ public class Controller {
     	String oReport = "";
     	String year = T1TextFieldYear.getText();
     	String input_avaliable_error = "" ;
-    	if(year == "") {
+    	if(year .equals("")) {
     		T1TextFieldYear.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		input_avaliable_error += "The year is blank! Please enter year \n";
     	}
     	String n = T1TextFieldtopN.getText();
-    	if(n == "") {
+    	if(n .equals("")) {
     		T1TextFieldtopN.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		input_avaliable_error += "The top N most popular names to reported is blank! Please enter a value \n";
     	}
@@ -862,7 +862,7 @@ public class Controller {
     		input_avaliable_error += ("Please Check or Select at Least One Form of Data Representation and Try Again!");
     		boxes_checked = false ; 
     	}
-    	if((year == "")||(n=="")||(boxes_checked==false)) {
+    	if((year .equals(""))||(n.equals(""))||(boxes_checked==false)) {
     		textAreaConsole1.setText(input_avaliable_error);
     		t1ConsoleTab.setStyle("-fx-text-base-color: red;");
     		t1TabPane.getSelectionModel().select(t1ConsoleTab);
@@ -1093,19 +1093,19 @@ public class Controller {
     	String dad_name = T4textFieldDadsName.getText();
     	String mom_name = T4textFieldMomsName.getText();
     	String input_avaliable_error = "" ;
-    	if(dad_yob == "") {
+    	if(dad_yob .equals("")) {
     		input_avaliable_error += "Dad's Year of Birth has not been entered! Please enter Dad's YOB for Prediction\n";
     		T4textFieldDadsYOB.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     	}
-    	if(mom_yob == "") {
+    	if(mom_yob .equals("")) {
     		input_avaliable_error += "Moms' Year of Birth has not been entered! Please enter Mom's YOB for Prediction\n";
     		T4textFieldMomsYOB.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     	}
-    	if(dad_name == "") {
+    	if(dad_name .equals("")) {
     		input_avaliable_error += "Dad's name has not been entered! Please enter Dad's name for Prediction\n";
     		T4textFieldDadsName.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     	}
-    	if(mom_name == "") {
+    	if(mom_name .equals("")) {
     		input_avaliable_error += "Mom's name has not been entered! Please enter Mom's name for Prediction\n";
     		T4textFieldMomsName.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     	}
@@ -1655,6 +1655,12 @@ public class Controller {
     		if(t5Name.getText().equals("")) {
     			throw new Exception("Error: iName has not been inputted\n");
     		}
+    		iName = t5Name.getText();
+    		for(int i=0 ; i<iName.length() ; i++) {
+        		if(Character.isLetter(iName.charAt(i)) == false) {
+        			throw new Exception("iName invalid: iName contains a number!\n");
+        		}
+        	}
     	}
     	catch (Exception e) {
     		t5Name.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
@@ -1822,6 +1828,12 @@ public class Controller {
     		if(t5Name.getText().equals("")) {
     			throw new Exception("Error: iName has not been inputted\n");
     		}
+    		iName = t5Name.getText();
+    		for(int i=0 ; i<iName.length() ; i++) {
+        		if(Character.isLetter(iName.charAt(i)) == false) {
+        			throw new Exception("iName invalid: iName contains a number!\n");
+        		}
+        	}
     	}
     	catch (Exception e) {
     		t5Name.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
