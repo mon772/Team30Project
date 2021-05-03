@@ -1,5 +1,7 @@
 package comp3111.popnames;
-
+/**
+ * Class used to populate the data elements for the second task
+ */
 public class T2Names implements Comparable<T2Names> {
 	private String name;
 	private int occurances;
