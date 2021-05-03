@@ -240,7 +240,7 @@
                                           <Font size="15.0" />
                                        </font>
                                     </Label>
-                                    <CheckBox fx:id="t2Summary" layoutX="220.0" layoutY="248.0" mnemonicParsing="false" text="Summary" />
+                                    <CheckBox fx:id="t2Summary" layoutX="215.0" layoutY="248.0" mnemonicParsing="false" text="Summary" />
                                     <Label layoutX="40.9" layoutY="168.0" prefHeight="19.0" prefWidth="266.0" text="K-th popular names to be reported">
                                        <font>
                                           <Font size="15.0" />
@@ -251,14 +251,14 @@
                                           <Font size="15.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="40.9" layoutY="248.0" prefHeight="19.0" prefWidth="151.0" text="Data Display Format:">
+                                    <Label fx:id="t2DataDisplayLabel" layoutX="40.9" layoutY="248.0" prefHeight="19.0" prefWidth="151.0" text="Data Display Format:">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
                                     </Label>
-                                    <CheckBox fx:id="t2DataTable" layoutX="320.0" layoutY="248.0" mnemonicParsing="false" text="Data Table" />
-                                    <CheckBox fx:id="t2BarChartCheck" layoutX="420.0" layoutY="248.0" mnemonicParsing="false" text="Bar Chart" />
-                                    <CheckBox fx:id="t2PieChartCheck" layoutX="520.0" layoutY="248.0" mnemonicParsing="false" text="Pie Chart" />
+                                    <CheckBox fx:id="t2DataTable" layoutX="315.0" layoutY="248.0" mnemonicParsing="false" text="Data Table" />
+                                    <CheckBox fx:id="t2BarChartCheck" layoutX="415.0" layoutY="248.0" mnemonicParsing="false" text="Bar Chart" />
+                                    <CheckBox fx:id="t2PieChartCheck" layoutX="514.0" layoutY="248.0" mnemonicParsing="false" text="Pie Chart" />
                                     <Label layoutX="20.0" layoutY="50.0" prefHeight="18.0" prefWidth="87.0" text="Inputs" underline="true">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
@@ -354,8 +354,25 @@
                                                 </AnchorPane>
                                              </content>
                                           </Tab>
+                                          <Tab fx:id="t2LineChartTab" disable="true" text="Line Chart">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <LineChart fx:id="t2LineChart" layoutX="2.0" layoutY="3.0" legendSide="RIGHT" prefHeight="287.0" prefWidth="714.0" title="Occurance Trend for K-th Popular Names during Years of Interest">
+                                                        <xAxis>
+                                                          <CategoryAxis label="Years" side="BOTTOM" />
+                                                        </xAxis>
+                                                        <yAxis>
+                                                          <NumberAxis label="Occurance" side="LEFT" />
+                                                        </yAxis>
+                                                      </LineChart>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </Tab>
                                        </tabs>
                                     </TabPane>
+                                    <CheckBox fx:id="t2LineCheck" layoutX="603.0" layoutY="248.0" mnemonicParsing="false" text="Line Chart" />
                                  </children>
                               </AnchorPane>
                            </children>
@@ -928,10 +945,10 @@
                                              <children>
                                                 <ScrollPane prefHeight="295.0" prefWidth="719.0">
                                                    <content>
-                                                      <TextArea fx:id="a2TextAreaConsoleX2" prefHeight="296.0" prefWidth="700.0" />
+                                                      <TextArea fx:id="a2TextAreaConsoleX2" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="296.0" prefWidth="700.0" />
                                                    </content>
                                                 </ScrollPane>
-                                                <Button fx:id="a2EnterAdditionalData" layoutX="520.0" layoutY="260.0" mnemonicParsing="false" onAction="#a2EnterAdditionalData" text="Enter Additional Data -&gt;" visible="false" />
+                                                <Button fx:id="a2EnterAdditionalData" layoutX="520.0" layoutY="260.0" mnemonicParsing="false" onAction="#a2EnterAdditionalData" text="Enter Additional Data -&gt;" visible="false" wrapText="true" />
                                              </children>
                                           </AnchorPane>
                                        </content>

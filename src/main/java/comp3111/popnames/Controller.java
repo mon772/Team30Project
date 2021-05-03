@@ -183,7 +183,10 @@ public class Controller {
 
     @FXML
     private CheckBox t2Summary;
-
+    
+    @FXML
+    private Label t2DataDisplayLabel;
+    
     @FXML
     private CheckBox t2DataTable;
 
@@ -264,6 +267,15 @@ public class Controller {
 
     @FXML
     private PieChart t2PieChart;
+    
+    @FXML
+    private Tab t2LineChartTab;
+
+    @FXML
+    private LineChart<String, Integer> t2LineChart;
+
+    @FXML
+    private CheckBox t2LineCheck;
 
     @FXML
     private Tab tabReport3;
@@ -1452,16 +1464,24 @@ public class Controller {
     	a2TabPane.getSelectionModel().select(a2ConsoleTab);
     	t5X1PieChart.getData().clear();
     	t5X1PieChart.setAnimated(false);
+
+		t5Name.setStyle("-fx-border-width: 0px ;");
+		t5Gender.setStyle("-fx-border-width: 0px ;");
+		t5YOB.setStyle("-fx-border-width: 0px ;");
+		t5GenderMate.setStyle("-fx-border-width: 0px ;");
+		t5Preference.setStyle("-fx-border-width: 0px ;");
+		
     	String oReport ="";
     	boolean err = false;
     	
     	String iName = "";
     	try {
-    		if(t5Name.getText() =="") {
+    		if(t5Name.getText().equals("")) {
     			throw new Exception("Error: iName has not been inputted\n");
     		}
     	}
     	catch (Exception e) {
+    		t5Name.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		oReport += e.getMessage();
     		err=true;
     	}
@@ -1469,7 +1489,7 @@ public class Controller {
     	boolean isUserMale = false;
     	String iGender = t5Gender.getText();
     	try {
-    		if(iGender =="") {
+    		if(iGender.equals("")) {
     			throw new Exception("Error: iGender has not been inputted\n");
     		}
     		if(iGender.contentEquals("M")) {
@@ -1483,13 +1503,14 @@ public class Controller {
     		}
     	}
     	catch (Exception e) {
+    		t5Gender.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		oReport += e.getMessage();
     		err=true;
     	}
     	
     	int iYOB=0;
     	try {
-    		if(t5YOB.getText() =="") {
+    		if(t5YOB.getText().equals("")) {
     			throw new Exception("Error: iYOB has not been inputted\n");
     		}
     		iYOB = Integer.parseInt(t5YOB.getText());
@@ -1498,10 +1519,12 @@ public class Controller {
     		}
     	}
     	catch (NumberFormatException e) {
+    		t5YOB.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		oReport += "Please input valid iYOB (Integer Value between 1880 and 2019)\n";
     		err=true;
     	}
     	catch (Exception e) {
+    		t5YOB.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		oReport += e.getMessage();
     		err=true;
     	}
@@ -1509,7 +1532,7 @@ public class Controller {
     	boolean isMateMale = false;
     	String iGenderMate = t5GenderMate.getText();
     	try {
-    		if(iGenderMate =="") {
+    		if(iGenderMate.equals("")) {
     			throw new Exception("Error: iGenderMate has not been inputted\n");
     		}
     		if(iGenderMate.contentEquals("M")) {
@@ -1523,6 +1546,7 @@ public class Controller {
     		}
     	}
     	catch (Exception e) {
+    		t5GenderMate.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		oReport += e.getMessage();
     		err=true;
     	}
@@ -1530,7 +1554,7 @@ public class Controller {
     	boolean isPreferenceYounger = false;
     	String iPreference = t5Preference.getText();
     	try {
-    		if(iPreference =="") {
+    		if(iPreference.equals("")) {
     			throw new Exception("Error: iPreference has not been inputted\n");
     		}
     		if(iPreference.contentEquals("Younger")) {
@@ -1544,6 +1568,7 @@ public class Controller {
     		}
     	}
     	catch (Exception e) {
+    		t5Preference.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		oReport += e.getMessage();
     		err=true;
     	}
@@ -1598,16 +1623,25 @@ public class Controller {
     @FXML
     void t5_computeT5X2() {
     	a2TabPane.getSelectionModel().select(a2ConsoleTab1);
+    	a2EnterAdditionalData.setVisible(false);
     	String oReport ="";
     	boolean err = false;
-    	
+
+		t5Name.setStyle("-fx-border-width: 0px ;");
+		t5Gender.setStyle("-fx-border-width: 0px ;");
+		t5YOB.setStyle("-fx-border-width: 0px ;");
+		t5GenderMate.setStyle("-fx-border-width: 0px ;");
+		t5Preference.setStyle("-fx-border-width: 0px ;");
+		
+  
     	String iName = "";
     	try {
-    		if(t5Name.getText() =="") {
+    		if(t5Name.getText().equals("")) {
     			throw new Exception("Error: iName has not been inputted\n");
     		}
     	}
     	catch (Exception e) {
+    		t5Name.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		oReport += e.getMessage();
     		err=true;
     	}
@@ -1615,7 +1649,7 @@ public class Controller {
     	boolean isUserMale = false;
     	String iGender = t5Gender.getText();
     	try {
-    		if(iGender =="") {
+    		if(iGender.equals("")) {
     			throw new Exception("Error: iGender has not been inputted\n");
     		}
     		if(iGender.contentEquals("M")) {
@@ -1629,13 +1663,14 @@ public class Controller {
     		}
     	}
     	catch (Exception e) {
+    		t5Gender.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		oReport += e.getMessage();
     		err=true;
     	}
     	
     	int iYOB=0;
     	try {
-    		if(t5YOB.getText() =="") {
+    		if(t5YOB.getText().equals("")) {
     			throw new Exception("Error: iYOB has not been inputted\n");
     		}
     		iYOB = Integer.parseInt(t5YOB.getText());
@@ -1644,10 +1679,12 @@ public class Controller {
     		}
     	}
     	catch (NumberFormatException e) {
+    		t5YOB.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		oReport += "Please input valid iYOB (Integer Value between 1880 and 2019)\n";
     		err=true;
     	}
     	catch (Exception e) {
+    		t5YOB.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		oReport += e.getMessage();
     		err=true;
     	}
@@ -1655,7 +1692,7 @@ public class Controller {
     	boolean isMateMale = false;
     	String iGenderMate = t5GenderMate.getText();
     	try {
-    		if(iGenderMate =="") {
+    		if(iGenderMate.equals("")) {
     			throw new Exception("Error: iGenderMate has not been inputted\n");
     		}
     		if(iGenderMate.contentEquals("M")) {
@@ -1669,6 +1706,7 @@ public class Controller {
     		}
     	}
     	catch (Exception e) {
+    		t5GenderMate.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		oReport += e.getMessage();
     		err=true;
     	}
@@ -1676,7 +1714,7 @@ public class Controller {
     	boolean isPreferenceYounger = false;
     	String iPreference = t5Preference.getText();
     	try {
-    		if(iPreference =="") {
+    		if(iPreference.equals("")) {
     			throw new Exception("Error: iPreference has not been inputted\n");
     		}
     		if(iPreference.contentEquals("Younger")) {
@@ -1690,14 +1728,16 @@ public class Controller {
     		}
     	}
     	catch (Exception e) {
+    		t5Preference.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		oReport += e.getMessage();
     		err=true;
     	}
     	
     	if(!err) {
     		oReport+="Welcome to Prediction on Names for Compatible Pairs Application!\n\n";
-    		oReport+="In order to generate suitable predictions using our patented formula, please enter additional data.\n";
-    		oReport+="Please press the Enter Additional Data Button Below...\n";
+    		oReport+="Research lead by Dhiren Gupta and his team at MIT has shown that Biological Data and Preferences are not\n sufficient to generate suitable compatibility predictions.\n\n";
+    		oReport+="Therefore his team has generated a patented formula that incorporates a persons tastes.\nIn order to recieve a compatibility report using their patented formula, you will need to enter additional data.\n";
+    		oReport+="Please press the Enter Additional Data Button Below to do so...\n";
     		a2EnterAdditionalData.setVisible(true);
     	}
     	a2TextAreaConsoleX2.setText(oReport);
@@ -1807,7 +1847,7 @@ public class Controller {
     	
     	int randInt1=0;
     	try {
-    		if(t5RandInt1.getText() =="") {
+    		if(t5RandInt1.getText() .equals("")) {
     			throw new Exception("Error: Random Number has\n not been inputted\n");
     		}
     		randInt1 = Integer.parseInt(t5RandInt1.getText());
@@ -1837,7 +1877,7 @@ public class Controller {
     	
     	int randInt2=0;
     	try {
-    		if(t5RandInt2.getText() =="") {
+    		if(t5RandInt2.getText() .equals("")) {
     			throw new Exception("Error: Random Number has\n not been inputted\n");
     		}
     		randInt2 = Integer.parseInt(t5RandInt2.getText());
@@ -1964,8 +2004,15 @@ public class Controller {
     	T2Names.resetbirthCount();
     	//Reset bar chart data set
 		t2BarChart.getData().clear();
+		t2LineChart.getData().clear();
 		t2BarChart.setAnimated(false);
 		t2PieChart.setAnimated(false);
+		t2LineChart.setAnimated(false);
+    	t2DataDisplayLabel.setTextFill(Color.BLACK);
+		t2Year1.setStyle("-fx-border-width: 0px ;");
+		t2Year2.setStyle("-fx-border-width: 0px ;");
+		t1Pop.setStyle("-fx-border-width: 0px ;");
+		t1Gender.setStyle("-fx-border-width: 0px ;");
     	
 //    	textAreaConsole.setText("Testing T2");
     	String oReport = "";
@@ -1974,7 +2021,7 @@ public class Controller {
     	//Validate and Input Starting Year
     	int starting_Year=0;
     	try {
-    		if(t2Year1.getText() =="") {
+    		if(t2Year1.getText().equals("")) {
     			throw new Exception("Error: Starting Year of Interest has not been inputted\n");
     		}
     		starting_Year = Integer.parseInt(t2Year1.getText());
@@ -1983,10 +2030,12 @@ public class Controller {
     		}
     	}
     	catch (NumberFormatException e) {
-    		oReport += "Please input valid Starting Year of Interst (Integer Value between 1880 and 2019)\n";
+    		t2Year1.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
+    		oReport += "Please input valid Starting Year of Interest (Integer Value between 1880 and 2019)\n";
     		err=true;
     	}
     	catch (Exception e) {
+    		t2Year1.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		oReport += e.getMessage();
     		err=true;
     	}
@@ -1995,7 +2044,7 @@ public class Controller {
     	
     	int ending_Year = 0;
     	try {
-    		if(t2Year2.getText() =="") {
+    		if(t2Year2.getText().equals("")) {
     			throw new Exception("Error: Ending Year of Interest has not been inputted\n");
     		}
     		ending_Year = Integer.parseInt(t2Year2.getText());
@@ -2007,10 +2056,12 @@ public class Controller {
     		}
     	}
     	catch (NumberFormatException e) {
-    		oReport += "Please input valid Ending Year of Interst (Integer Value between 1880 and 2019)\n";
+    		t2Year2.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
+    		oReport += "Please input valid Ending Year of Interest (Integer Value between 1880 and 2019)\n";
     		err=true;
     	}
     	catch (Exception e) {
+    		t2Year2.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		oReport += e.getMessage();
     		err=true;
     	}
@@ -2020,7 +2071,7 @@ public class Controller {
     	
     	int k = 0;
     	try {
-    		if(t1Pop.getText() =="") {
+    		if(t1Pop.getText().equals("")) {
     			throw new Exception("Error: K-th Popular Name to Be Reported has not been inputted\n");
     		}
     		k = Integer.parseInt(t1Pop.getText());
@@ -2028,9 +2079,16 @@ public class Controller {
     			throw new Exception("Invalid K-th Popular Name to Be Reported: K-th Value out of range\n");
     		}
     	}
+    	catch (NumberFormatException e) {
+    		t1Pop.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
+    		oReport += "Please input valid K-th Popular Name to Be Reported (Integer Value between 1 and 1000)\n";
+    		err=true;
+    	}
     	catch (Exception e) {
+    		t1Pop.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		oReport += e.getMessage();
     		err=true;
+    		
     	}
     	
     	//Validate and Input Gender
@@ -2038,7 +2096,7 @@ public class Controller {
 		String genderOut = "";
     	String gender = t1Gender.getText();
     	try {
-    		if(gender =="") {
+    		if(gender.equals("")) {
     			throw new Exception("Error: Gender has not been inputted\n");
     		}
     		if(gender.contentEquals("M")) {
@@ -2052,6 +2110,7 @@ public class Controller {
     		}
     	}
     	catch (Exception e) {
+    		t1Gender.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		oReport += e.getMessage();
     		err=true;
     	}
@@ -2062,8 +2121,10 @@ public class Controller {
     	boolean datatable = t2DataTable.isSelected();
     	boolean barchart = t2BarChartCheck.isSelected();
     	boolean piechart = t2PieChartCheck.isSelected();
+    	boolean linechart = t2LineCheck.isSelected();
     
-    	if(!(summary | datatable | barchart | piechart)) {
+    	if(!(summary | datatable | barchart | piechart | linechart)) {
+        	t2DataDisplayLabel.setTextFill(Color.RED);
     		oReport += "Error: No Data Reporting Method has been Chosen (Please select required reports using the checkbox)\n";
     		err=true;
     	}
@@ -2073,6 +2134,7 @@ public class Controller {
         	t2DataTableTab.setDisable(!datatable);
         	t2BarChartTab.setDisable(!barchart);
         	t2PieChartTab.setDisable(!piechart);
+        	t2LineChartTab.setDisable(!linechart);
 	    	oReport += String.format("Please view requested Reports in respective tab(s)");
 	    	result = AnalyzeNames.getKthPopularNames(starting_Year, ending_Year, k, gender);
 
@@ -2121,12 +2183,32 @@ public class Controller {
 	    			    Tooltip.install(data.getNode(), toolTip);
 	    			});
 	    		}
+	    		if(linechart) {
+	    			T3Names[] popTrend = null;
+	    			t2LineChart.setTitle(String.format("Occurance Trend for %d-th Popular Names during Years of Interest", k));
+	    			for(T2Names nam : result) {
+	    				if(nam!=null) {
+			    	    	popTrend = AnalyzeNames.getPopularityOfNames(starting_Year, ending_Year, nam.getName(), gender);
+			    	    	XYChart.Series<String, Integer> set1 = new XYChart.Series<>();
+			    	    	int year = starting_Year;
+			    	    	for(T3Names pop : popTrend) {
+			    	    		if(pop.name!="") {
+			    					set1.getData().add(new XYChart.Data<>(String.valueOf(year), pop.occurances));
+			    	    		}
+			    	    		year++;
+			    	    	}
+			    	    	set1.setName(nam.getName());
+			    	    	t2LineChart.getData().add(set1);
+	    				}
+	    			}
+	    		}
 	    	}
     	} else {
         	t2SummaryTab.setDisable(true);
         	t2DataTableTab.setDisable(true);
         	t2BarChartTab.setDisable(true);
         	t2PieChartTab.setDisable(true);
+        	t2LineChartTab.setDisable(true);
         	t2ConsoleTab.setStyle("-fx-text-base-color: red;");
         	t2TabPane.getSelectionModel().select(t2ConsoleTab);
         	
