@@ -770,6 +770,9 @@ public class Controller {
      */
     @FXML
     void t1ComputeResults() {
+    	T1TextFieldYear.setStyle("-fx-text-box-border: black ");
+    	T1TextFieldtopN.setStyle("-fx-text-box-border: black ");
+    	T4textFieldMomsName.setStyle("-fx-text-box-border: black ");
     	t1ConsoleTab.setStyle("-fx-text-base-color: black;");
     	t1SummaryTab.setDisable(true);
     	t1DataTableTab.setDisable(true);
@@ -796,10 +799,12 @@ public class Controller {
     	String year = T1TextFieldYear.getText();
     	String input_avaliable_error = "" ;
     	if(year == "") {
+    		T1TextFieldYear.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		input_avaliable_error += "The year is blank! Please enter year \n";
     	}
     	String n = T1TextFieldtopN.getText();
     	if(n == "") {
+    		T1TextFieldtopN.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		input_avaliable_error += "The top N most popular names to reported is blank! Please enter a value \n";
     	}
     	
@@ -828,11 +833,13 @@ public class Controller {
     			year_validated = true ; 
     		}
     		else {
+    			T1TextFieldYear.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     			validation_error += "Enter data value in the range for the Year. It too small or too large! \n";
     		}
     		
     	}
     	catch (Exception e) {
+    		T1TextFieldYear.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		validation_error += "Enter the Correct Datatype for the Year. Enter a Number! \n";
     	}
     	boolean n_validated = false ;
@@ -840,14 +847,17 @@ public class Controller {
     	try {
     		int_n = Integer.parseInt(n);
     		if((int_n >=1)&&(int_n <= 10)) {
+    			
     			n_validated = true ; 
     		}
     		else {
+    			T1TextFieldtopN.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     			validation_error += "Enter data value in the range for the N. It too small or too large! \n";
     		}
     		
     	}
     	catch (Exception e) {
+    		T1TextFieldtopN.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		validation_error += "Enter the Correct Datatype for the N. Enter a Number! \n";
     	}
     	if((!year_validated)||(!n_validated)) {
@@ -969,6 +979,11 @@ public class Controller {
 			}
 			t1PieChartMale.setData(pieChartDataMale);
 			t1PieChartMale.setStartAngle(90);
+			t1PieChartMale.getData().forEach(data -> {
+			    String per = String.format("%.2f%%", (data.getPieValue()));
+			    Tooltip toolTip = new Tooltip(per);
+			    Tooltip.install(data.getNode(), toolTip);
+			});
 			ObservableList<PieChart.Data> pieChartDataFemale= FXCollections.observableArrayList();
 			for(T1Names one_name : female_data) {
 				if(one_name!=null) {
@@ -977,6 +992,11 @@ public class Controller {
 			}
 			t1PieChartFemale.setData(pieChartDataFemale);
 			t1PieChartFemale.setStartAngle(90);
+			t1PieChartFemale.getData().forEach(data -> {
+			    String per = String.format("%.2f%%", (data.getPieValue()));
+			    Tooltip toolTip = new Tooltip(per);
+			    Tooltip.install(data.getNode(), toolTip);
+			});
 		}
     	if(line_chart_box) {
     		t1LineChartMale.setTitle(String.format("Top %d Names (male) in %d" ,  int_n , int_year));
@@ -1305,6 +1325,11 @@ public class Controller {
 			}
 		}
 		t4X1PieChart.setData(pieChartDataMale);
+		t4X1PieChart.getData().forEach(data -> {
+		    String per = String.format("%.1f%%", (data.getPieValue()));
+		    Tooltip toolTip = new Tooltip(per);
+		    Tooltip.install(data.getNode(), toolTip);
+		});
     	new Thread(()->{ //use another thread so long process does not block gui
             String result = "";
 	    	for(int i=0;i<=5;i++)   {
