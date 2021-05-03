@@ -1181,7 +1181,6 @@ public class Controller {
     	t4X1PieChart.setAnimated(false);
     	t4X2ExtraYearsError.setVisible(false);
     	//t4X2BarChartXAxis.setAnimated(false);
-    	
     	t4X2UniquenessScaleAnswer.valueProperty().addListener((observableValue , oldValue , newValue) -> {
         	t4X2SliderValue.setText(String.format("Scale Selected Is %.2f", newValue));
         });
