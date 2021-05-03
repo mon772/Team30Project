@@ -643,10 +643,44 @@ public class Controller {
 
     @FXML
     private Label t4X2NameGenerationResults;
+    
+    @FXML
+    private CheckBox T1_displayLineChart;
+    
+    @FXML
+    private Tab t1LineChartTab;
 
+    @FXML
+    private LineChart<String, Integer> t1LineChartMale;
+
+    @FXML
+    private LineChart<String, Integer> t1LineChartFemale;
+    
+    @FXML
+    private CategoryAxis t1BarChartMaleXaxis;
+
+    @FXML
+    private CategoryAxis t1BarChartFemaleXaxis;
+
+    @FXML
+    private NumberAxis t1BarChartMaleYaxis;
+
+    @FXML
+    private NumberAxis t1BarChartFemaleYaxis;
+    
+    @FXML
+    private Label t4X2SliderValue;
+    
+    @FXML
+    private TabPane t1TabPane;
+    
+    
+    
     
 
-   
+    /**
+     * Initializes the value for a dropdown menu 
+     */
     
     
     @FXML
@@ -743,6 +777,9 @@ public class Controller {
     		oReport += String.format("#%d: %s\n", i, AnalyzeNames.getName(iYear, i, "M"));
     	textAreaConsole.setText(oReport);
     }
+    /**
+     * This function is triggered when the user click the compute results button for the first reporting task 
+     */
     @FXML
     void t1ComputeResults() {
     	t1ConsoleTab.setStyle("-fx-text-base-color: black;");
@@ -750,6 +787,7 @@ public class Controller {
     	t1DataTableTab.setDisable(true);
     	t1BarChartTab.setDisable(true);
     	t1PieChartTab.setDisable(true);
+    	t1LineChartTab.setDisable(true);
     	t1ReportTableMale.getItems().clear();
     	t1ReportTableFemale.getItems().clear();
     	t1textAreaSummaryMale.setText("");
@@ -757,7 +795,15 @@ public class Controller {
 		t1BarChartMale.getData().clear();
 		t1BarChartFemale.getData().clear();
 		t1PieChartMale.getData().clear();
+		//t1PieChartMale.setAnimated(false);
 		t1PieChartFemale.getData().clear();
+		//t1PieChartFemale.setAnimated(false);
+		t1LineChartMale.getData().clear();
+		t1LineChartFemale.getData().clear();
+		t1BarChartMaleXaxis.setAnimated(false);
+		t1BarChartFemaleXaxis.setAnimated(false);
+		t1BarChartFemaleYaxis.setAnimated(false);
+		t1BarChartMaleYaxis.setAnimated(false);
     	String oReport = "";
     	String year = T1TextFieldYear.getText();
     	String input_avaliable_error = "" ;
@@ -773,14 +819,16 @@ public class Controller {
     	boolean dt_box = T1_displayDataTable.isSelected();
     	boolean bar_chart_box = T1_displayBarChart.isSelected();
     	boolean pie_chart_box = T1_displayPieChart.isSelected();
+    	boolean line_chart_box = T1_displayLineChart.isSelected();
     	boolean boxes_checked = true ;
-    	if((summary_box == false)&&(dt_box == false)&&(bar_chart_box == false)&&(pie_chart_box == false)) {
+    	if((summary_box == false)&&(dt_box == false)&&(bar_chart_box == false)&&(pie_chart_box == false)&&(line_chart_box==false)) {
     		input_avaliable_error += ("Please Check or Select at Least One Form of Data Representation and Try Again!");
     		boxes_checked = false ; 
     	}
     	if((year == "")||(n=="")||(boxes_checked==false)) {
     		textAreaConsole1.setText(input_avaliable_error);
     		t1ConsoleTab.setStyle("-fx-text-base-color: red;");
+    		t1TabPane.getSelectionModel().select(t1ConsoleTab);
     		return;
     	}
     	String validation_error = "" ; 
@@ -817,6 +865,7 @@ public class Controller {
     	if((!year_validated)||(!n_validated)) {
     		textAreaConsole1.setText(validation_error);
     		t1ConsoleTab.setStyle("-fx-text-base-color: red;");
+    		t1TabPane.getSelectionModel().select(t1ConsoleTab);
     		return; 
     	}
     	//oReport = String.format("Year %s\n", year);
@@ -869,6 +918,7 @@ public class Controller {
     	t1DataTableTab.setDisable(!dt_box);
     	t1BarChartTab.setDisable(!bar_chart_box);
     	t1PieChartTab.setDisable(!pie_chart_box);
+    	t1LineChartTab.setDisable(!line_chart_box);
     	T1Names []  male_data = new T1Names[int_n];
 		T1Names [] female_data = new T1Names[int_n];
 		for(int i=0 ; i <int_n ; i++) {
@@ -940,7 +990,33 @@ public class Controller {
 			t1PieChartFemale.setData(pieChartDataFemale);
 			t1PieChartFemale.setStartAngle(90);
 		}
+    	if(line_chart_box) {
+    		t1LineChartMale.setTitle(String.format("Top %d Names (male) in %d" ,  int_n , int_year));
+    		XYChart.Series<String, Integer> set_male = new XYChart.Series<>();
+    		set_male.setName("Male Occurences"); 
+    		for (T1Names one_name : male_data) {
+				if(one_name!=null) {
+					set_male.getData().add(new XYChart.Data<>(one_name.getName(), one_name.getOccurences()));
+				}
+			}
+			t1LineChartFemale.setTitle(String.format("Top %d Names (female) in %d" ,  int_n , int_year));
+			XYChart.Series<String, Integer> set_female = new XYChart.Series<>();
+			set_female.setName("Female Occurences");
+			for (T1Names one_name : female_data) {
+				if(one_name!=null) {
+					set_female.getData().add(new XYChart.Data<>(one_name.getName(), one_name.getOccurences()));
+				}
+			}
+			t1LineChartMale.getData().addAll(set_male);
+			t1LineChartFemale.getData().addAll(set_female);
+			
+		}
+    	
     }
+    /**
+     * Get the name data for the first reporting task
+     * @return a names ObervableList to for the charting
+     */
     
     public ObservableList<T1Names> t1getNameData(T1Names [] names) {
 		ObservableList<T1Names> Names = FXCollections.observableArrayList();
@@ -953,7 +1029,10 @@ public class Controller {
 		return Names;
 	}
     
-    
+    /**
+     * Checks the validity of the input for the 4th task
+     * @return true if the the inputs are valid and return false of it is not valid
+     */
     boolean t4_inputs_valid(){
     	String oReport = "";
     	String dad_yob = T4textFieldDadsYOB.getText();
@@ -1055,6 +1134,9 @@ public class Controller {
     	}
     	return true ;
     }
+    /**
+     * Initializes the scene for the 4th task 
+     */
     void t4_initialize_scene() {
     	t4ConsoleTextArea.clear();
     	t4Console.setStyle("-fx-text-base-color: black;");
@@ -1073,9 +1155,13 @@ public class Controller {
     	t4X2BarChart.getData().clear();
     	t4X2ExtraYearsError.setVisible(false);
     	t4X2BarChartXAxis.setAnimated(false);
-    	
+    	t4X2UniquenessScaleAnswer.valueProperty().addListener((observableValue , oldValue , newValue) -> {
+        	t4X2SliderValue.setText(String.format("Scale Selected Is %.2f", newValue));
+        });
     }
-   
+    /**
+     * transfers control to the gender selection page for T4X1
+     */
     @FXML
     void t4_computeT4X1() {
     	t4_initialize_scene();
@@ -1084,6 +1170,9 @@ public class Controller {
     	}
     	t4ResultsTabPane.getSelectionModel().select(t4X1GenderSelection);
     }
+    /**
+     *  transfers control to the gender selection page for T4X2
+     */
 
     @FXML
     void t4_computeT4X2() {
@@ -1093,7 +1182,10 @@ public class Controller {
     	}
     	t4ResultsTabPane.getSelectionModel().select(t4X2GenderSelection);
     }
-
+    
+    /**
+     *  Makes the female name prediction for the t4X1 algorithm
+     */
     @FXML
     void t4X1FemalePrediction(ActionEvent event) {
     	AnalyzeNames obj = new AnalyzeNames();
@@ -1170,7 +1262,9 @@ public class Controller {
 	    }).start();
     	
     }
-    
+    /**
+     *  Makes the male name prediction for the t4X1 algorithm
+     */
     
     @FXML
     void t4X1MalePrediction(ActionEvent event) {
@@ -1184,8 +1278,9 @@ public class Controller {
     	oreport += String.format("Since the little boy and Father %s will have such a close relationship. It will be wise to look at the top names in %s's YOB %d\n", dad_name , dad_name , int_dad_yob );
     	oreport += String.format("Therefore we will look at the top names so that father and son have something in common :)\n");
     	//t4X1ComputeTextArea.setText(oreport);
+    	String top_names = "Lets go! The 3 top names are....." + "\n";
     	String []  boy_names = new String[3];
-    	String top_names = "";
+    	//String top_names = "";
     	for(int i=0 ; i<3 ; i++) {
     		String name = obj.getName(int_dad_yob , i+1 , "M");
     		top_names += name + "\n";
@@ -1213,7 +1308,7 @@ public class Controller {
     	for(int i = 0 ; i<3 ; i++) {
     		total_top_males += male_data[i].getOccurences();
     	}
-    	String answer = String.format("Answer: %s! since it is the most popular name in Dad %s's YOB %d with %.2f of the top occurences of the top 3 names in the year %d" , boy_names[0] , dad_name , int_dad_yob , (float)(male_data[0].getOccurences()*100.0/total_top_males) , int_dad_yob );
+    	String answer = String.format("Answer: %s! since it is the most popular name in Dad %s's YOB %d with %.2f%% of the top occurences of the top 3 names in the year %d" , boy_names[0] , dad_name , int_dad_yob , (float)(male_data[0].getOccurences()*100.0/total_top_males) , int_dad_yob );
     	t4X1AnswerPrompt.setText(answer);
     	ObservableList<PieChart.Data> pieChartDataMale= FXCollections.observableArrayList();
 		for(T1Names one_name : male_data) {
@@ -1224,7 +1319,7 @@ public class Controller {
 		t4X1PieChart.setData(pieChartDataMale);
     	new Thread(()->{ //use another thread so long process does not block gui
             String result = "";
-	    	for(int i=0;i<=4;i++)   {
+	    	for(int i=0;i<=5;i++)   {
 	            if(i == 0 ){
 	            	t4X1MainMessage.setVisible(true);
 	            	try {Thread.sleep(4500);} catch (InterruptedException ex) { ex.printStackTrace();}
@@ -1239,9 +1334,11 @@ public class Controller {
 	            }
 	            if(i==3) {
 	            	t4X1TryPieChartMessage.setVisible(true);
-	            	t4X1PieChart.setVisible(true);
 	            }
 	            if(i==4) {
+	            	t4X1PieChart.setVisible(true);
+	            }
+	            if(i==5) {
 	            	t4X1AnswerPrompt.setVisible(true);
 	            }
 	            try {Thread.sleep(2000);} catch (InterruptedException ex) { ex.printStackTrace();}
@@ -1250,7 +1347,9 @@ public class Controller {
 	    }).start();
 
     }
-    
+    /**
+     *  Transfers control for the female name prediction for the t4X2 algorithm
+     */
     @FXML
     void t4X2FemalePrediction(ActionEvent event) {
     	t4_selected_gender = "F";
@@ -1259,7 +1358,9 @@ public class Controller {
     	t4ResultsTabPane.getSelectionModel().select(t4X2Computation);
     	
     }
-
+    /**
+     *  Transfers control for the male name prediction for the t4X2 algorithm
+     */
     @FXML
     void t4X2MalePrediction(ActionEvent event) {
     	t4_selected_gender = "M";
@@ -1267,7 +1368,9 @@ public class Controller {
     	t4X2PriorityPrompt.setText("Do you want to give priority to names with the same first letter of Dad's Name?");
     	t4ResultsTabPane.getSelectionModel().select(t4X2Computation);
     }
-    
+    /**
+     *  Generates the name prediction for the t4X2 algorithm
+     */
     @FXML
     void t4X2GenerateNames(ActionEvent event) {
     	int int_dad_yob = Integer.parseInt(T4textFieldDadsYOB.getText());
@@ -1436,6 +1539,9 @@ public class Controller {
 
         t4X2NameGenerationResultsOccurences.setText(Integer.toString(result_occurences));
     }
+    /**
+     *  Generates name prediction for the T5X1 algorithm
+     */
 
     @FXML
     void t5_computeT5X1() {
@@ -1454,6 +1560,9 @@ public class Controller {
     	a2ResultsNext.setVisible(true);
     	textAreaSummary2.setText(oReport);
     }
+    /**
+     *  Does user validation for the T5X1 algorithm
+     */
     
     @FXML
     void t5_initT5X1() {
@@ -1607,18 +1716,25 @@ public class Controller {
     	}
     	
     }
-    
+    /**
+     *  Transfers control to the pie chart tab
+     */
     @FXML
     void a2ResultsNext() {
     	t5X1PieChart.getData().clear();
     	a2TabPane.getSelectionModel().select(a2PieChart1);
     }
-
+    /**
+     *  Transfers control to the view results tab
+     */
     @FXML
     void a2ViewResults() {
     	textAreaSummary.clear();
     	a2TabPane.getSelectionModel().select(a2ResultsTab);
     }
+    /**
+     *  Generates name prediction for the T5X2 algorithm 
+     */
 
     @FXML
     void t5_computeT5X2() {
@@ -1743,7 +1859,9 @@ public class Controller {
     	a2TextAreaConsoleX2.setText(oReport);
     	
     }
-    
+    /**
+     *  Generates top 5 names for the 5th Task
+     */
     @FXML
     void t5_computeTop5() {
     	int int_n = 5;
@@ -1826,7 +1944,9 @@ public class Controller {
     	}
     	
     }
-    
+    /**
+     *  Compute results for the second algorithm T5X2
+     */
     @FXML
     void a2ComputeResultsTX2() {
     	ErrorLabel1.setVisible(false);
@@ -1901,7 +2021,9 @@ public class Controller {
     	}
 
     }
-
+    /**
+     *  Transfers control to the additional data page
+     */
     @FXML
     void a2EnterAdditionalData() {
 
@@ -1928,13 +2050,17 @@ public class Controller {
     	a2TabPane.getSelectionModel().select(a2AdditionalData);
     
     }
-    
+    /**
+     *  Transfers control to the pie chart tab for the TX2 tab
+     */
     @FXML
     void a2ResultsNextX2() {
     	a2TabPane.getSelectionModel().select(A2PieTab);
     }
     
-
+    /**
+     *  Displays the results for the T5X2 algorithm
+     */
     @FXML
     void a2ResultsX2() {
     	T2Names.resetbirthCount();
@@ -1999,6 +2125,9 @@ public class Controller {
     
 
     @FXML
+    /**
+     *  Generates results for the second task
+     */
     void t2GenerateResults() {
     	//Reset T2Names Static Variable
     	T2Names.resetbirthCount();
@@ -2215,7 +2344,10 @@ public class Controller {
     	}
     	textAreaConsole.setText(oReport);
     }
-    
+    /**
+     *  Generates results for the 3rd data reporting task 
+     */
+
     @FXML
     void T3GenerateResults()
     {		
@@ -2414,6 +2546,11 @@ public class Controller {
        	}
        	T3TextAreaConsole.setText(consoleOutput);
     }
+    /**
+     *  Does the input validation for the 6th task
+     *  @return True if the input is validated and False if the input is not validated 
+     */
+
     
     boolean T6InputValidation() {
     	//Input Validation
@@ -2527,6 +2664,11 @@ public class Controller {
     	}
     	return true;
     }
+    /**
+     *  Does the input validation for the 6th Name entered
+     *  @return True if the input is validated and False if the input is not validated 
+     */
+
     
     boolean T6NameInputValidation() {
     	boolean error = false;
@@ -2548,7 +2690,11 @@ public class Controller {
 		T6TextAreaConsole.setText(consoleOutput);
 		return error;
     }
-    
+    /**
+     * Analyze and generate results for T6X1
+     *  
+     */
+
     @FXML
     void T6ComputeT6X1() {
     	//Analyze and generate results for T6X1
@@ -2576,7 +2722,10 @@ public class Controller {
        		T6TextAreaConsole.setStyle("-fx-text-base-color: red;");
     	}
     }
-    
+    /**
+     * Analyze and generate results for T6X2
+     */
+
     @FXML
     void T6ComputeT6X2() {
     	//Analyze and generate results for T6X2
@@ -2666,7 +2815,10 @@ public class Controller {
     	}
     }
     
-    
+    /**
+     * generates an ObservableList for the second task
+     * @return an ObervableList for the graphs, tables and charts 
+     */
     
     public ObservableList<T2Names> getNames(T2Names [] names) {
 		ObservableList<T2Names> Names = FXCollections.observableArrayList();
@@ -2680,7 +2832,10 @@ public class Controller {
 		
 		return Names;
 	}
-  
+    /**
+     * generates an ObservableList for the third task
+     * @return an ObervableList for the graphs, tables and charts 
+     */
     public ObservableList<T3Names> T3getNames(T3Names [] names) {
 		ObservableList<T3Names> Names = FXCollections.observableArrayList();
 		
