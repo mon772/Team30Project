@@ -27,7 +27,7 @@ public class JavaFXTest extends ApplicationTest {
    		stage.setTitle("Popular Names");
    		stage.show();
    		s = scene;
-		t = (TextArea)s.lookup("#textAreaConsole");
+		t = (TextArea)s.lookup("#textArea_Console");
 	}
     /*
 	@Test
