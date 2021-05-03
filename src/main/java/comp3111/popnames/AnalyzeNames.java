@@ -210,11 +210,6 @@ public class AnalyzeNames{
 			for(int i = startYear; i<=endYear;i++)
 			{
 				names[nameIndex] = new T3Names(name, 0, "0.0", 0, 0, 0);
-				if(getRank(i, name, gender)> 1000)
-				{
-					nameIndex++;
-					continue;
-				}
 				names[nameIndex].name = name;
 				if(gender == "M")
 				{

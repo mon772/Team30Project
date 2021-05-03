@@ -17,7 +17,21 @@ public class T3Names {
 		this.rank = rank;
 		this.year = year;
 	}
-
+	public int getYear() {
+		return year;
+	}
+	
+	public int getOccurances() {
+		return occurances;
+	}
+	
+	public int getRank() {
+		return rank;
+	}
+	
+	public String getPercentage() {
+		return percentage;
+	}
 	public void addOccurances(int occurances) {
 		this.occurances += occurances;
 		birthCount += occurances;

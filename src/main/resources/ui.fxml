@@ -22,6 +22,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -432,7 +433,10 @@
                                                    <children>
                                                       <ScrollPane prefHeight="295.0" prefWidth="719.0">
                                                          <content>
-                                                            <TextArea fx:id="T3SummaryDisplay" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="295.0" prefWidth="700.0" wrapText="true" />
+                                                            <TextArea fx:id="T3SummaryDisplay" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="295.0" prefWidth="700.0" wrapText="true">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font></TextArea>
                                                          </content>
                                                       </ScrollPane>
                                                    </children>
@@ -558,7 +562,7 @@
                                                 </Label>
                                                 <ImageView fx:id="t4MaleImage" fitHeight="253.0" fitWidth="262.0" layoutX="59.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="file:/Users/dhirenanandani/Desktop/Uni/Sem%204/COMP%203111/Labs/Group%20Project/male.png" />
+                                                      <Image url="@dataset/male.png" />
                                                    </image>
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
@@ -566,7 +570,7 @@
                                                 </ImageView>
                                                 <ImageView fx:id="t4FemaleImage" fitHeight="253.0" fitWidth="266.0" layoutX="388.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="file:/Users/dhirenanandani/Desktop/Uni/Sem%204/COMP%203111/Labs/Group%20Project/femenine.png" />
+                                                      <Image url="@dataset/femenine.png" />
                                                    </image>
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
@@ -608,7 +612,7 @@
                                                 </Label>
                                                 <ImageView fx:id="t4X1ThinkingImage" fitHeight="100.0" fitWidth="122.0" layoutX="303.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@../../../../../Desktop/Uni/Sem%204/COMP%203111/Labs/Group%20Project/769-7698760_new-thinking-emoji-png-emojis-de-iphone-x.png" />
+                                                      <Image url="@dataset/769-7698760_new-thinking-emoji-png-emojis-de-iphone-x.png" />
                                                    </image>
                                                 </ImageView>
                                                 <Label fx:id="t4X1AskingText" layoutX="415.0" layoutY="82.0" prefHeight="60.0" prefWidth="254.0" text="Nice choices but which name to choose?" wrapText="true">
@@ -664,7 +668,7 @@
                                                 </Label>
                                                 <ImageView fx:id="t4X2MaleImage" fitHeight="253.0" fitWidth="262.0" layoutX="59.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="file:/Users/dhirenanandani/Desktop/Uni/Sem%204/COMP%203111/Labs/Group%20Project/male.png" />
+                                                      <Image url="@dataset/male.png" />
                                                    </image>
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
@@ -672,7 +676,7 @@
                                                 </ImageView>
                                                 <ImageView fx:id="t4X2FemaleImage" fitHeight="253.0" fitWidth="266.0" layoutX="388.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="file:/Users/dhirenanandani/Desktop/Uni/Sem%204/COMP%203111/Labs/Group%20Project/femenine.png" />
+                                                      <Image url="@dataset/femenine.png" />
                                                    </image>
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
@@ -1087,17 +1091,17 @@
                                  </font>
                               </Label>
                               <TextField fx:id="T6iPreferenceInput" layoutX="175.0" layoutY="264.0" prefHeight="27.0" prefWidth="150.0" promptText="&quot;Younger&quot; or &quot;Older&quot;" />
-                              <Label layoutX="33.0" layoutY="313.0" prefHeight="19.0" prefWidth="285.0" text="Please select algorithm to perform prediction:">
+                              <Label layoutX="34.0" layoutY="297.0" prefHeight="19.0" prefWidth="285.0" text="Please select algorithm to perform prediction:">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="T6X1" layoutX="360.0" layoutY="308.0" mnemonicParsing="false" onAction="#T6ComputeT6X1" prefHeight="30.0" prefWidth="120.0" text="T6X1">
+                              <Button fx:id="T6X1" layoutX="361.0" layoutY="292.0" mnemonicParsing="false" onAction="#T6ComputeT6X1" prefHeight="30.0" prefWidth="120.0" text="T6X1">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="T6X2" layoutX="526.0" layoutY="307.0" mnemonicParsing="false" onAction="#T6ComputeT6X2" prefHeight="30.0" prefWidth="120.0" text="T6X2">
+                              <Button fx:id="T6X2" layoutX="527.0" layoutY="291.0" mnemonicParsing="false" onAction="#T6ComputeT6X2" prefHeight="30.0" prefWidth="120.0" text="T6X2">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -1120,32 +1124,169 @@
                               </Label>
                               <TextField fx:id="T6iGenderMateInput" layoutX="498.0" layoutY="191.0" prefHeight="27.0" prefWidth="150.0" promptText="Char: 'M' or 'F'" />
                               <Line endX="-18.0" endY="-121.0" layoutX="359.0" layoutY="255.0" startX="-18.0" startY="33.0" />
-                              <Label layoutX="496.0" layoutY="314.0" prefHeight="19.0" prefWidth="19.0" text="or">
+                              <Label layoutX="497.0" layoutY="298.0" prefHeight="19.0" prefWidth="19.0" text="or">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </Label>
-                              <TextArea fx:id="T6TextAreaConsole" editable="false" layoutX="343.0" layoutY="413.0" prefHeight="228.0" prefWidth="366.0" />
-                              <Label layoutX="29.0" layoutY="371.0" prefHeight="18.0" prefWidth="87.0" text="Results" underline="true">
+                              <Label layoutX="32.0" layoutY="332.0" prefHeight="19.0" prefWidth="425.0" text="On a scale of 1 to 10, indicate a variability allowance for the results:">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="T6VariabilityInput" layoutX="457.0" layoutY="328.0" prefHeight="27.0" prefWidth="150.0" promptText="Range: 1 to 10" />
+                              <Label layoutX="32.0" layoutY="355.0" prefHeight="18.0" prefWidth="87.0" text="Results" underline="true">
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="31.0" layoutY="346.0" prefHeight="19.0" prefWidth="425.0" text="On a scale of 1 to 10, indicate a variability allowance for the results:">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                              <TextField fx:id="T6VariabilityInput" layoutX="456.0" layoutY="342.0" prefHeight="27.0" prefWidth="150.0" promptText="Range: 1 to 10" />
-                              <Line endX="-18.0" endY="-121.0" layoutX="358.0" layoutY="532.0" startX="-18.0" startY="115.0" />
-                              <LineChart fx:id="T6LineChartDisplay" layoutX="3.0" layoutY="410.0" prefHeight="234.0" prefWidth="339.0">
-                                <xAxis>
-                                  <CategoryAxis side="BOTTOM" />
-                                </xAxis>
-                                <yAxis>
-                                  <NumberAxis side="LEFT" />
-                                </yAxis>
-                              </LineChart>
+                              <TabPane fx:id="T6ResultsTabPane" layoutX="-1.0" layoutY="380.0" prefHeight="377.0" prefWidth="719.0" side="BOTTOM" tabClosingPolicy="UNAVAILABLE">
+                                <tabs>
+                                  <Tab fx:id="T6General" text="T6General">
+                                    <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="553.0" prefWidth="725.0">
+                                             <children>
+                                                <TextArea fx:id="T6TextAreaConsole" editable="false" layoutY="6.0" prefHeight="264.0" prefWidth="719.0">
+                                                   <font>
+                                                      <Font size="16.0" />
+                                                   </font>
+                                                </TextArea>
+                                                <Button fx:id="T6NextGeneral" layoutX="640.0" layoutY="231.0" mnemonicParsing="false" onAction="#T6clickNextGeneral" prefHeight="29.0" prefWidth="72.0" text="Next" textFill="#1a00ff" visible="false">
+                                                   <effect>
+                                                      <Blend />
+                                                   </effect>
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button fx:id="T6skipGeneral" layoutX="353.0" layoutY="236.0" mnemonicParsing="false" onAction="#T6skipToResults" text="Skip to Results" visible="false">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                </Button>
+                                             </children>
+                                          </AnchorPane>
+                                    </content>
+                                  </Tab>
+                                    <Tab fx:id="T6oScoreCalculation" text="T6oScoreCalculation">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="553.0" prefWidth="725.0">
+                                             <children>
+                                                <TextArea fx:id="T6TextAreaConsoleoScore" editable="false" layoutX="3.0" layoutY="3.0" prefHeight="264.0" prefWidth="719.0">
+                                                   <font>
+                                                      <Font size="16.0" />
+                                                   </font>
+                                                </TextArea>
+                                                <Button fx:id="T6NextInput" layoutX="643.0" layoutY="231.0" mnemonicParsing="false" onAction="#T6clickNextoScore" prefHeight="29.0" prefWidth="72.0" text="Next" textFill="#1a00ff">
+                                                   <effect>
+                                                      <Blend />
+                                                   </effect>
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button fx:id="T6BackInput" layoutX="24.0" layoutY="231.0" mnemonicParsing="false" onAction="#T6clickBackoScore" prefHeight="29.0" prefWidth="72.0" text="Back" textFill="RED">
+                                                   <effect>
+                                                      <Blend />
+                                                   </effect>
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </Button>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </Tab>
+                                    <Tab fx:id="T6YourInput" text="T6YourInput">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="553.0" prefWidth="725.0">
+                                             <children>
+                                                <TextArea fx:id="T6TextAreaConsoleInput" editable="false" layoutX="3.0" layoutY="3.0" prefHeight="264.0" prefWidth="719.0">
+                                                   <font>
+                                                      <Font size="16.0" />
+                                                   </font>
+                                                </TextArea>
+                                                <Button fx:id="T6NextGeneral2" layoutX="643.0" layoutY="231.0" mnemonicParsing="false" onAction="#T6clickNextInput" prefHeight="29.0" prefWidth="72.0" text="Next" textFill="#1a00ff">
+                                                   <effect>
+                                                      <Blend />
+                                                   </effect>
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button fx:id="T6BackGeneral2" layoutX="24.0" layoutY="231.0" mnemonicParsing="false" onAction="#T6clickBackInput" prefHeight="29.0" prefWidth="72.0" text="Back" textFill="RED">
+                                                   <effect>
+                                                      <Blend />
+                                                   </effect>
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button fx:id="T6skip" layoutX="349.0" layoutY="236.0" mnemonicParsing="false" onAction="#T6skipToResults" text="Skip to Results">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                </Button>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </Tab>
+                                  <Tab fx:id="T6LineChart" text="T6LineChart">
+                                    <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="462.0" prefWidth="725.0">
+                                             <children>
+                                                <LineChart fx:id="T6LineChartDisplay" layoutY="12.0" prefHeight="256.0" prefWidth="504.0">
+                                                  <xAxis>
+                                                    <CategoryAxis side="BOTTOM" />
+                                                  </xAxis>
+                                                  <yAxis>
+                                                    <NumberAxis side="LEFT" />
+                                                  </yAxis>
+                                                </LineChart>
+                                                <Button fx:id="T6clickBackEvidence" layoutX="633.0" layoutY="226.0" mnemonicParsing="false" onAction="#T6clickBackEvidence" prefHeight="29.0" prefWidth="72.0" text="Back" textFill="RED">
+                                                   <effect>
+                                                      <Blend />
+                                                   </effect>
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </Button>
+                                                <Label layoutX="524.0" layoutY="29.0" prefHeight="30.0" prefWidth="178.0" text="Average % of mate's name:">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="avgPerc" alignment="CENTER" layoutX="541.0" layoutY="52.0" prefHeight="30.0" prefWidth="135.0" text="2%" textFill="#c10000">
+                                                   <font>
+                                                      <Font size="19.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="524.0" layoutY="82.0" prefHeight="30.0" prefWidth="163.0" text="\% of your name:">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="iPerc" alignment="CENTER" layoutX="541.0" layoutY="106.0" prefHeight="30.0" prefWidth="131.0" text="4%" textAlignment="CENTER" textFill="#3c00ff">
+                                                   <font>
+                                                      <Font size="19.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="524.0" layoutY="131.0" prefHeight="30.0" prefWidth="163.0" text="oScore:">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="oScore" alignment="CENTER" layoutX="541.0" layoutY="153.0" prefHeight="30.0" prefWidth="132.0" text="4%" textAlignment="CENTER" textFill="#0fb014">
+                                                   <font>
+                                                      <Font size="19.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                    </content>
+                                  </Tab>
+                                </tabs>
+                              </TabPane>
                            </children>
                         </AnchorPane>
                     </content>

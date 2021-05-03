@@ -2184,10 +2184,12 @@ public class Controller {
     		}
     	}
     	catch (NumberFormatException e) {
+    		T3StartYearInput.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		consoleOutput += "Error: The starting year is not an integer. Please enter an integer.\n";
     		inputError=true;
     	}
     	catch (Exception e) {
+    		T3StartYearInput.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		consoleOutput += e.getMessage();
     		inputError=true;
     	}
@@ -2204,10 +2206,12 @@ public class Controller {
     		}
     	}
     	catch (NumberFormatException e) {
+    		T3EndYearInput.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		consoleOutput += "Error: The end year is not an integer. Please enter an integer.\n";
     		inputError=true;
     	}
     	catch (Exception e) {
+    		T3EndYearInput.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		consoleOutput += e.getMessage();
     		inputError=true;
     	}
@@ -2218,11 +2222,12 @@ public class Controller {
     		if(gender =="") {
     			throw new Exception("Error: Please enter the gender.\n");
     		}
-    		else if(gender != "M" && gender != "F" ) {
+    		else if(!gender.contentEquals("M")  && !gender.contentEquals("F") ) {
     			throw new Exception("Error: Please enter the a valid gender, 'M' or 'F'.\n");
     		}
     	}
     	catch (Exception e) {
+    		T3GenderInput.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		consoleOutput += e.getMessage();
     		inputError=true;
     	}
@@ -2240,6 +2245,7 @@ public class Controller {
     	}
     	catch(Exception e)
     	{
+    		T3NameInput.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		consoleOutput += e.getMessage();
     		inputError = true;
     	}
@@ -2293,7 +2299,7 @@ public class Controller {
 	    			XYChart.Series<String, Integer> set1 = new XYChart.Series<>();
 	    			int year = startYear;
 	    			for (T3Names nam : Result) {
-	    				if(nam.name!="") {
+	    				if(nam.rank<=1000) {
 	    					set1.getData().add(new XYChart.Data<>(String.valueOf(year), nam.occurances));
 	    				}
 	    				year++;
@@ -2316,11 +2322,12 @@ public class Controller {
 	    			XYChart.Series<String, Integer> set1 = new XYChart.Series<>();
 	    			int year = startYear;
 	    			for (T3Names nam : Result) {
-	    				if(nam.name!="") {
+	    				if(nam.rank <= 1000) {
 	    					set1.getData().add(new XYChart.Data<>(String.valueOf(year), nam.occurances));
 	    				}
 	    				year++;
 	    			}
+	    			set1.setName("Occurance of name over the years");
 	    			T3LineChartDisplay.getData().addAll(set1);	
 	    		}
 	    	}
@@ -2369,10 +2376,12 @@ public class Controller {
     		}
     	}
     	catch (NumberFormatException e) {
+    		T6iYOBInput.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		consoleOutput += "Error: The year of birth is not an integer. Please enter an integer.\n";
     		inputError=true;
     	}
     	catch (Exception e) {
+    		T6iYOBInput.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		consoleOutput += e.getMessage();
     		inputError=true;
     	}
@@ -2396,6 +2405,7 @@ public class Controller {
     		}
     	}
     	catch (Exception e) {
+    		T6iGenderInput.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		consoleOutput += e.getMessage();
     		inputError=true;
     	}
@@ -2418,6 +2428,7 @@ public class Controller {
     		}
     	}
     	catch (Exception e) {
+    		T6iGenderMateInput.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		consoleOutput += e.getMessage();
     		inputError=true;
     	}
@@ -2432,6 +2443,7 @@ public class Controller {
     	}
     	catch(Exception e)
     	{
+    		T6iPreferenceInput.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		consoleOutput += e.getMessage();
     	}
     	
@@ -2446,11 +2458,13 @@ public class Controller {
     		}
     	}
     	catch(NumberFormatException e) {
+    		T6VariabilityInput.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		consoleOutput += "Error: The variability allowance entered is not an integer. Please enter an integer.\n";
     		inputError=true;
     	}
     	catch(Exception e)
     	{
+    		T6VariabilityInput.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     		consoleOutput += e.getMessage();
     		inputError = true;
     	}
@@ -2477,10 +2491,12 @@ public class Controller {
     		if(T6iNameInput.getText() == "")
     		{
     			error = true;
+        		T6iNameInput.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     			throw new Exception("Error: Please enter your name.\n");
     		}
     		if(T6iNameMateInput.getText() == "") {
     			error = true;
+        		T6iNameMateInput.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
     			throw new Exception("Error: Please enter your desired mate's name.\n");
     		}
     	}
@@ -2560,7 +2576,7 @@ public class Controller {
     @FXML
     void T6ComputeT6X2() {
     	//Analyze and generate results for T6X2
-    	boolean inputError = T6InputValidation();
+    	boolean inputError = T6InputValidation() || T6NameInputValidation();
     	T6LineChartDisplay.getData().clear();
     	String consoleOutput = "";
     	if(!inputError)
@@ -2682,7 +2698,8 @@ public class Controller {
     public ObservableList<T3Names> T3getNames(T3Names [] names) {
 		ObservableList<T3Names> Names = FXCollections.observableArrayList();
 		for(T3Names nam : names) {
-			if(nam.occurances != 0) {
+			if(nam.rank <= 1000) {
+				System.out.println("here");
 				Names.add(nam);
 			}
 		}
