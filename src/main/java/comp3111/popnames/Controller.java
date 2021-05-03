@@ -1635,6 +1635,8 @@ public class Controller {
     
     @FXML
     protected void t5_initT5X1() {
+
+    	t5X1PieChart.setVisible(true);
     	t5ProgressBar.setVisible(false);
     	t5ProgressIndicator.setVisible(false);
     	a2TextAreaConsole.clear();
@@ -1813,6 +1815,7 @@ public class Controller {
 
     @FXML
     protected void t5_computeT5X2() {
+//    	t5X1PieChart.setVisible(false);
     	a2TabPane.getSelectionModel().select(a2ConsoleTab1);
     	a2EnterAdditionalData.setVisible(false);
     	String oReport ="";
@@ -1829,13 +1832,14 @@ public class Controller {
     	try {
     		if(t5Name.getText().equals("")) {
     			throw new Exception("Error: iName has not been inputted\n");
+    		} else {
+	    		iName = t5Name.getText();
+	    		for(int i=0 ; i<iName.length() ; i++) {
+	        		if(Character.isLetter(iName.charAt(i)) == false) {
+	        			throw new Exception("iName invalid: iName contains a number!\n");
+	        		}
+	        	}
     		}
-    		iName = t5Name.getText();
-    		for(int i=0 ; i<iName.length() ; i++) {
-        		if(Character.isLetter(iName.charAt(i)) == false) {
-        			throw new Exception("iName invalid: iName contains a number!\n");
-        		}
-        	}
     	}
     	catch (Exception e) {
     		t5Name.setStyle("-fx-text-box-border: red ; -fx-border-width: 4px ;");
@@ -1946,7 +1950,13 @@ public class Controller {
     @FXML
     protected void t5_computeTop5() {
     	int int_n = 5;
-    	int int_year = Integer.parseInt(t5YOB.getText());
+    	int int_year = 0;
+    	try {
+    		int_year = Integer.parseInt(t5YOB.getText());
+    	}
+    	catch (Exception e) {
+    		return;
+    	}
     	AnalyzeNames analyze_obj = new AnalyzeNames(); 
     	String []  top_male_names = new String[int_n];
     	String []  top_female_names = new String[int_n];
@@ -1970,7 +1980,7 @@ public class Controller {
     		top_male_names[i] = analyze_obj.getName(int_year , i+1 , male_gender);
     		top_female_names[i] = analyze_obj.getName(int_year , i+1 , female_gender);
     		top_male_occurences[i] = analyze_obj.getOccurance(int_year, top_male_names[i], male_gender);
-    		System.out.println(top_male_occurences[i]);
+//    		System.out.println(top_male_occurences[i]);
     		top_female_occurences[i] = analyze_obj.getOccurance(int_year, top_female_names[i], female_gender);
     		float mp = ((float)top_male_occurences[i]/all_males)*100;
     		float fp = ((float)top_female_occurences[i]/all_females)*100;
