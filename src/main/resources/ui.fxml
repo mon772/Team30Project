@@ -800,12 +800,12 @@
                                        <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <BarChart fx:id="t4X2BarChart" layoutX="4.0" layoutY="89.0" prefHeight="203.0" prefWidth="706.0">
+                                                <BarChart fx:id="t4X2BarChart" layoutX="4.0" layoutY="60.0" prefHeight="239.0" prefWidth="706.0">
                                                   <xAxis>
                                                     <CategoryAxis fx:id="t4X2BarChartXAxis" label="Names in a Year" side="BOTTOM" />
                                                   </xAxis>
                                                   <yAxis>
-                                                    <NumberAxis label="Occurences" side="LEFT" />
+                                                    <NumberAxis side="LEFT" />
                                                   </yAxis>
                                                 </BarChart>
                                                 <Label fx:id="t4X2NameGenerationResults" layoutX="138.0" layoutY="300.0" prefHeight="60.0" prefWidth="246.0" text="Jacob">
@@ -851,7 +851,7 @@
                                                    </textFill>
                                                 </Label>
                                                 <Label layoutX="376.0" layoutY="313.0" prefHeight="38.0" prefWidth="122.0" text="Occurences in Year Selected" textAlignment="CENTER" wrapText="true" />
-                                                <Label fx:id="t4X2NameGenerationExplanation" layoutX="24.0" layoutY="16.0" prefHeight="55.0" prefWidth="680.0" text="Thank you for carrying on!  At Team 30, we take care of all your interersts! Since we want to make the best descision for you we need some help :) Please enter some additional data for us to understand your preferences and make the best descision for you." textFill="#0d29e4" wrapText="true">
+                                                <Label fx:id="t4X2NameGenerationExplanation" layoutX="24.0" layoutY="1.0" prefHeight="55.0" prefWidth="680.0" text="Thank you for carrying on!  At Team 30, we take care of all your interersts! Since we want to make the best descision for you we need some help :) Please enter some additional data for us to understand your preferences and make the best descision for you." textFill="#0d29e4" wrapText="true">
                                                    <font>
                                                       <Font name="System Bold" size="14.0" />
                                                    </font>

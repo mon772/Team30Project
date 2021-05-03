@@ -829,10 +829,13 @@ public class Controller {
 		//t1PieChartFemale.setAnimated(false);
 		t1LineChartMale.getData().clear();
 		t1LineChartFemale.getData().clear();
-		t1BarChartMaleXaxis.setAnimated(false);
-		t1BarChartFemaleXaxis.setAnimated(false);
-		t1BarChartFemaleYaxis.setAnimated(false);
-		t1BarChartMaleYaxis.setAnimated(false);
+		t1BarChartMale.setAnimated(false);
+		t1BarChartFemale.setAnimated(false);
+		t1PieChartMale.setAnimated(false);
+		t1PieChartFemale.setAnimated(false);
+		t1LineChartMale.setAnimated(false);
+		t1LineChartFemale.setAnimated(false);
+		
     	String oReport = "";
     	String year = T1TextFieldYear.getText();
     	String input_avaliable_error = "" ;
@@ -936,7 +939,7 @@ public class Controller {
     		top_male_names[i] = analyze_obj.getName(int_year , i+1 , male_gender);
     		top_female_names[i] = analyze_obj.getName(int_year , i+1 , female_gender);
     		top_male_occurences[i] = analyze_obj.getOccurance(int_year, top_male_names[i], male_gender);
-    		System.out.println(top_male_occurences[i]);
+    		//System.out.println(top_male_occurences[i]);
     		top_female_occurences[i] = analyze_obj.getOccurance(int_year, top_female_names[i], female_gender);
     		float mp = ((float)top_male_occurences[i]/all_males)*100;
     		float fp = ((float)top_female_occurences[i]/all_females)*100;
@@ -949,7 +952,7 @@ public class Controller {
     	for(int i= 0 ; i<int_n ; i++) {
     		test_output+= String.format("%d %s %d %s\n",top_female_ranks[i] ,top_female_names[i], top_female_occurences[i] , top_female_percentages[i]);
     	}
-    	System.out.println(test_output);
+    	//System.out.println(test_output);
     	t1SummaryTab.setDisable(!summary_box);
     	t1DataTableTab.setDisable(!dt_box);
     	t1BarChartTab.setDisable(!bar_chart_box);
@@ -1057,6 +1060,7 @@ public class Controller {
 			t1LineChartFemale.getData().addAll(set_female);
 			
 		}
+    	t1TabPane.getSelectionModel().select(t1ConsoleTab);
     	
     }
     /**
@@ -1199,8 +1203,11 @@ public class Controller {
     	t4X1PieChart.setVisible(false);
     	t4X1PieChart.getData().clear();
     	t4X2BarChart.getData().clear();
+    	t4X2BarChart.setAnimated(false);
+    	t4X1PieChart.setAnimated(false);
     	t4X2ExtraYearsError.setVisible(false);
-    	t4X2BarChartXAxis.setAnimated(false);
+    	//t4X2BarChartXAxis.setAnimated(false);
+    	
     	t4X2UniquenessScaleAnswer.valueProperty().addListener((observableValue , oldValue , newValue) -> {
         	t4X2SliderValue.setText(String.format("Scale Selected Is %.2f", newValue));
         });
@@ -1245,7 +1252,7 @@ public class Controller {
     	oreport += String.format("Therefore we will look at the top names so that mother and daughter have something in common :)\n");
     	//t4X1ComputeTextArea.setText(oreport);
     	String []  girl_names = new String[3];
-    	String top_names = "";
+    	String top_names = "Lets go! The 3 top names are....." + "\n";
     	for(int i=0 ; i<3 ; i++) {
     		String name = obj.getName(int_mom_yob , i+1 , "F");
     		top_names += name + "\n";
@@ -1271,7 +1278,7 @@ public class Controller {
     	for(int i = 0 ; i<3 ; i++) {
     		total_top_females += female_data[i].getOccurences();
     	}
-    	String answer = String.format("Answer: %s! since it is the most popular name in Mom %s's YOB %d with %.2f of the top occurences of the top 3 names in the year %d" , girl_names[0] , mom_name , int_mom_yob , (float)(female_data[0].getOccurences()*100.0/total_top_females) , int_mom_yob );
+    	String answer = String.format("Answer: %s! since it is the most popular name in Mom %s's YOB %d with %.2f%% of the top occurences of the top 3 names in the year %d" , girl_names[0] , mom_name , int_mom_yob , (float)(female_data[0].getOccurences()*100.0/total_top_females) , int_mom_yob );
     	t4X1AnswerPrompt.setText(answer);
     	ObservableList<PieChart.Data> pieChartDataFemale= FXCollections.observableArrayList();
 		for(T1Names one_name : female_data) {
@@ -1280,9 +1287,14 @@ public class Controller {
 			}
 		}
 		t4X1PieChart.setData(pieChartDataFemale);
+		t4X1PieChart.getData().forEach(data -> {
+		    String per = String.format("%.1f%%", (data.getPieValue()));
+		    Tooltip toolTip = new Tooltip(per);
+		    Tooltip.install(data.getNode(), toolTip);
+		});
     	new Thread(()->{ //use another thread so long process does not block gui
             String result = "";
-	    	for(int i=0;i<=4;i++)   {
+            for(int i=0;i<=5;i++)   {
 	            if(i == 0 ){
 	            	t4X1MainMessage.setVisible(true);
 	            	try {Thread.sleep(4500);} catch (InterruptedException ex) { ex.printStackTrace();}
@@ -1297,9 +1309,11 @@ public class Controller {
 	            }
 	            if(i==3) {
 	            	t4X1TryPieChartMessage.setVisible(true);
-	            	t4X1PieChart.setVisible(true);
 	            }
 	            if(i==4) {
+	            	t4X1PieChart.setVisible(true);
+	            }
+	            if(i==5) {
 	            	t4X1AnswerPrompt.setVisible(true);
 	            }
 	            try {Thread.sleep(2000);} catch (InterruptedException ex) { ex.printStackTrace();}
@@ -1529,7 +1543,7 @@ public class Controller {
     		
     	}
     	else {
-    		t4X2BarChart.setTitle(String.format("%d ranked Names (male) from year %d to %d" ,  scaled_value , upper_limit , lower_limit));
+    		t4X2BarChart.setTitle(String.format("%d ranked Names (male) from year %d to %d" ,  scaled_value , lower_limit , upper_limit));
     		XYChart.Series<String, Integer> set_male = new XYChart.Series<>();
     		set_male.setName("Male Occurences"); 
     		for (T1Names one_name : data) {
