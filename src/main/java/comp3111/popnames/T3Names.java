@@ -17,14 +17,27 @@ public class T3Names {
 		this.rank = rank;
 		this.year = year;
 	}
-
+	public int getYear() {
+		return year;
+	}
+	
+	public int getOccurances() {
+		return occurances;
+	}
+	
+	public int getRank() {
+		return rank;
+	}
+	
+	public String getPercentage() {
+		return percentage;
+	}
 	public void addOccurances(int occurances) {
 		this.occurances += occurances;
 		birthCount += occurances;
 	}
 	
 	public void setPercentage() {
-		percentage = String.format("%.1f", (float)(occurances *100.0/ birthCount));
-		System.out.println(percentage);
+		percentage = String.format("%f", (float)(occurances *100.0/ birthCount));
 	}
 }
