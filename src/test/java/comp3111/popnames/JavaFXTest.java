@@ -501,8 +501,8 @@ public class JavaFXTest extends ApplicationTest {
 		String s2 = t.getText();
 		assertTrue(s1.equals(s2));
 	}
-	*/
 	
+	*/
 	
 	@Test
 	public void testReporting1True() {	
@@ -767,6 +767,7 @@ public class JavaFXTest extends ApplicationTest {
 		assertTrue(s1.equals(s2));
 	}
 	
+	
 	@Test
 	public void testApplication3T6X2True() {	
 		clickOn("#tabApp3");
@@ -785,11 +786,19 @@ public class JavaFXTest extends ApplicationTest {
 		clickOn("#T6VariabilityInput");
 		write("5");
 		clickOn("#T6X2");
-		sleep(1000);
+		clickOn("#T6skipGeneral");
+		clickOn("#T6clickBackEvidence");
+		clickOn("#T6BackoScore");
+		clickOn("#T6BackInput");
+	
+		clickOn("#T6NextGeneral");
+		clickOn("#T6NextInput");
+		clickOn("#T6NextoScore");
 		t = (TextArea)s.lookup("#T6TextAreaConsole");
 		String s1 = t.getText();
+		clickOn("#T6iNameInput");
+		write("athan");
 		clickOn("#T6X2");
-		sleep(1000);
 		String s2 = t.getText();
 		assertTrue(s1.equals(s2));
 	}
@@ -853,19 +862,7 @@ public class JavaFXTest extends ApplicationTest {
 		assertTrue(s1.equals(s2));
 		
 	}
-/*
-	@Test
-	public void testSummaryTrue() {	
-		//clickOn("#tabTaskZero");
-		clickOn("#buttonSummary");
-		//sleep(1000);
-		String s1 = t.getText();
-		clickOn("#buttonSummary");
-		//sleep(1000);
-		String s2 = t.getText();
-		assertTrue(s1.equals(s2));
-	}
-	*/
+	
 	@Test
 	public void testTopButtonFalse() {	
 		clickOn("#tabTaskZero");
@@ -907,4 +904,5 @@ public class JavaFXTest extends ApplicationTest {
 		String s2 = t.getText();
 		assertTrue(s1.equals(s2));
 	}
+	
 }

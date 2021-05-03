@@ -34,7 +34,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="679.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="comp3111.popnames.Controller">
+<VBox prefHeight="679.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="comp3111.popnames.Controller">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="316.0" prefWidth="719.0">
       <children>
@@ -1272,7 +1272,7 @@
                                                       <Font size="16.0" />
                                                    </font>
                                                 </TextArea>
-                                                <Button fx:id="T6NextInput" layoutX="643.0" layoutY="231.0" mnemonicParsing="false" onAction="#T6clickNextoScore" prefHeight="29.0" prefWidth="72.0" text="Next" textFill="#1a00ff">
+                                                <Button fx:id="T6NextoScore" layoutX="643.0" layoutY="231.0" mnemonicParsing="false" onAction="#T6clickNextoScore" prefHeight="29.0" prefWidth="72.0" text="Next" textFill="#1a00ff">
                                                    <effect>
                                                       <Blend />
                                                    </effect>
@@ -1280,7 +1280,7 @@
                                                       <Font size="15.0" />
                                                    </font>
                                                 </Button>
-                                                <Button fx:id="T6BackInput" layoutX="24.0" layoutY="231.0" mnemonicParsing="false" onAction="#T6clickBackoScore" prefHeight="29.0" prefWidth="72.0" text="Back" textFill="RED">
+                                                <Button fx:id="T6BackoScore" layoutX="24.0" layoutY="231.0" mnemonicParsing="false" onAction="#T6clickBackoScore" prefHeight="29.0" prefWidth="72.0" text="Back" textFill="RED">
                                                    <effect>
                                                       <Blend />
                                                    </effect>
@@ -1301,7 +1301,7 @@
                                                       <Font size="16.0" />
                                                    </font>
                                                 </TextArea>
-                                                <Button fx:id="T6NextGeneral2" layoutX="643.0" layoutY="231.0" mnemonicParsing="false" onAction="#T6clickNextInput" prefHeight="29.0" prefWidth="72.0" text="Next" textFill="#1a00ff">
+                                                <Button fx:id="T6NextInput" layoutX="643.0" layoutY="231.0" mnemonicParsing="false" onAction="#T6clickNextInput" prefHeight="29.0" prefWidth="72.0" text="Next" textFill="#1a00ff">
                                                    <effect>
                                                       <Blend />
                                                    </effect>
@@ -1309,7 +1309,7 @@
                                                       <Font size="15.0" />
                                                    </font>
                                                 </Button>
-                                                <Button fx:id="T6BackGeneral2" layoutX="24.0" layoutY="231.0" mnemonicParsing="false" onAction="#T6clickBackInput" prefHeight="29.0" prefWidth="72.0" text="Back" textFill="RED">
+                                                <Button fx:id="T6BackInput" layoutX="24.0" layoutY="231.0" mnemonicParsing="false" onAction="#T6clickBackInput" prefHeight="29.0" prefWidth="72.0" text="Back" textFill="RED">
                                                    <effect>
                                                       <Blend />
                                                    </effect>
