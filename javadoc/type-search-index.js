@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"comp3111.popnames","l":"AnalyzeNames"},{"p":"comp3111.popnames","l":"Controller"},{"p":"comp3111.popnames","l":"MyApplication"},{"p":"comp3111.popnames","l":"T1Names"},{"p":"comp3111.popnames","l":"T2Names"},{"p":"comp3111.popnames","l":"T3Names"}];updateSearchResults();
