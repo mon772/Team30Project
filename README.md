@@ -17,7 +17,7 @@
 ## Use Case Specifications  
 https://docs.google.com/document/d/1_CpuD3eDtmj3987olYvoD-M6t4hHrCex6LCkcgpaoTg/edit?usp=sharing
 
-##Suppplemantary Notes. 
+## Suppplemantary Notes   
 https://hkustconnect-my.sharepoint.com/:p:/g/personal/mtmelwani_connect_ust_hk/ETvFKv92koVOtsWHLMbjr_cB_qrzQOkdxLG_CaZJjTci1A?e=QAKQrA
 
 
