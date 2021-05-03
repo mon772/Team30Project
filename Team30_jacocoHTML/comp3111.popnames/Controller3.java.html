@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Controller3.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PopNames3111</a> &gt; <a href="index.source.html" class="el_package">comp3111.popnames</a> &gt; <span class="el_source">Controller3.java</span></div><h1>Controller3.java</h1><pre class="source lang-java linenums">package comp3111.popnames;
+
+import javafx.fxml.FXML;
+
+<span class="nc" id="L5">public class Controller3 extends Controller {</span>
+	   
+		@FXML
+		void doRankM() {
+<span class="nc" id="L9">	    	String oReport = &quot;&quot;;</span>
+<span class="nc" id="L10">	    	String iNameM = textfieldNameM.getText();</span>
+<span class="nc" id="L11">	    	int iYear = Integer.parseInt(textfieldYear.getText());</span>
+<span class="nc" id="L12">	    	int oRank = AnalyzeNames.getRank(iYear, iNameM, &quot;M&quot;);</span>
+<span class="nc bnc" id="L13" title="All 2 branches missed.">	    	if (oRank == -1)</span>
+<span class="nc" id="L14">	    		oReport = String.format(&quot;The name %s (male) has not been ranked in the year %d.\n&quot;, iNameM, iYear);</span>
+	    	else
+<span class="nc" id="L16">	    		oReport = String.format(&quot;Rank of %s (male) in year %d is #%d.\n&quot;, iNameM, iYear, oRank);</span>
+<span class="nc" id="L17">	    	textAreaConsole.setText(oReport);</span>
+<span class="nc" id="L18">	    }</span>
+
+
+	    /**
+	     *  Task Zero
+	     *  To be triggered by the &quot;Top 5 (female)&quot; button on the Task Zero Tab
+	     *  
+	     */
+	    @FXML
+	    void doTopF() {
+<span class="nc" id="L28">	    	String oReport = &quot;&quot;;</span>
+<span class="nc" id="L29">	    	final int topN = 5;</span>
+<span class="nc" id="L30">	    	int iYear = Integer.parseInt(textfieldYear.getText());</span>
+<span class="nc" id="L31">	    	oReport = String.format(&quot;Top %d most popular names (female) in the year %d:\n&quot;, topN, iYear);</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">	    	for (int i=1; i&lt;=topN; i++)</span>
+<span class="nc" id="L33">	    		oReport += String.format(&quot;#%d: %s\n&quot;, i, AnalyzeNames.getName(iYear, i, &quot;F&quot;));</span>
+<span class="nc" id="L34">	    	textAreaConsole.setText(oReport);</span>
+<span class="nc" id="L35">	    }</span>
+
+
+	    /**
+	     *  Task Zero
+	     *  To be triggered by the &quot;Top 5 (male)&quot; button on the Task Zero Tab
+	     *  
+	     */
+	    @FXML
+	    void doTopM() {
+<span class="nc" id="L45">	    	String oReport = &quot;&quot;;</span>
+<span class="nc" id="L46">	    	final int topN = 5;</span>
+<span class="nc" id="L47">	    	int iYear = Integer.parseInt(textfieldYear.getText());</span>
+<span class="nc" id="L48">	    	oReport = String.format(&quot;Top %d most popular names (male) in the year %d:\n&quot;, topN, iYear);</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">	    	for (int i=1; i&lt;=topN; i++)</span>
+<span class="nc" id="L50">	    		oReport += String.format(&quot;#%d: %s\n&quot;, i, AnalyzeNames.getName(iYear, i, &quot;M&quot;));</span>
+<span class="nc" id="L51">	    	textAreaConsole.setText(oReport);</span>
+<span class="nc" id="L52">	    }</span>
+	}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

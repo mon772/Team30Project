@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>T2Names.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PopNames3111</a> &gt; <a href="index.source.html" class="el_package">comp3111.popnames</a> &gt; <span class="el_source">T2Names.java</span></div><h1>T2Names.java</h1><pre class="source lang-java linenums">package comp3111.popnames;
+
+public class T2Names implements Comparable&lt;T2Names&gt; {
+	private String name;
+	private int occurances;
+	private int frequency;
+	private String percentage;
+	private static int birthCount;
+	
+	
+
+<span class="fc" id="L12">	public T2Names (String name, int occurances, int frequency) {</span>
+<span class="fc" id="L13">		this.name = name;</span>
+<span class="fc" id="L14">		this.occurances = occurances;</span>
+<span class="fc" id="L15">		this.frequency = frequency;</span>
+//		this.percentage = 0;
+<span class="fc" id="L17">		birthCount+=occurances;</span>
+<span class="fc" id="L18">	}</span>
+	
+	public String getName() {
+<span class="fc" id="L21">		return name;</span>
+	}
+	
+	public int getOccurances() {
+<span class="fc" id="L25">		return occurances;</span>
+	}
+	
+	public int getFrequency() {
+<span class="fc" id="L29">		return frequency;</span>
+	}
+	
+	public String getPercentage() {
+<span class="fc" id="L33">		return percentage;</span>
+	}
+	
+	public static int getbirthCount() {
+<span class="fc" id="L37">		return birthCount;</span>
+	}
+	
+	public static void resetbirthCount() {
+<span class="fc" id="L41">		birthCount=0;</span>
+<span class="fc" id="L42">	}</span>
+	
+	public void incrementFrequency() {
+<span class="fc" id="L45">		frequency++;</span>
+<span class="fc" id="L46">	}</span>
+	
+	public void addOccurances(int occurances) {
+<span class="fc" id="L49">		this.occurances += occurances;</span>
+<span class="fc" id="L50">		birthCount += occurances;</span>
+<span class="fc" id="L51">	}</span>
+	
+	public void setPercentage() {
+<span class="fc" id="L54">		percentage = String.format(&quot;%.1f%%&quot;, (float)(occurances *100.0/ birthCount));</span>
+//		percentage = birthCount;
+<span class="fc" id="L56">	}</span>
+	
+	public int compareTo(T2Names secondName) {
+<span class="fc bfc" id="L59" title="All 2 branches covered.">		if(getOccurances() &lt; secondName.getOccurances()) {</span>
+<span class="fc" id="L60">			return 1;</span>
+		}
+<span class="fc bfc" id="L62" title="All 2 branches covered.">		else if(getOccurances() &gt; secondName.getOccurances()) {</span>
+<span class="fc" id="L63">			return -1;</span>
+		} else {
+			//equals case
+<span class="fc bfc" id="L66" title="All 2 branches covered.">			if(getName().compareTo(secondName.getName()) &lt;0) {</span>
+<span class="fc" id="L67">				return -1;</span>
+			} else {
+<span class="fc" id="L69">				return 1;</span>
+			}
+		}
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
