@@ -2164,9 +2164,10 @@ public class Controller {
     @FXML
     void T3GenerateResults()
     {		
+    	//Resetting the line and bar charts
     	T3BarChartDisplay.getData().clear();
     	T3LineChartDisplay.getData().clear();
-    	System.out.println("T3GenerateResults Executed");
+    	
     	String consoleOutput = "";
     	boolean inputError = false;
     	
@@ -2190,7 +2191,7 @@ public class Controller {
     		consoleOutput += e.getMessage();
     		inputError=true;
     	}
-    	System.out.println("T3GenerateResults Executed 1");
+    	
     	//Validation of End Year
     	int endYear=0;
     	try {
@@ -2212,19 +2213,12 @@ public class Controller {
     	}
     	
     	//Validation of Gender
-		String genderOut = "";
     	String gender = T3GenderInput.getText();
     	try {
     		if(gender =="") {
     			throw new Exception("Error: Please enter the gender.\n");
     		}
-    		if(gender.contentEquals("M")) {
-    			genderOut="boys";
-    		}
-    		else if (gender.contentEquals("F")) {
-    			genderOut="girls";
-    		}
-    		else {
+    		else if(gender != "M" && gender != "F" ) {
     			throw new Exception("Error: Please enter the a valid gender, 'M' or 'F'.\n");
     		}
     	}
@@ -2251,9 +2245,7 @@ public class Controller {
     	}
     	
     	//CheckBox Validation
-    	System.out.println("T3GenerateResults Executed 2");
     	boolean summary = T3SummaryCheckBox.isSelected();
-    	System.out.println("T3GenerateResults Executed 3");
     	boolean datatable = T3DataTableCheckBox.isSelected();
     	boolean barchart = T3BarChartCheckBox.isSelected();
     	boolean linechart = T3LineChartCheckBox.isSelected();
@@ -2274,7 +2266,6 @@ public class Controller {
         	consoleOutput += "The data reports will be visible in their respective tabs. Please click on the tabs to view.\n";
         	//Analyze and calculate the results
 	    	Result = AnalyzeNames.getPopularityOfNames(startYear, endYear, name, gender);
-	    	System.out.println(Result);
 	    	if(Result != null)
 	    	{
 	    		int maxIndex = 0;
@@ -2690,10 +2681,8 @@ public class Controller {
   
     public ObservableList<T3Names> T3getNames(T3Names [] names) {
 		ObservableList<T3Names> Names = FXCollections.observableArrayList();
-		
 		for(T3Names nam : names) {
 			if(nam.occurances != 0) {
-				System.out.println(nam.name);
 				Names.add(nam);
 			}
 		}

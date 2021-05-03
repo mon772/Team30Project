@@ -207,12 +207,12 @@ public class AnalyzeNames{
 			//Compute the popularity of names
 			T3Names [] names = new T3Names[endYear-startYear + 1];
 			int nameIndex = 0;
-			
 			for(int i = startYear; i<=endYear;i++)
 			{
 				names[nameIndex] = new T3Names(name, 0, "0.0", 0, 0, 0);
 				if(getRank(i, name, gender)> 1000)
 				{
+					nameIndex++;
 					continue;
 				}
 				names[nameIndex].name = name;
@@ -227,6 +227,7 @@ public class AnalyzeNames{
 				names[nameIndex].year = i;
 				if(getOccurance(i, name, gender) == -1)
 				{
+					nameIndex++;
 					continue;
 				}
 				names[nameIndex].occurances = getOccurance(i, name, gender);
