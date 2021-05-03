@@ -53,6 +53,9 @@ public class Controller {
 
     @FXML
     private Tab tabTaskZero;
+    
+    @FXML
+    private TextArea textArea_Console;
 
     @FXML
     private TextField textfieldNameF;
@@ -726,10 +729,10 @@ public class Controller {
      *  
      */
     @FXML
-    void doSummary() {
+    protected void doSummary() {
     	int year = Integer.parseInt(textfieldYear.getText());
     	String oReport = AnalyzeNames.getSummary(year);
-    	textAreaConsole.setText(oReport);
+    	textArea_Console.setText(oReport);
     }
     
     
@@ -739,7 +742,7 @@ public class Controller {
      *  
      */
     @FXML
-    void doRankF() {
+    protected void doRankF() {
     	String oReport = "";
     	String iNameF = textfieldNameF.getText();
     	int iYear = Integer.parseInt(textfieldYear.getText());
@@ -748,7 +751,7 @@ public class Controller {
     		oReport = String.format("The name %s (female) has not been ranked in the year %d.\n", iNameF, iYear);
     	else
     		oReport = String.format("Rank of %s (female) in year %d is #%d.\n", iNameF, iYear, oRank);
-    	textAreaConsole.setText(oReport);
+    	textArea_Console.setText(oReport);
     }
 
   
@@ -758,7 +761,7 @@ public class Controller {
      *  
      */
     @FXML
-    void doRankM() {
+    protected void doRankM() {
     	String oReport = "";
     	String iNameM = textfieldNameM.getText();
     	int iYear = Integer.parseInt(textfieldYear.getText());
@@ -767,7 +770,7 @@ public class Controller {
     		oReport = String.format("The name %s (male) has not been ranked in the year %d.\n", iNameM, iYear);
     	else
     		oReport = String.format("Rank of %s (male) in year %d is #%d.\n", iNameM, iYear, oRank);
-    	textAreaConsole.setText(oReport);
+    	textArea_Console.setText(oReport);
     }
 
 
@@ -777,14 +780,14 @@ public class Controller {
      *  
      */
     @FXML
-    void doTopF() {
+    protected void doTopF() {
     	String oReport = "";
     	final int topN = 5;
     	int iYear = Integer.parseInt(textfieldYear.getText());
     	oReport = String.format("Top %d most popular names (female) in the year %d:\n", topN, iYear);
     	for (int i=1; i<=topN; i++)
     		oReport += String.format("#%d: %s\n", i, AnalyzeNames.getName(iYear, i, "F"));
-    	textAreaConsole.setText(oReport);
+    	textArea_Console.setText(oReport);
     }
 
 
@@ -794,20 +797,20 @@ public class Controller {
      *  
      */
     @FXML
-    void doTopM() {
+    protected void doTopM() {
     	String oReport = "";
     	final int topN = 5;
     	int iYear = Integer.parseInt(textfieldYear.getText());
     	oReport = String.format("Top %d most popular names (male) in the year %d:\n", topN, iYear);
     	for (int i=1; i<=topN; i++)
     		oReport += String.format("#%d: %s\n", i, AnalyzeNames.getName(iYear, i, "M"));
-    	textAreaConsole.setText(oReport);
+    	textArea_Console.setText(oReport);
     }
     /**
      * This function is triggered when the user click the compute results button for the first reporting task 
      */
     @FXML
-    void t1ComputeResults() {
+    protected void t1ComputeResults() {
     	T1TextFieldYear.setStyle("-fx-text-box-border: black ");
     	T1TextFieldtopN.setStyle("-fx-text-box-border: black ");
     	T4textFieldMomsName.setStyle("-fx-text-box-border: black ");
@@ -1187,7 +1190,7 @@ public class Controller {
     /**
      * Initializes the scene for the 4th task 
      */
-    void t4_initialize_scene() {
+    protected void t4_initialize_scene() {
     	t4ConsoleTextArea.clear();
     	t4Console.setStyle("-fx-text-base-color: black;");
     	T4textFieldDadsYOB.setStyle("-fx-text-box-border: black ");
@@ -1215,7 +1218,7 @@ public class Controller {
      * transfers control to the gender selection page for T4X1
      */
     @FXML
-    void t4_computeT4X1() {
+    protected void t4_computeT4X1() {
     	t4_initialize_scene();
     	if(t4_inputs_valid() == false) {
     		return;
@@ -1227,7 +1230,7 @@ public class Controller {
      */
 
     @FXML
-    void t4_computeT4X2() {
+    protected void t4_computeT4X2() {
     	t4_initialize_scene();
     	if(t4_inputs_valid() == false) {
     		return;
@@ -1239,7 +1242,7 @@ public class Controller {
      *  Makes the female name prediction for the t4X1 algorithm
      */
     @FXML
-    void t4X1FemalePrediction(ActionEvent event) {
+    protected void t4X1FemalePrediction(ActionEvent event) {
     	AnalyzeNames obj = new AnalyzeNames();
     	t4ResultsTabPane.getSelectionModel().select(t4X1Computation);
     	int int_dad_yob = Integer.parseInt(T4textFieldDadsYOB.getText());
@@ -1326,7 +1329,7 @@ public class Controller {
      */
     
     @FXML
-    void t4X1MalePrediction(ActionEvent event) {
+    protected void t4X1MalePrediction(ActionEvent event) {
     	AnalyzeNames obj = new AnalyzeNames();
     	t4ResultsTabPane.getSelectionModel().select(t4X1Computation);
     	int int_dad_yob = Integer.parseInt(T4textFieldDadsYOB.getText());
@@ -1415,7 +1418,7 @@ public class Controller {
      *  Transfers control for the female name prediction for the t4X2 algorithm
      */
     @FXML
-    void t4X2FemalePrediction(ActionEvent event) {
+    protected void t4X2FemalePrediction(ActionEvent event) {
     	t4_selected_gender = "F";
     	t4X2ExtraYearsPrompt.setText("Enter the extra years to be checked before and after Moms YOB");
     	t4X2PriorityPrompt.setText("Do you want to give priority to names with the same first letter of Mom's Name?");
@@ -1426,7 +1429,7 @@ public class Controller {
      *  Transfers control for the male name prediction for the t4X2 algorithm
      */
     @FXML
-    void t4X2MalePrediction(ActionEvent event) {
+    protected void t4X2MalePrediction(ActionEvent event) {
     	t4_selected_gender = "M";
     	t4X2ExtraYearsPrompt.setText("Enter the extra years to be checked before and after Dads YOB");
     	t4X2PriorityPrompt.setText("Do you want to give priority to names with the same first letter of Dad's Name?");
@@ -1436,7 +1439,7 @@ public class Controller {
      *  Generates the name prediction for the t4X2 algorithm
      */
     @FXML
-    void t4X2GenerateNames(ActionEvent event) {
+    protected void t4X2GenerateNames(ActionEvent event) {
     	int int_dad_yob = Integer.parseInt(T4textFieldDadsYOB.getText());
     	int int_mom_yob = Integer.parseInt(T4textFieldMomsYOB.getText());
     	String dad_name = T4textFieldDadsName.getText();
@@ -1608,7 +1611,7 @@ public class Controller {
      */
 
     @FXML
-    void t5_computeT5X1() {
+    protected void t5_computeT5X1() {
 //    	a2ResultsTab.setText("ENTER RESULTS TAB\n");
 //    	a2ResultsTab.setDisable(false);
     	String iName = t5Name.getText();
@@ -1629,7 +1632,7 @@ public class Controller {
      */
     
     @FXML
-    void t5_initT5X1() {
+    protected void t5_initT5X1() {
     	t5ProgressBar.setVisible(false);
     	t5ProgressIndicator.setVisible(false);
     	a2TextAreaConsole.clear();
@@ -1784,7 +1787,7 @@ public class Controller {
      *  Transfers control to the pie chart tab
      */
     @FXML
-    void a2ResultsNext() {
+    protected void a2ResultsNext() {
     	t5X1PieChart.getData().clear();
     	a2TabPane.getSelectionModel().select(a2PieChart1);
     }
@@ -1792,7 +1795,7 @@ public class Controller {
      *  Transfers control to the view results tab
      */
     @FXML
-    void a2ViewResults() {
+    protected void a2ViewResults() {
     	textAreaSummary.clear();
     	a2TabPane.getSelectionModel().select(a2ResultsTab);
     }
@@ -1801,7 +1804,7 @@ public class Controller {
      */
 
     @FXML
-    void t5_computeT5X2() {
+    protected void t5_computeT5X2() {
     	a2TabPane.getSelectionModel().select(a2ConsoleTab1);
     	a2EnterAdditionalData.setVisible(false);
     	String oReport ="";
@@ -1927,7 +1930,7 @@ public class Controller {
      *  Generates top 5 names for the 5th Task
      */
     @FXML
-    void t5_computeTop5() {
+    protected void t5_computeTop5() {
     	int int_n = 5;
     	int int_year = Integer.parseInt(t5YOB.getText());
     	AnalyzeNames analyze_obj = new AnalyzeNames(); 
@@ -2012,7 +2015,7 @@ public class Controller {
      *  Compute results for the second algorithm T5X2
      */
     @FXML
-    void a2ComputeResultsTX2() {
+    protected void a2ComputeResultsTX2() {
     	ErrorLabel1.setVisible(false);
     	ErrorLabel2.setVisible(false);
     	ErrorLabel3.setVisible(false);
@@ -2089,7 +2092,7 @@ public class Controller {
      *  Transfers control to the additional data page
      */
     @FXML
-    void a2EnterAdditionalData() {
+    protected void a2EnterAdditionalData() {
 
     	ErrorLabel1.setVisible(false);
     	ErrorLabel2.setVisible(false);
@@ -2118,7 +2121,7 @@ public class Controller {
      *  Transfers control to the pie chart tab for the TX2 tab
      */
     @FXML
-    void a2ResultsNextX2() {
+    protected void a2ResultsNextX2() {
     	a2TabPane.getSelectionModel().select(A2PieTab);
     }
     
@@ -2126,7 +2129,7 @@ public class Controller {
      *  Displays the results for the T5X2 algorithm
      */
     @FXML
-    void a2ResultsX2() {
+    protected void a2ResultsX2() {
     	T2Names.resetbirthCount();
 
 		t2PieChartX2.setAnimated(false);
@@ -2192,7 +2195,7 @@ public class Controller {
     /**
      *  Generates results for the second task
      */
-    void t2GenerateResults() {
+    protected void t2GenerateResults() {
     	//Reset T2Names Static Variable
     	T2Names.resetbirthCount();
     	//Reset bar chart data set
@@ -2413,7 +2416,7 @@ public class Controller {
      */
 
     @FXML
-    void T3GenerateResults()
+    protected void T3GenerateResults()
     {		
     	//Resetting the line and bar charts
     	T3BarChartDisplay.getData().clear();
@@ -2780,7 +2783,7 @@ public class Controller {
      */
 
     @FXML
-    void T6ComputeT6X1() {
+    protected void T6ComputeT6X1() {
     	//Analyze and generate results for T6X1
     	boolean inputError = T6NameInputValidation();
 		T6NextGeneral.setVisible(false);
@@ -2808,33 +2811,33 @@ public class Controller {
     }
     
     @FXML
-    void T6clickNextGeneral() {
+    protected void T6clickNextGeneral() {
 		T6ResultsTabPane.getSelectionModel().select(T6YourInput);
     }
     
     @FXML
-    void T6clickNextoScore() {
+    protected void T6clickNextoScore() {
     	T6ResultsTabPane.getSelectionModel().select(T6LineChart);
     }
     
     @FXML
-    void T6clickNextInput() {
+    protected void T6clickNextInput() {
     	T6ResultsTabPane.getSelectionModel().select(T6oScoreCalculation);
     }
     @FXML
-    void T6clickBackInput() {
+    protected void T6clickBackInput() {
     	T6ResultsTabPane.getSelectionModel().select(T6General);
     }
     @FXML
-    void T6clickBackoScore() {
+    protected void T6clickBackoScore() {
     	T6ResultsTabPane.getSelectionModel().select(T6YourInput);
     }
     @FXML
-    void T6clickBackEvidence() {
+    protected void T6clickBackEvidence() {
     	T6ResultsTabPane.getSelectionModel().select(T6oScoreCalculation);
     }
     @FXML
-    void T6skipToResults() {
+    protected void T6skipToResults() {
     	T6ResultsTabPane.getSelectionModel().select(T6LineChart);
     }
     /**
@@ -2842,7 +2845,7 @@ public class Controller {
      */
 
     @FXML
-    void T6ComputeT6X2() {
+    protected void T6ComputeT6X2() {
     	//Analyze and generate results for T6X2
     	boolean inputError = T6InputValidation() || T6NameInputValidation();
     	T6LineChartDisplay.getData().clear();
